@@ -1,0 +1,51 @@
+ROLE_SALES_MANAGER:
+    bap_role: ROLE_MANAGER
+    label: Sales Manager
+    permissions:
+        entity|Oro\Bundle\MagentoBundle\Entity\Customer: [CREATE_SYSTEM, VIEW_SYSTEM, EDIT_SYSTEM, DELETE_SYSTEM]
+        entity|Oro\Bundle\MagentoBundle\Entity\Order: [CREATE_SYSTEM, VIEW_SYSTEM, EDIT_SYSTEM, DELETE_SYSTEM]
+        entity|Oro\Bundle\MagentoBundle\Entity\OrderItem: [CREATE_SYSTEM, VIEW_SYSTEM, EDIT_SYSTEM, DELETE_SYSTEM]
+        entity|Oro\Bundle\MagentoBundle\Entity\Product: []
+        entity|Oro\Bundle\MagentoBundle\Entity\Cart: [CREATE_SYSTEM, VIEW_SYSTEM, EDIT_SYSTEM, DELETE_SYSTEM]
+        entity|Oro\Bundle\MagentoBundle\Entity\CartItem: [CREATE_SYSTEM, VIEW_SYSTEM, EDIT_SYSTEM, DELETE_SYSTEM]
+
+ROLE_SALES_REP:
+    bap_role: ROLE_USER
+    label: Sales Rep
+    permissions:
+        entity|Oro\Bundle\MagentoBundle\Entity\Customer: []
+        entity|Oro\Bundle\MagentoBundle\Entity\Order: [VIEW_SYSTEM]
+        entity|Oro\Bundle\MagentoBundle\Entity\OrderItem: [VIEW_SYSTEM]
+        entity|Oro\Bundle\MagentoBundle\Entity\Product: []
+        entity|Oro\Bundle\MagentoBundle\Entity\Cart: []
+        entity|Oro\Bundle\MagentoBundle\Entity\CartItem: []
+
+ROLE_ONLINE_SALES_REP:
+    label: Online Sales Rep
+    permissions:
+        entity|Oro\Bundle\MagentoBundle\Entity\Customer: [CREATE_SYSTEM, VIEW_SYSTEM, EDIT_SYSTEM, DELETE_SYSTEM]
+        entity|Oro\Bundle\MagentoBundle\Entity\Order: [CREATE_SYSTEM, VIEW_SYSTEM, EDIT_SYSTEM, DELETE_SYSTEM]
+        entity|Oro\Bundle\MagentoBundle\Entity\OrderItem: [CREATE_SYSTEM, VIEW_SYSTEM, EDIT_SYSTEM, DELETE_SYSTEM]
+        entity|Oro\Bundle\MagentoBundle\Entity\Product: []
+        entity|Oro\Bundle\MagentoBundle\Entity\Cart: [VIEW_SYSTEM]
+        entity|Oro\Bundle\MagentoBundle\Entity\CartItem: [VIEW_SYSTEM]
+
+ROLE_MARKETING_MANAGER:
+    label: Marketing Manager
+    permissions:
+        entity|Oro\Bundle\MagentoBundle\Entity\Customer: [VIEW_SYSTEM]
+        entity|Oro\Bundle\MagentoBundle\Entity\Order: [VIEW_SYSTEM]
+        entity|Oro\Bundle\MagentoBundle\Entity\OrderItem: [VIEW_SYSTEM]
+        entity|Oro\Bundle\MagentoBundle\Entity\Product: []
+        entity|Oro\Bundle\MagentoBundle\Entity\Cart: [VIEW_SYSTEM]
+        entity|Oro\Bundle\MagentoBundle\Entity\CartItem: [VIEW_SYSTEM]
+
+ROLE_LEADS_DEVELOPMENT_REP:
+    label: Leads Development Rep
+    permissions:
+        entity|Oro\Bundle\MagentoBundle\Entity\Customer: [CREATE_SYSTEM, VIEW_SYSTEM, EDIT_SYSTEM, DELETE_SYSTEM]
+        entity|Oro\Bundle\MagentoBundle\Entity\Order: []
+        entity|Oro\Bundle\MagentoBundle\Entity\OrderItem: []
+        entity|Oro\Bundle\MagentoBundle\Entity\Product: []
+        entity|Oro\Bundle\MagentoBundle\Entity\Cart: []
+        entity|Oro\Bundle\MagentoBundle\Entity\CartItem: []

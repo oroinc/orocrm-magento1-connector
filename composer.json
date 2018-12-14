@@ -16,6 +16,7 @@
             "Oro\\Bridge\\MagentoTaskCRM\\": "src/Oro/Bridge/MagentoTaskCRM",
             "Oro\\Bridge\\MarketingCRM\\": "src/Oro/Bridge/MarketingCRM",
             "Oro\\Bundle\\MagentoBundle\\": "src/Oro/Bundle/MagentoBundle",
+            "Oro\\Bundle\\MagentoDemoDataBundle\\": "src/Oro/Bundle/MagentoDemoDataBundle",
             "Oro\\Bundle\\MagentoTerritoryBundle\\": "src/Oro/Bundle/MagentoTerritoryBundle"
         },
         "exclude-from-classmap": ["/Tests/"]
