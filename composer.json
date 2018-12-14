@@ -1,0 +1,39 @@
+{
+    "name": "oro/crm-magento1-connector",
+    "description": "OroCRM connector to Magento 1",
+    "homepage": "https://github.com/oroinc/crm-magento1-connector.git",
+    "license": "OSL-3.0",
+    "authors": [
+        {
+            "name": "Oro, Inc",
+            "homepage": "http://www.orocrm.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Oro\\Bridge\\MarketingCRM\\": "src/Oro/Bridge/MarketingCRM",
+            "Oro\\Bundle\\MagentoBundle\\": "src/Oro/Bundle/MagentoBundle",
+            "Oro\\Bundle\\MagentoTerritoryBundle\\": "src/Oro/Bundle/MagentoTerritoryBundle"
+        },
+        "exclude-from-classmap": ["/Tests/"]
+    },
+    "require": {
+        "oro/crm": "4.2.*"
+    },
+    "repositories": {
+        "oro": {
+            "type": "composer",
+            "url": "https://packagist.orocrm.com"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "symfony": {
+            "require": "4.4.*"
+        },
+        "branch-alias": {
+            "dev-master": "4.2-dev"
+        }
+    }
+}
