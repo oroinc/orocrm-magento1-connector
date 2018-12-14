@@ -1,0 +1,2 @@
+bundles:
+    - { name: Oro\Bridge\MagentoCalendarCRM\OroMagentoCalendarCRMBridgeBundle, priority: 101 }

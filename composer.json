@@ -11,6 +11,9 @@
     ],
     "autoload": {
         "psr-4": {
+            "Oro\\Bridge\\MagentoCalendarCRM\\": "src/Oro/Bridge/MagentoCalendarCRM",
+            "Oro\\Bridge\\MagentoCallCRM\\": "src/Oro/Bridge/MagentoCallCRM",
+            "Oro\\Bridge\\MagentoTaskCRM\\": "src/Oro/Bridge/MagentoTaskCRM",
             "Oro\\Bridge\\MarketingCRM\\": "src/Oro/Bridge/MarketingCRM",
             "Oro\\Bundle\\MagentoBundle\\": "src/Oro/Bundle/MagentoBundle",
             "Oro\\Bundle\\MagentoTerritoryBundle\\": "src/Oro/Bundle/MagentoTerritoryBundle"

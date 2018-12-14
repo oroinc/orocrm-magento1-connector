@@ -1,0 +1,3 @@
+bundles:
+    # Should be loaded after OroCallBundle, OroMagentoBundle
+    - { name: Oro\Bridge\MagentoCallCRM\OroMagentoCallCRMBridgeBundle, priority: 110 }
