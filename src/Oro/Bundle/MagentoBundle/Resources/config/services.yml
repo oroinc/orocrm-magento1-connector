@@ -482,6 +482,12 @@ services:
         tags:
             - { name: kernel.event_listener, event: oro_ui.scroll_data.before.magentoCustomerView, method: onView }
 
+    Oro\Bundle\MagentoBundle\EventListener\CollectAccountWebsiteActivityCustomersListener:
+        arguments:
+            - '@doctrine'
+        tags:
+            - { name: kernel.event_listener, event: Oro\Bundle\AccountBundle\Event\CollectAccountWebsiteActivityCustomersEvent, method: onAccountView }
+
     # Customer API
     oro_magento.customer_address.manager.api:
         class: Oro\Bundle\MagentoBundle\Entity\Manager\CustomerAddressApiEntityManager
