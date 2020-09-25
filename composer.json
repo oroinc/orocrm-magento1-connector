@@ -22,7 +22,8 @@
         "exclude-from-classmap": ["/Tests/"]
     },
     "require": {
-        "oro/crm": "4.2.*"
+        "oro/crm": "4.2.*",
+        "guzzle/guzzle": "3.7.4"
     },
     "repositories": {
         "oro": {
