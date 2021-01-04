@@ -9,28 +9,21 @@ use Oro\Bundle\MagentoBundle\Entity\Repository\CustomerRepository;
 use Oro\Bundle\MagentoBundle\Provider\MagentoChannelType;
 
 /**
- * Performs re-calculation of lifetime values for Magento channel.
+ * Recalculates lifetime value of Magento customers.
  */
 class RecalculateLifetimeCommand extends AbstractRecalculateLifetimeCommand
 {
     /** @var string */
     protected static $defaultName = 'oro:magento:lifetime:recalculate';
 
-    /**
-     * {@inheritdoc}
-     */
     public function configure()
     {
         parent::configure();
 
-        $this
-            ->setDescription('Perform re-calculation of lifetime values for Magento channel.');
+        $this->setDescription('Recalculates lifetime value of Magento customers.');
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function getChannelType()
+    protected function getChannelType(): string
     {
         return MagentoChannelType::TYPE;
     }
@@ -38,10 +31,8 @@ class RecalculateLifetimeCommand extends AbstractRecalculateLifetimeCommand
     /**
      * @param EntityManager $em
      * @param Customer      $customer
-     *
-     * @return float
      */
-    protected function calculateCustomerLifetime(EntityManager $em, $customer)
+    protected function calculateCustomerLifetime(EntityManager $em, $customer): float
     {
         /** @var CustomerRepository $customerRepo */
         $customerRepo  = $em->getRepository('OroMagentoBundle:Customer');
