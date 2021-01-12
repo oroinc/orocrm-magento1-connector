@@ -3,7 +3,7 @@
 namespace Oro\Bundle\MagentoBundle\Tests\Unit\Form\Handler;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\MagentoBundle\Entity\OrderItem;
 use Oro\Bundle\MagentoBundle\Form\Handler\OrderItemHandler;
 use Symfony\Component\Form\Form;

@@ -3,7 +3,7 @@
 namespace Oro\Bundle\MagentoBundle\Migrations\Data\ORM;
 
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\OrganizationBundle\Migrations\Data\ORM\UpdateWithOrganization;
 
 class UpdateMagentoEntitiesWithOrganization extends UpdateWithOrganization implements DependentFixtureInterface

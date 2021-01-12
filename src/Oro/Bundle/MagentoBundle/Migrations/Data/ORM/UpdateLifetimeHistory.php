@@ -3,11 +3,11 @@
 namespace Oro\Bundle\MagentoBundle\Migrations\Data\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\AccountBundle\Entity\Account;
 use Oro\Bundle\BatchBundle\ORM\Query\BufferedQueryResultIterator;
 use Oro\Bundle\ChannelBundle\Entity\Channel;

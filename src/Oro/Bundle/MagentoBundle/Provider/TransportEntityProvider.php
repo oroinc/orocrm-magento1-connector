@@ -2,7 +2,7 @@
 
 namespace Oro\Bundle\MagentoBundle\Provider;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Oro\Bundle\IntegrationBundle\Provider\TransportInterface;
 use Oro\Bundle\MagentoBundle\Entity\MagentoTransport;
 use Oro\Bundle\MagentoBundle\Provider\Transport\MagentoTransportInterface;

@@ -2,7 +2,7 @@
 
 namespace Oro\Bundle\MagentoBundle\Provider;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Oro\Bundle\IntegrationBundle\Entity\Transport;
 use Oro\Bundle\IntegrationBundle\Provider\Rest\Client\RestClientInterface;
 use Oro\Bundle\IntegrationBundle\Provider\Rest\Exception\RestException;

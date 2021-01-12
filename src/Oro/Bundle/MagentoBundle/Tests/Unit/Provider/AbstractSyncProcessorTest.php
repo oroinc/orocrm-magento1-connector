@@ -2,8 +2,8 @@
 
 namespace Oro\Bundle\MagentoBundle\Tests\Unit\Provider;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManager;
+use Doctrine\Persistence\ManagerRegistry;
 use Oro\Bundle\ImportExportBundle\Job\JobResult;
 use Oro\Bundle\ImportExportBundle\Processor\ProcessorRegistry;
 use Oro\Bundle\IntegrationBundle\Entity\Channel;
@@ -66,7 +66,7 @@ abstract class AbstractSyncProcessorTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp(): void
     {
-        $this->registry = $this->getMockForAbstractClass('Doctrine\Common\Persistence\ManagerRegistry');
+        $this->registry = $this->getMockForAbstractClass('Doctrine\Persistence\ManagerRegistry');
         $this->processorRegistry = $this->getMockBuilder('Oro\Bundle\ImportExportBundle\Processor\ProcessorRegistry')
             ->disableOriginalConstructor()
             ->getMock();

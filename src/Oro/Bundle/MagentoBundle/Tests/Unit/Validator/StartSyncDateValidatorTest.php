@@ -2,9 +2,9 @@
 
 namespace Oro\Bundle\MagentoBundle\Tests\Unit\Validator;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\Persistence\ManagerRegistry;
 use Oro\Bundle\IntegrationBundle\Entity\Channel;
 use Oro\Bundle\MagentoBundle\Entity\MagentoRestTransport;
 use Oro\Bundle\MagentoBundle\Validator\Constraints\StartSyncDateConstraint;
@@ -26,7 +26,7 @@ class StartSyncDateValidatorTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp(): void
     {
-        $this->registry = $this->createMock('Doctrine\Common\Persistence\ManagerRegistry');
+        $this->registry = $this->createMock('Doctrine\Persistence\ManagerRegistry');
         $this->validator = new StartSyncDateValidator($this->registry);
     }
 

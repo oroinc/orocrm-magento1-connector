@@ -2,7 +2,7 @@
 
 namespace Oro\Bundle\MagentoBundle\Provider\Connector;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Oro\Bundle\ImportExportBundle\Context\ContextInterface;
 use Oro\Bundle\ImportExportBundle\Context\ContextRegistry;
 use Oro\Bundle\IntegrationBundle\Entity\Channel as Integration;

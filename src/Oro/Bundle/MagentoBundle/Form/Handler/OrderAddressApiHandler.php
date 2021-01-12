@@ -2,7 +2,7 @@
 
 namespace Oro\Bundle\MagentoBundle\Form\Handler;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\OrganizationBundle\Entity\Organization;
 use Oro\Bundle\SecurityBundle\Authentication\TokenAccessorInterface;
 use Oro\Bundle\SoapBundle\Form\Handler\ApiFormHandler;

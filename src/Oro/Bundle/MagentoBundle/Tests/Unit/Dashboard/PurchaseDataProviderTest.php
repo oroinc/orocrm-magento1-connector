@@ -3,7 +3,7 @@
 namespace Oro\Bundle\MagentoBundle\Tests\Unit\Dashboard;
 
 use DateTime;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Oro\Bundle\ChartBundle\Model\ConfigProvider;
 use Oro\Bundle\MagentoBundle\Dashboard\PurchaseDataProvider;
 use Oro\Bundle\MagentoBundle\Provider\TrackingVisitProvider;
@@ -38,7 +38,7 @@ class PurchaseDataProviderTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp(): void
     {
-        $this->registry = $this->createMock('Doctrine\Common\Persistence\ManagerRegistry');
+        $this->registry = $this->createMock('Doctrine\Persistence\ManagerRegistry');
 
         $this->configProvider = $this->getMockBuilder('Oro\Bundle\ChartBundle\Model\ConfigProvider')
             ->disableOriginalConstructor()

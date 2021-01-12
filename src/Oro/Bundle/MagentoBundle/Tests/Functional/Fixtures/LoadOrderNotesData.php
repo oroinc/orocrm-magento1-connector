@@ -3,7 +3,7 @@
 namespace Oro\Bundle\MagentoBundle\Tests\Functional\Fixtures;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\MagentoBundle\Entity\Order;
 use Oro\Bundle\MagentoBundle\Entity\OrderNote;
 use Oro\Bundle\MagentoBundle\Tests\Functional\Fixture\LoadMagentoChannel;

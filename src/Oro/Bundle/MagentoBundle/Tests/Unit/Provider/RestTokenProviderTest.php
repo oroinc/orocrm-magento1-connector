@@ -2,8 +2,8 @@
 
 namespace Oro\Bundle\MagentoBundle\Tests\Unit\Provider;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManager;
+use Doctrine\Persistence\ManagerRegistry;
 use Oro\Bundle\IntegrationBundle\Entity\Transport;
 use Oro\Bundle\IntegrationBundle\Test\FakeRestClient;
 use Oro\Bundle\IntegrationBundle\Test\FakeRestResponse;

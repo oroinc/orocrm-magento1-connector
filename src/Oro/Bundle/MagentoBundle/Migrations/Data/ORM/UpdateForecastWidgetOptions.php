@@ -3,8 +3,8 @@
 namespace Oro\Bundle\MagentoBundle\Migrations\Data\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\DashboardBundle\Entity\Widget;
 use Oro\Bundle\OrganizationBundle\Entity\BusinessUnit;
 use Oro\Bundle\UserBundle\Entity\User;

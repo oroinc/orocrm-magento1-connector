@@ -2,8 +2,8 @@
 
 namespace Oro\Bridge\MarketingCRM\Provider;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\Persistence\ManagerRegistry;
 use Oro\Bundle\ChannelBundle\Entity\Repository\ChannelRepository;
 use Oro\Bundle\DashboardBundle\Provider\BigNumber\BigNumberDateHelper;
 use Oro\Bundle\FeatureToggleBundle\Checker\FeatureCheckerHolderTrait;

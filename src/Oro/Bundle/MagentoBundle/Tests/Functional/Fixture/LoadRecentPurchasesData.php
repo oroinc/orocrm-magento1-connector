@@ -3,7 +3,7 @@
 namespace Oro\Bundle\MagentoBundle\Tests\Functional\Fixture;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\MagentoBundle\Entity\Cart;
 use Oro\Bundle\MagentoBundle\Entity\Customer;
 use Oro\Bundle\MagentoBundle\Entity\Order;

@@ -4,7 +4,7 @@ namespace Oro\Bundle\MagentoBundle\Tests\Functional\DataFixtures;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\MagentoBundle\Entity\Order;
 use Oro\Bundle\UserBundle\Entity\User;
 use Oro\Bundle\UserBundle\Migrations\Data\ORM\LoadAdminUserData;

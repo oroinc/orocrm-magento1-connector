@@ -3,7 +3,7 @@
 namespace Oro\Bundle\MagentoBundle\Dashboard;
 
 use DateTime;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Oro\Bundle\ChartBundle\Model\ChartView;
 use Oro\Bundle\ChartBundle\Model\ChartViewBuilder;
 use Oro\Bundle\ChartBundle\Model\ConfigProvider;
@@ -72,7 +72,7 @@ class OrderDataProvider
      */
     public function getAverageOrderAmountChartView(ChartViewBuilder $viewBuilder, $dateRange, DateHelper $dateHelper)
     {
-        list($start, $end) = $dateHelper->getPeriod($dateRange, 'OroMagentoBundle:Customer', 'createdAt');
+        [$start, $end] = $dateHelper->getPeriod($dateRange, 'OroMagentoBundle:Customer', 'createdAt');
         if ($start === null && $end === null) {
             $start = new \DateTime(DateHelper::MIN_DATE, new \DateTimeZone('UTC'));
             $end   = new \DateTime('now', new \DateTimeZone('UTC'));
@@ -108,7 +108,7 @@ class OrderDataProvider
     {
         /* @var $from DateTime */
         /* @var $to DateTime */
-        list($from, $to) = $this->dateHelper->getPeriod($dateRange, 'OroMagentoBundle:Order', 'createdAt');
+        [$from, $to] = $this->dateHelper->getPeriod($dateRange, 'OroMagentoBundle:Order', 'createdAt');
         if ($from === null && $to === null) {
             $from = new \DateTime(DateHelper::MIN_DATE, new \DateTimeZone('UTC'));
             $to   = new \DateTime('now', new \DateTimeZone('UTC'));
@@ -150,7 +150,7 @@ class OrderDataProvider
     {
         /* @var $from DateTime */
         /* @var $to DateTime */
-        list($from, $to) = $this->dateHelper->getPeriod($dateRange, 'OroMagentoBundle:Order', 'createdAt');
+        [$from, $to] = $this->dateHelper->getPeriod($dateRange, 'OroMagentoBundle:Order', 'createdAt');
         if ($from === null && $to === null) {
             $from = new \DateTime(DateHelper::MIN_DATE, new \DateTimeZone('UTC'));
             $to   = new \DateTime('now', new \DateTimeZone('UTC'));

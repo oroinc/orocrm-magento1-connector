@@ -30,7 +30,7 @@ class TrackingCustomerIdentificationTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp(): void
     {
-        $this->em = $this->getMockBuilder('Doctrine\Common\Persistence\ObjectManager')
+        $this->em = $this->getMockBuilder('Doctrine\Persistence\ObjectManager')
             ->disableOriginalConstructor()
             ->getMock();
         $this->extendConfigProvider = $this->getMockBuilder('Oro\Bundle\EntityConfigBundle\Provider\ConfigProvider')
@@ -39,7 +39,7 @@ class TrackingCustomerIdentificationTest extends \PHPUnit\Framework\TestCase
         $this->settingsProvider = $this->getMockBuilder('Oro\Bundle\ChannelBundle\Provider\SettingsProvider')
             ->disableOriginalConstructor()
             ->getMock();
-        $doctrine = $this->getMockBuilder('Doctrine\Common\Persistence\ManagerRegistry')
+        $doctrine = $this->getMockBuilder('Doctrine\Persistence\ManagerRegistry')
             ->disableOriginalConstructor()
             ->getMock();
         $doctrine->expects($this->any())
@@ -189,7 +189,7 @@ class TrackingCustomerIdentificationTest extends \PHPUnit\Framework\TestCase
         $webEvent->setValue($eventValue);
         $trackingEvent->setWebEvent($webEvent);
 
-        $repo = $this->getMockBuilder('Doctrine\Common\Persistence\ObjectRepository')
+        $repo = $this->getMockBuilder('Doctrine\Persistence\ObjectRepository')
             ->disableOriginalConstructor()
             ->getMock();
         $this->em->expects($this->once())
@@ -270,7 +270,7 @@ class TrackingCustomerIdentificationTest extends \PHPUnit\Framework\TestCase
 
         $result = new \stdClass();
 
-        $repo = $this->getMockBuilder('Doctrine\Common\Persistence\ObjectRepository')
+        $repo = $this->getMockBuilder('Doctrine\Persistence\ObjectRepository')
             ->disableOriginalConstructor()
             ->getMock();
         $this->em->expects($this->once())
@@ -321,7 +321,7 @@ class TrackingCustomerIdentificationTest extends \PHPUnit\Framework\TestCase
 
         $result = new \stdClass();
 
-        $repo = $this->getMockBuilder('Doctrine\Common\Persistence\ObjectRepository')
+        $repo = $this->getMockBuilder('Doctrine\Persistence\ObjectRepository')
             ->disableOriginalConstructor()
             ->getMock();
         $this->em->expects($this->once())

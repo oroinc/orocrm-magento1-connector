@@ -3,8 +3,8 @@
 namespace Oro\Bundle\MagentoBundle\Tests\Unit\Form\Handler;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Persistence\ManagerRegistry;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\MagentoBundle\Entity\Order;
 use Oro\Bundle\MagentoBundle\Form\Handler\OrderHandler;
 use Oro\Bundle\SecurityBundle\Authentication\TokenAccessorInterface;

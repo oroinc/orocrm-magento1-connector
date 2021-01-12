@@ -3,7 +3,7 @@
 namespace Oro\Bundle\MagentoBundle\Tests\Functional\DataFixtures;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\AnalyticsBundle\Model\RFMAwareInterface;
 use Oro\Bundle\ChannelBundle\Entity\Channel;
 use Symfony\Component\PropertyAccess\PropertyAccess;

@@ -3,7 +3,7 @@
 namespace Oro\Bundle\MagentoBundle\Tests\Functional\Fixture\Rest;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\ChannelBundle\Builder\BuilderFactory;
 use Oro\Bundle\ChannelBundle\Entity\Channel;
 use Oro\Bundle\IntegrationBundle\Entity\Channel as Integration;

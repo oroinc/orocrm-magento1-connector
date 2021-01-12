@@ -2,7 +2,7 @@
 
 namespace Oro\Bundle\MagentoBundle\Form\Handler;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Oro\Bundle\AddressBundle\Entity\AbstractAddress;
 use Oro\Bundle\FormBundle\Form\Handler\RequestHandlerTrait;
 use Oro\Bundle\MagentoBundle\Entity\Cart;

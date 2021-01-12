@@ -2,7 +2,7 @@
 
 namespace Oro\Bundle\MagentoBundle\Tests\Functional\EventListener;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Oro\Bundle\AccountBundle\Entity\Account;
 use Oro\Bundle\ContactBundle\Entity\Contact;
 use Oro\Bundle\IntegrationBundle\Event\SyncEvent;

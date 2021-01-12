@@ -2,8 +2,8 @@
 
 namespace Oro\Bundle\MagentoBundle\Provider\Customer;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
+use Doctrine\Persistence\ManagerRegistry;
 use Oro\Bundle\AccountBundle\Entity\Account;
 use Oro\Bundle\ImportExportBundle\Strategy\Import\NewEntitiesHelper;
 use Oro\Bundle\MagentoBundle\Entity\Customer;

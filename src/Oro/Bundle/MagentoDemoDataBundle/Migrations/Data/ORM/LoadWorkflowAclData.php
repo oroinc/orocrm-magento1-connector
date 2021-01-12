@@ -2,7 +2,7 @@
 
 namespace Oro\Bundle\MagentoDemoDataBundle\Migrations\Data\ORM;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\SecurityBundle\Migrations\Data\ORM\AbstractLoadAclData;
 use Oro\Bundle\WorkflowBundle\Model\Filter\WorkflowDefinitionFilters;
 
