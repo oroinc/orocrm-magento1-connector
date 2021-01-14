@@ -32,7 +32,7 @@ class OrderDataProviderTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp(): void
     {
-        $this->registry = $this->createMock('Doctrine\Common\Persistence\ManagerRegistry');
+        $this->registry = $this->createMock('Doctrine\Persistence\ManagerRegistry');
         $this->aclHelper = $this->getMockBuilder('Oro\Bundle\SecurityBundle\ORM\Walker\AclHelper')
             ->disableOriginalConstructor()
             ->getMock();

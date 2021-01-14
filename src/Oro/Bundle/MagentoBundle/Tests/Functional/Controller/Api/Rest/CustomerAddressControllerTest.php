@@ -2,7 +2,7 @@
 
 namespace Oro\Bundle\MagentoBundle\Tests\Functional\Controller\Api\Rest;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\AddressBundle\Entity\AddressType;
 use Oro\Bundle\IntegrationBundle\Entity\Channel;
 use Oro\Bundle\MagentoBundle\Entity\Customer;

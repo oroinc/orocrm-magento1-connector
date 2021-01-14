@@ -2,7 +2,7 @@
 
 namespace Oro\Bridge\MarketingCRM\Provider;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Oro\Bundle\ChannelBundle\Entity\Channel;
 use Oro\Bundle\ChannelBundle\Provider\SettingsProvider;
 use Oro\Bundle\EntityConfigBundle\Provider\ConfigProvider;

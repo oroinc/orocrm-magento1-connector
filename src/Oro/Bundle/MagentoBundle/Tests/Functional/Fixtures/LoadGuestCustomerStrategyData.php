@@ -2,7 +2,7 @@
 
 namespace Oro\Bundle\MagentoBundle\Tests\Functional\Fixtures;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\AccountBundle\Entity\Account;
 use Oro\Bundle\MagentoBundle\Entity\Address as MagentoAddress;
 use Oro\Bundle\MagentoBundle\Entity\Customer;

@@ -2,7 +2,7 @@
 
 namespace Oro\Bridge\MarketingCRM\Tests\Unit\Provider;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Oro\Bridge\MarketingCRM\Provider\PrecalculatedWebsiteVisitProvider;
 use Oro\Bundle\ConfigBundle\Config\ConfigManager;
 use Oro\Bundle\FeatureToggleBundle\Checker\FeatureChecker;

@@ -3,7 +3,7 @@
 namespace Oro\Bundle\MagentoBundle\Migrations\Data\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\IntegrationBundle\Entity\Channel;
 use Oro\Bundle\MagentoBundle\Provider\Connector\DictionaryConnectorInterface;
 use Oro\Bundle\MagentoBundle\Provider\MagentoChannelType;

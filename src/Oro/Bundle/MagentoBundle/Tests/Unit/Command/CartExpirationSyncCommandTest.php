@@ -2,7 +2,7 @@
 
 namespace Oro\Bundle\MagentoBundle\Tests\Unit\Command;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Oro\Bundle\CronBundle\Command\CronCommandInterface;
 use Oro\Bundle\MagentoBundle\Command\SyncCartExpirationCommand;
 use Oro\Component\MessageQueue\Client\MessageProducerInterface;

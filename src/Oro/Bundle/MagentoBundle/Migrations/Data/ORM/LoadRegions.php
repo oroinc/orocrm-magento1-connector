@@ -3,8 +3,8 @@
 namespace Oro\Bundle\MagentoBundle\Migrations\Data\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\Persistence\ObjectRepository;
+use Doctrine\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectRepository;
 use Oro\Bundle\AddressBundle\Entity\Region as BAPRegion;
 use Oro\Bundle\MagentoBundle\Entity\Region;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;

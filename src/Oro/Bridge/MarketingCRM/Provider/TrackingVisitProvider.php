@@ -2,10 +2,10 @@
 
 namespace Oro\Bridge\MarketingCRM\Provider;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
+use Doctrine\Persistence\ManagerRegistry;
 use Oro\Bundle\ChannelBundle\Entity\Channel;
 use Oro\Bundle\EntityExtendBundle\Tools\ExtendHelper;
 use Oro\Bundle\FeatureToggleBundle\Checker\FeatureCheckerHolderTrait;

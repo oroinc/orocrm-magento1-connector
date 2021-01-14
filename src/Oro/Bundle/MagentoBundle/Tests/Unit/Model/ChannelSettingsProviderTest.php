@@ -65,7 +65,7 @@ class ChannelSettingsProviderTest extends \PHPUnit\Framework\TestCase
      */
     public function testIsTwoWaySyncEnable($method, array $channels, $expected = true)
     {
-        $repository = $this->getMockBuilder('\Doctrine\Common\Persistence\ObjectRepository')
+        $repository = $this->getMockBuilder('\Doctrine\Persistence\ObjectRepository')
             ->disableOriginalConstructor()
             ->getMock();
         $repository
@@ -143,7 +143,7 @@ class ChannelSettingsProviderTest extends \PHPUnit\Framework\TestCase
      */
     public function testHasApplicableChannels($expected, array $channels, $checkExtension = true)
     {
-        $repository = $this->getMockBuilder('\Doctrine\Common\Persistence\ObjectRepository')
+        $repository = $this->getMockBuilder('\Doctrine\Persistence\ObjectRepository')
             ->disableOriginalConstructor()
             ->getMock();
         $repository
@@ -167,7 +167,7 @@ class ChannelSettingsProviderTest extends \PHPUnit\Framework\TestCase
      */
     public function testHasOrganizationApplicableChannels($expected, array $channels, $checkExtension = true)
     {
-        $repository = $this->getMockBuilder('\Doctrine\Common\Persistence\ObjectRepository')
+        $repository = $this->getMockBuilder('\Doctrine\Persistence\ObjectRepository')
             ->disableOriginalConstructor()
             ->getMock();
         $repository

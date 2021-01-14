@@ -2,8 +2,8 @@
 
 namespace Oro\Bundle\MagentoBundle\Tests\Functional\Controller\Dashboard;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
-use Doctrine\Common\Persistence\ObjectRepository;
+use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ObjectRepository;
 use Oro\Bundle\ChannelBundle\Entity\Channel;
 use Oro\Bundle\MagentoBundle\Provider\MagentoChannelType;
 use Oro\Bundle\TestFrameworkBundle\Test\WebTestCase;

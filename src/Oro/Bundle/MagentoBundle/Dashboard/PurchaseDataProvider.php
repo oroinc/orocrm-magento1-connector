@@ -3,7 +3,7 @@
 namespace Oro\Bundle\MagentoBundle\Dashboard;
 
 use DateTime;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Oro\Bundle\ChartBundle\Model\ChartView;
 use Oro\Bundle\ChartBundle\Model\ChartViewBuilder;
 use Oro\Bundle\ChartBundle\Model\ConfigProvider;

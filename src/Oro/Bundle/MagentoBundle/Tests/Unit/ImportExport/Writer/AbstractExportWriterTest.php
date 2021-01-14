@@ -52,7 +52,7 @@ abstract class AbstractExportWriterTest extends PersistentBatchWriterTest
             ->disableOriginalConstructor()
             ->getMock();
 
-        $repository = $this->createMock('Doctrine\Common\Persistence\ObjectRepository');
+        $repository = $this->createMock('Doctrine\Persistence\ObjectRepository');
         $repository->expects($this->any())->method('find')
             ->will($this->returnValue(null));
 

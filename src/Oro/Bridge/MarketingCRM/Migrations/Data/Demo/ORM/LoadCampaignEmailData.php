@@ -4,7 +4,7 @@ namespace Oro\Bridge\MarketingCRM\Migrations\Data\Demo\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\CampaignBundle\Entity\EmailCampaign;
 use Oro\Bundle\CampaignBundle\Entity\InternalTransportSettings;
 use Oro\Bundle\CampaignBundle\Transport\EmailTransport;

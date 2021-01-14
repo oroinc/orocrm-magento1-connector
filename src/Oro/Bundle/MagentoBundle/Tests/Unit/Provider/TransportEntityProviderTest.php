@@ -2,8 +2,8 @@
 
 namespace Oro\Bundle\MagentoBundle\Tests\Unit\Provider;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\MagentoBundle\Entity\MagentoSoapTransport;
 use Oro\Bundle\MagentoBundle\Provider\Transport\MagentoTransportInterface;
 use Oro\Bundle\MagentoBundle\Provider\TransportEntityProvider;

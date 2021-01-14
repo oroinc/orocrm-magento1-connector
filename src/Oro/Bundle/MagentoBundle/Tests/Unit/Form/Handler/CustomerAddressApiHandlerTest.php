@@ -2,8 +2,8 @@
 
 namespace Oro\Bundle\MagentoBundle\Tests\Unit\Form\Handler;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\MagentoBundle\Entity\Address;
 use Oro\Bundle\MagentoBundle\Form\Handler\CustomerAddressApiHandler;
 use Oro\Bundle\OrganizationBundle\Entity\Organization;

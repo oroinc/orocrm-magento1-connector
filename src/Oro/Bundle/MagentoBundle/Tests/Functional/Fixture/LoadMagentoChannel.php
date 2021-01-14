@@ -4,7 +4,7 @@ namespace Oro\Bundle\MagentoBundle\Tests\Functional\Fixture;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\AccountBundle\Entity\Account;
 use Oro\Bundle\AddressBundle\Entity\Address;
 use Oro\Bundle\ChannelBundle\Builder\BuilderFactory;

@@ -2,7 +2,7 @@
 
 namespace Oro\Bundle\MagentoBundle\Dashboard;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Oro\Bundle\ChannelBundle\Entity\Repository\ChannelRepository;
 use Oro\Bundle\ChartBundle\Model\ChartView;
 use Oro\Bundle\ChartBundle\Model\ChartViewBuilder;
@@ -57,7 +57,7 @@ class CustomerDataProvider
 
         /** @var ChannelRepository $channelRepository */
         $channelRepository = $this->registry->getRepository('OroChannelBundle:Channel');
-        list($past, $now)  = $this->dateHelper->getPeriod($dateRange, 'OroMagentoBundle:Customer', 'createdAt');
+        [$past, $now]  = $this->dateHelper->getPeriod($dateRange, 'OroMagentoBundle:Customer', 'createdAt');
         if ($past === null && $now === null) {
             $past = new \DateTime(DateHelper::MIN_DATE, new \DateTimeZone('UTC'));
             $now   = new \DateTime('now', new \DateTimeZone('UTC'));
