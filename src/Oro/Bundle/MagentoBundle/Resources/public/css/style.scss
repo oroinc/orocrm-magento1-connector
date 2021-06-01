@@ -1,7 +1,5 @@
 /* @theme: admin.oro; */
 
-@import "oroui/css/scss/variables";
-
 .alert.connection-status {
     margin: 10px 0;
     float: none;
@@ -19,12 +17,12 @@
     line-height: 28px;
     position: absolute;
     top: 0;
-    #{$start}: 305px;
+    left: 305px;
     white-space: nowrap;
 }
 
 .customer-without-border-tabs {
-    padding-#{$start}: 0;
+    padding-left: 0;
 }
 
 .customer-without-border-tabs.responsive-cell {
@@ -32,11 +30,11 @@
 }
 
 .customer-without-border-tabs .oro-tabs {
-    padding-#{$start}: 1px;
+    padding-left: 1px;
 }
 
 .mess-pos {
-    margin-#{$start}: 10px;
+    margin-left: 10px;
 }
 
 .ui-dialog-minimized.place-order-transaction-dialog {
@@ -72,16 +70,16 @@
 }
 
 .page-title ul.inline li.magento-customer-info {
-    border-#{$start}: 0 none;
+    border-left: 0 none;
     vertical-align: middle;
-    padding-#{$start}: 0;
+    padding-left: 0;
     margin-top: 4px;
     margin-bottom: 4px;
 }
 
 .page-title ul.inline li.magento-customer-info .orocrm-channel-lifetime-value-label {
-    margin-#{$start}: 0;
-    margin-#{$end}: 10px;
+    margin-left: 0;
+    margin-right: 10px;
 }
 
 .page-title ul.inline li.magento-customer-info > div {
@@ -97,8 +95,8 @@
     position: fixed;
     top: 0;
     bottom: 0;
-    #{$start}: 0;
-    #{$end}: 0;
+    left: 0;
+    right: 0;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
 }
