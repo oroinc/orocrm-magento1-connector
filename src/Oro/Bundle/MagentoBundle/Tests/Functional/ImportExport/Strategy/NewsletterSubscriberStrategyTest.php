@@ -2,12 +2,13 @@
 
 namespace Oro\Bundle\MagentoBundle\Tests\Functional\ImportExport\Strategy;
 
-use Akeneo\Bundle\BatchBundle\Entity\JobExecution;
-use Akeneo\Bundle\BatchBundle\Entity\JobInstance;
-use Akeneo\Bundle\BatchBundle\Entity\StepExecution;
+use Oro\Bundle\BatchBundle\Entity\JobExecution;
+use Oro\Bundle\BatchBundle\Entity\JobInstance;
+use Oro\Bundle\BatchBundle\Entity\StepExecution;
 use Oro\Bundle\ImportExportBundle\Context\StepExecutionProxyContext;
 use Oro\Bundle\MagentoBundle\Entity\NewsletterSubscriber;
 use Oro\Bundle\MagentoBundle\ImportExport\Strategy\NewsletterSubscriberStrategy;
+use Oro\Bundle\MagentoBundle\Tests\Functional\Fixture\LoadNewsletterSubscriberData;
 use Oro\Bundle\TestFrameworkBundle\Test\WebTestCase;
 
 class NewsletterSubscriberStrategyTest extends WebTestCase
@@ -31,7 +32,7 @@ class NewsletterSubscriberStrategyTest extends WebTestCase
     {
         $this->initClient();
 
-        $this->loadFixtures(['Oro\Bundle\MagentoBundle\Tests\Functional\Fixture\LoadNewsletterSubscriberData']);
+        $this->loadFixtures([LoadNewsletterSubscriberData::class]);
 
         $this->strategy = $this->getContainer()
             ->get('oro_magento.import.strategy.newsletter_subscriber.add_or_update');

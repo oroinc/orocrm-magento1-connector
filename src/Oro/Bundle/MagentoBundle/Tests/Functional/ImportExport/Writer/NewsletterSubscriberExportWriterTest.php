@@ -2,9 +2,10 @@
 
 namespace Oro\Bundle\MagentoBundle\Tests\Functional\ImportExport\Writer;
 
-use Akeneo\Bundle\BatchBundle\Job\BatchStatus;
+use Oro\Bundle\BatchBundle\Job\BatchStatus;
 use Oro\Bundle\MagentoBundle\Entity\NewsletterSubscriber;
 use Oro\Bundle\MagentoBundle\Entity\Store;
+use Oro\Bundle\MagentoBundle\Tests\Functional\Fixture\LoadNewsletterSubscriberData;
 
 class NewsletterSubscriberExportWriterTest extends AbstractExportWriterTest
 {
@@ -15,7 +16,7 @@ class NewsletterSubscriberExportWriterTest extends AbstractExportWriterTest
         $this->getContainer()->get('oro_magento.importexport.writer.newsletter_subscriber')
             ->setTransport($this->transport);
 
-        $this->loadFixtures(['Oro\Bundle\MagentoBundle\Tests\Functional\Fixture\LoadNewsletterSubscriberData']);
+        $this->loadFixtures([LoadNewsletterSubscriberData::class]);
     }
 
     public function testUpdateExisting()

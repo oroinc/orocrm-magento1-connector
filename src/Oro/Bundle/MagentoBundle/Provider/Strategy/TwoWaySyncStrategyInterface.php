@@ -2,7 +2,7 @@
 
 namespace Oro\Bundle\MagentoBundle\Provider\Strategy;
 
-use Akeneo\Bundle\BatchBundle\Step\StepExecutionAwareInterface;
+use Oro\Bundle\BatchBundle\Step\StepExecutionAwareInterface;
 
 interface TwoWaySyncStrategyInterface extends StepExecutionAwareInterface
 {

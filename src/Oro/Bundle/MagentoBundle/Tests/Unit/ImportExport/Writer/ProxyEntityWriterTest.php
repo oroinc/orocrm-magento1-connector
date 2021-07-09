@@ -2,13 +2,16 @@
 
 namespace Oro\Bundle\MagentoBundle\Tests\Unit\ImportExport\Writer;
 
-use Akeneo\Bundle\BatchBundle\Item\ItemWriterInterface;
+use Oro\Bundle\BatchBundle\Entity\StepExecution;
+use Oro\Bundle\BatchBundle\Item\ItemWriterInterface;
 use Oro\Bundle\ImportExportBundle\Field\DatabaseHelper;
+use Oro\Bundle\IntegrationBundle\Entity\Channel;
 use Oro\Bundle\MagentoBundle\Entity\Cart;
 use Oro\Bundle\MagentoBundle\Entity\Customer;
 use Oro\Bundle\MagentoBundle\Entity\Order;
 use Oro\Bundle\MagentoBundle\ImportExport\Strategy\StrategyHelper\GuestCustomerStrategyHelper;
 use Oro\Bundle\MagentoBundle\ImportExport\Writer\ProxyEntityWriter;
+use Oro\Bundle\MagentoBundle\Tests\Unit\Stub\StepExecutionAwareWriter;
 
 class ProxyEntityWriterTest extends \PHPUnit\Framework\TestCase
 {
@@ -30,14 +33,9 @@ class ProxyEntityWriterTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp(): void
     {
-        $this->wrapped = $this
-            ->getMockBuilder('Akeneo\Bundle\BatchBundle\Item\ItemWriterInterface')
-            ->setMethods(['write'])
-            ->getMock();
+        $this->wrapped = $this->createMock(ItemWriterInterface::class);
 
-        $this->databaseHelper = $this->getMockBuilder('Oro\Bundle\ImportExportBundle\Field\DatabaseHelper')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->databaseHelper = $this->createMock(DatabaseHelper::class);
 
         $this->guestCustomerStrategyHelper = $this->createMock(GuestCustomerStrategyHelper::class);
 
@@ -61,7 +59,7 @@ class ProxyEntityWriterTest extends \PHPUnit\Framework\TestCase
         $this->wrapped->expects($this->once())->method('write')
             ->with($this->equalTo($expectedItems));
 
-        $stepExecution = $this->getMockBuilder('Akeneo\Bundle\BatchBundle\Entity\StepExecution')
+        $stepExecution = $this->getMockBuilder(StepExecution::class)
             ->disableOriginalConstructor()->getMock();
         $this->databaseHelper->expects($this->once())->method('onClear');
         $this->writer->setStepExecution($stepExecution);
@@ -125,9 +123,9 @@ class ProxyEntityWriterTest extends \PHPUnit\Framework\TestCase
 
     public function testSetStepExecutionSetToWrappedWriter()
     {
-        $wrapped       = $this->createMock('Oro\Bundle\MagentoBundle\Tests\Unit\Stub\StepExecutionAwareWriter');
+        $wrapped       = $this->createMock(StepExecutionAwareWriter::class);
         $writer        = new ProxyEntityWriter($wrapped, $this->databaseHelper);
-        $stepExecution = $this->getMockBuilder('Akeneo\Bundle\BatchBundle\Entity\StepExecution')
+        $stepExecution = $this->getMockBuilder(StepExecution::class)
             ->disableOriginalConstructor()->getMock();
         $wrapped->expects($this->once())->method('setStepExecution')
             ->with($this->equalTo($stepExecution));
@@ -137,7 +135,7 @@ class ProxyEntityWriterTest extends \PHPUnit\Framework\TestCase
 
     public function testSetStepExecutionDoesNotProvokeErrorWithRegularWriter()
     {
-        $stepExecution = $this->getMockBuilder('Akeneo\Bundle\BatchBundle\Entity\StepExecution')
+        $stepExecution = $this->getMockBuilder(StepExecution::class)
             ->disableOriginalConstructor()->getMock();
 
         $this->writer->setStepExecution($stepExecution);
@@ -186,12 +184,12 @@ class ProxyEntityWriterTest extends \PHPUnit\Framework\TestCase
         $nameArray = []
     ) {
         $channel = $this
-            ->getMockBuilder('Oro\Bundle\IntegrationBundle\Entity\Channel')
+            ->getMockBuilder(Channel::class)
             ->setMethods(['getId', 'getTransport'])
             ->disableOriginalConstructor()
             ->getMock();
         $customer = $this
-            ->getMockBuilder('Oro\Bundle\MagentoBundle\Entity\Customer')
+            ->getMockBuilder(Customer::class)
             ->setMethods(['getChannel', 'getOriginId', 'getFirstName', 'getLastName'])
             ->disableOriginalConstructor()
             ->getMock();

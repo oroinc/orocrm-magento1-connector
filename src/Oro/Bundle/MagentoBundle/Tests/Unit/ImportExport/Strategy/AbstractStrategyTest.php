@@ -2,8 +2,8 @@
 
 namespace Oro\Bundle\MagentoBundle\Tests\Unit\ImportExport\Strategy;
 
-use Akeneo\Bundle\BatchBundle\Entity\JobExecution;
-use Akeneo\Bundle\BatchBundle\Entity\StepExecution;
+use Oro\Bundle\BatchBundle\Entity\JobExecution;
+use Oro\Bundle\BatchBundle\Entity\StepExecution;
 use Oro\Bundle\ChannelBundle\ImportExport\Helper\ChannelHelper;
 use Oro\Bundle\EntityBundle\Helper\FieldHelper;
 use Oro\Bundle\EntityBundle\ORM\DoctrineHelper;
@@ -101,9 +101,9 @@ abstract class AbstractStrategyTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp(): void
     {
-        $this->eventDispatcher = $this->createMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
+        $this->eventDispatcher = $this->createMock(EventDispatcherInterface::class);
 
-        $this->fieldHelper = $this->getMockBuilder('Oro\Bundle\EntityBundle\Helper\FieldHelper')
+        $this->fieldHelper = $this->getMockBuilder(FieldHelper::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -115,12 +115,12 @@ abstract class AbstractStrategyTest extends \PHPUnit\Framework\TestCase
             ->method('getFields')
             ->willReturn([]);
 
-        $this->databaseHelper = $this->getMockBuilder('Oro\Bundle\ImportExportBundle\Field\DatabaseHelper')
+        $this->databaseHelper = $this->getMockBuilder(DatabaseHelper::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->strategyHelper = $this
-            ->getMockBuilder('Oro\Bundle\ImportExportBundle\Strategy\Import\ImportStrategyHelper')
+            ->getMockBuilder(ImportStrategyHelper::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -129,25 +129,25 @@ abstract class AbstractStrategyTest extends \PHPUnit\Framework\TestCase
             ->will($this->returnValue(true));
 
         $this->defaultOwnerHelper = $this
-            ->getMockBuilder('Oro\Bundle\IntegrationBundle\ImportExport\Helper\DefaultOwnerHelper')
+            ->getMockBuilder(DefaultOwnerHelper::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->channelHelper = $this
-            ->getMockBuilder('Oro\Bundle\ChannelBundle\ImportExport\Helper\ChannelHelper')
+            ->getMockBuilder(ChannelHelper::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->addressHelper = $this
-            ->getMockBuilder('Oro\Bundle\MagentoBundle\ImportExport\Strategy\StrategyHelper\AddressImportHelper')
+            ->getMockBuilder(AddressImportHelper::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->stepExecution = $this->getMockBuilder('Akeneo\Bundle\BatchBundle\Entity\StepExecution')
+        $this->stepExecution = $this->getMockBuilder(StepExecution::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->jobExecution = $this->getMockBuilder('Akeneo\Bundle\BatchBundle\Entity\JobExecution')
+        $this->jobExecution = $this->getMockBuilder(JobExecution::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -155,15 +155,15 @@ abstract class AbstractStrategyTest extends \PHPUnit\Framework\TestCase
             ->will($this->returnValue($this->jobExecution));
 
         $this->chainEntityClassNameProvider = $this
-            ->getMockBuilder('Oro\Bundle\EntityBundle\Provider\ChainEntityClassNameProvider')
+            ->getMockBuilder(ChainEntityClassNameProvider::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->translator = $this->getMockBuilder('Symfony\Contracts\Translation\TranslatorInterface')
+        $this->translator = $this->getMockBuilder(TranslatorInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->doctrineHelper = $this->getMockBuilder('Oro\Bundle\EntityBundle\ORM\DoctrineHelper')
+        $this->doctrineHelper = $this->getMockBuilder(DoctrineHelper::class)
             ->disableOriginalConstructor()
             ->getMock();
 

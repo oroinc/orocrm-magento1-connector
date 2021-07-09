@@ -2,6 +2,7 @@
 
 namespace Oro\Bundle\MagentoBundle\Tests\Unit\ImportExport\Strategy;
 
+use Oro\Bundle\BatchBundle\Item\ExecutionContext;
 use Oro\Bundle\ImportExportBundle\Context\ContextInterface;
 use Oro\Bundle\IntegrationBundle\Entity\Channel;
 use Oro\Bundle\MagentoBundle\Entity\Cart;
@@ -36,7 +37,7 @@ class CartWithExistingCustomerStrategyTest extends AbstractStrategyTest
         $strategy = $this->getStrategy();
 
         /** @var \PHPUnit\Framework\MockObject\MockObject|ContextInterface $context */
-        $context = $this->createMock('Oro\Bundle\ImportExportBundle\Context\ContextInterface');
+        $context = $this->createMock(ContextInterface::class);
         $strategy->setImportExportContext($context);
 
         $customer = new Customer();
@@ -66,14 +67,14 @@ class CartWithExistingCustomerStrategyTest extends AbstractStrategyTest
 
         $strategy = $this->getStrategy();
 
-        $execution = $this->createMock('Akeneo\Bundle\BatchBundle\Item\ExecutionContext');
+        $execution = $this->createMock(ExecutionContext::class);
         $this->jobExecution->expects($this->any())->method('getExecutionContext')
             ->will($this->returnValue($execution));
         $strategy->setStepExecution($this->stepExecution);
 
         $cartItem = ['customerId' => uniqid()];
         /** @var \PHPUnit\Framework\MockObject\MockObject|ContextInterface $context */
-        $context = $this->createMock('Oro\Bundle\ImportExportBundle\Context\ContextInterface');
+        $context = $this->createMock(ContextInterface::class);
         $context->expects($this->once())
             ->method('getValue')
             ->will($this->returnValue($cartItem));

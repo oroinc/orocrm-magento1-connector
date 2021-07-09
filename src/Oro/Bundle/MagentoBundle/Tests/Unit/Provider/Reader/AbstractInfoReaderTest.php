@@ -2,12 +2,15 @@
 
 namespace Oro\Bundle\MagentoBundle\Tests\Unit\Provider\Reader;
 
-use Akeneo\Bundle\BatchBundle\Entity\StepExecution;
-use Akeneo\Bundle\BatchBundle\Item\ExecutionContext;
-use Akeneo\Bundle\BatchBundle\Item\ItemReaderInterface;
-use Akeneo\Bundle\BatchBundle\Step\StepExecutionAwareInterface;
+use Oro\Bundle\BatchBundle\Entity\JobExecution;
+use Oro\Bundle\BatchBundle\Entity\StepExecution;
+use Oro\Bundle\BatchBundle\Item\ExecutionContext;
+use Oro\Bundle\BatchBundle\Item\ItemReaderInterface;
+use Oro\Bundle\BatchBundle\Step\StepExecutionAwareInterface;
 use Oro\Bundle\ImportExportBundle\Context\ContextInterface;
 use Oro\Bundle\ImportExportBundle\Context\ContextRegistry;
+use Oro\Bundle\IntegrationBundle\Entity\Channel;
+use Oro\Bundle\IntegrationBundle\Entity\Transport;
 use Oro\Bundle\IntegrationBundle\Logger\LoggerStrategy;
 use Oro\Bundle\IntegrationBundle\Provider\ConnectorContextMediator;
 use Oro\Bundle\MagentoBundle\Provider\Transport\MagentoTransportInterface;
@@ -41,33 +44,33 @@ abstract class AbstractInfoReaderTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp(): void
     {
-        $this->contextRegistry = $this->createMock('Oro\Bundle\ImportExportBundle\Context\ContextRegistry');
+        $this->contextRegistry = $this->createMock(ContextRegistry::class);
 
         $this->logger = new LoggerStrategy(new NullLogger());
 
         $this->contextMediator = $this
-            ->getMockBuilder('Oro\Bundle\IntegrationBundle\Provider\ConnectorContextMediator')
+            ->getMockBuilder(ConnectorContextMediator::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->stepExecutionMock = $this->getMockBuilder('Akeneo\Bundle\BatchBundle\Entity\StepExecution')
+        $this->stepExecutionMock = $this->getMockBuilder(StepExecution::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->context = $this->createMock('Oro\Bundle\ImportExportBundle\Context\ContextInterface');
+        $this->context = $this->createMock(ContextInterface::class);
 
         $this->contextRegistry->expects($this->any())
             ->method('getByStepExecution')
             ->will($this->returnValue($this->context));
 
-        $channel = $this->createMock('Oro\Bundle\IntegrationBundle\Entity\Channel');
-        $transportSettings = $this->getMockForAbstractClass('Oro\Bundle\IntegrationBundle\Entity\Transport');
+        $channel = $this->createMock(Channel::class);
+        $transportSettings = $this->getMockForAbstractClass(Transport::class);
 
         $channel->expects($this->any())
             ->method('getTransport')
             ->will($this->returnValue($transportSettings));
 
-        $this->transport = $this->createMock('Oro\Bundle\MagentoBundle\Provider\Transport\MagentoTransportInterface');
+        $this->transport = $this->createMock(MagentoTransportInterface::class);
         $this->contextMediator->expects($this->any())
             ->method('getInitializedTransport')
             ->will($this->returnValue($this->transport));
@@ -76,8 +79,8 @@ abstract class AbstractInfoReaderTest extends \PHPUnit\Framework\TestCase
             ->method('getChannel')
             ->will($this->returnValue($channel));
 
-        $this->executionContext = $this->createMock('Akeneo\Bundle\BatchBundle\Item\ExecutionContext');
-        $this->jobExecution = $this->createMock('Akeneo\Bundle\BatchBundle\Entity\JobExecution');
+        $this->executionContext = $this->createMock(ExecutionContext::class);
+        $this->jobExecution = $this->createMock(JobExecution::class);
         $this->jobExecution->expects($this->any())
             ->method('getExecutionContext')
             ->will($this->returnValue($this->executionContext));

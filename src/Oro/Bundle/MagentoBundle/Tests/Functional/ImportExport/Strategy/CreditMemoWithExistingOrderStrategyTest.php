@@ -2,9 +2,9 @@
 
 namespace Oro\Bundle\MagentoBundle\Tests\Functional\ImportExport\Strategy;
 
-use Akeneo\Bundle\BatchBundle\Entity\JobExecution;
-use Akeneo\Bundle\BatchBundle\Entity\JobInstance;
-use Akeneo\Bundle\BatchBundle\Entity\StepExecution;
+use Oro\Bundle\BatchBundle\Entity\JobExecution;
+use Oro\Bundle\BatchBundle\Entity\JobInstance;
+use Oro\Bundle\BatchBundle\Entity\StepExecution;
 use Oro\Bundle\ImportExportBundle\Context\StepExecutionProxyContext;
 use Oro\Bundle\IntegrationBundle\Entity\Channel;
 use Oro\Bundle\MagentoBundle\Entity\CreditMemo;
@@ -12,6 +12,7 @@ use Oro\Bundle\MagentoBundle\Entity\CreditMemoItem;
 use Oro\Bundle\MagentoBundle\Entity\Order;
 use Oro\Bundle\MagentoBundle\ImportExport\Strategy\CreditMemoWithExistingOrderStrategy;
 use Oro\Bundle\MagentoBundle\Provider\Reader\ContextOrderReader;
+use Oro\Bundle\MagentoBundle\Tests\Functional\Fixture\LoadMagentoChannel;
 use Oro\Bundle\TestFrameworkBundle\Test\WebTestCase;
 
 class CreditMemoWithExistingOrderStrategyTest extends WebTestCase
@@ -40,7 +41,7 @@ class CreditMemoWithExistingOrderStrategyTest extends WebTestCase
     {
         $this->initClient();
 
-        $this->loadFixtures(['Oro\Bundle\MagentoBundle\Tests\Functional\Fixture\LoadMagentoChannel']);
+        $this->loadFixtures([LoadMagentoChannel::class]);
 
         $this->strategy = $this->getContainer()
             ->get('oro_magento.import.strategy.credit_memo_with_order.add_or_update');

@@ -38,7 +38,7 @@
             "require": "4.4.*"
         },
         "branch-alias": {
-            "dev-master": "5.0-dev"
+            "dev-bap20694": "5.0-dev"
         }
     }
 }
