@@ -63,7 +63,7 @@ class NewsletterSubscriberController extends AbstractController
      *      permission="VIEW",
      *      class="OroMagentoBundle:NewsletterSubscriber"
      * )
-     * @Template("OroMagentoBundle:NewsletterSubscriber/widget:info.html.twig")
+     * @Template("@OroMagento/NewsletterSubscriber/widget/info.html.twig")
      */
     public function infoAction(Request $request, NewsletterSubscriber $newsletterSubscriber)
     {

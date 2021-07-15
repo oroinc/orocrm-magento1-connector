@@ -1,5 +1,5 @@
 {% set subscribedId = constant('Oro\\Bundle\\MagentoBundle\\Entity\\NewsletterSubscriber::STATUS_SUBSCRIBED') %}
-{% import 'OroUIBundle::macros.html.twig' as UI %}
+{% import '@OroUI/macros.html.twig' as UI %}
 {% if newsletterSubscriber is defined and newsletterSubscriber.id is not empty %}
     {% if is_granted('EDIT', newsletterSubscriber) %}
         <div class="pull-left" data-page-component-module="oromagento/js/app/components/subscription-manager">

@@ -17,8 +17,8 @@ class OrderSelectType extends AbstractType
             array(
                 'configs' => array(
                     'placeholder' => 'oro.magento.form.choose_order',
-                    'result_template_twig' => 'OroMagentoBundle:Order:Autocomplete/result.html.twig',
-                    'selection_template_twig' => 'OroMagentoBundle:Order:Autocomplete/selection.html.twig'
+                    'result_template_twig' => '@OroMagento/Order/Autocomplete/result.html.twig',
+                    'selection_template_twig' => '@OroMagento/Order/Autocomplete/selection.html.twig'
                 ),
                 'autocomplete_alias' => 'oro_magento.orders'
             )

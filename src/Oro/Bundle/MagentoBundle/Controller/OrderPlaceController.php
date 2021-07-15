@@ -25,7 +25,7 @@ class OrderPlaceController extends Controller
 
     /**
      * @Route("/cart/{id}", name="oro_magento_orderplace_cart", requirements={"id"="\d+"}))
-     * @Template("OroMagentoBundle:OrderPlace:widget/place.html.twig")
+     * @Template("@OroMagento/OrderPlace/widget/place.html.twig")
      * @param Cart $cart
      * @return array
      */
@@ -116,7 +116,7 @@ class OrderPlaceController extends Controller
 
     /**
      * @Route("/customer/{id}", name="oro_magento_widget_customer_orderplace", requirements={"id"="\d+"}))
-     * @Template("OroMagentoBundle:OrderPlace:widget/place.html.twig")
+     * @Template("@OroMagento/OrderPlace/widget/place.html.twig")
      * @param Customer $customer
      * @return array
      */
