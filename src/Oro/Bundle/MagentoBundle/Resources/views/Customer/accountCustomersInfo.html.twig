@@ -20,7 +20,7 @@
         ]) %}
     {% endfor %}
     {% if (tabs|length > 1) %}
-        {% import 'OroUIBundle::macros.html.twig' as UI %}
+        {% import '@OroUI/macros.html.twig' as UI %}
         <div class="widget-content account-customer-info multicustomer" {{ UI.renderPageComponentAttributes({
             module: 'oroui/js/app/components/view-component',
             options: {

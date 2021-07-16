@@ -59,62 +59,62 @@ dashboards:
                     data_provider: "@oro_dashboard.provider.big_number.processor->getBigNumberValues($widgetOptions$, magento, getRevenueValues, currency)"
                     label:         oro.magento.dashboard.e_commerce_statistic.revenue.label
                     acl:           oro_magento_order_view
-                    template:      OroDashboardBundle:Dashboard:bigNumberSubwidget.html.twig
+                    template:      '@OroDashboard/Dashboard/bigNumberSubwidget.html.twig'
                 orders_number:
                     data_provider: "@oro_dashboard.provider.big_number.processor->getBigNumberValues($widgetOptions$, magento, getOrdersNumberValues, integer)"
                     label:         oro.magento.dashboard.e_commerce_statistic.orders_number.label
                     acl:           oro_magento_order_view
-                    template:      OroDashboardBundle:Dashboard:bigNumberSubwidget.html.twig
+                    template:      '@OroDashboard/Dashboard/bigNumberSubwidget.html.twig'
                 discounted_orders_percent:
                     data_provider: "@oro_dashboard.provider.big_number.processor->getBigNumberValues($widgetOptions$, magento, getDiscountedOrdersPercentValues, percent)"
                     label:         oro.magento.dashboard.e_commerce_statistic.discounted_orders_percent.label
                     acl:           oro_magento_order_view
-                    template:      OroDashboardBundle:Dashboard:bigNumberSubwidget.html.twig
+                    template:      '@OroDashboard/Dashboard/bigNumberSubwidget.html.twig'
                 new_customers_count:
                     data_provider: "@oro_dashboard.provider.big_number.processor->getBigNumberValues($widgetOptions$, magento, getNewCustomersCountValues, integer)"
                     label:         oro.magento.dashboard.e_commerce_statistic.new_customers_count.label
                     acl:           oro_magento_customer_view
-                    template:      OroDashboardBundle:Dashboard:bigNumberSubwidget.html.twig
+                    template:      '@OroDashboard/Dashboard/bigNumberSubwidget.html.twig'
                 returning_customers_count:
                     data_provider: "@oro_dashboard.provider.big_number.processor->getBigNumberValues($widgetOptions$, magento, getReturningCustomersCountValues, integer)"
                     label:         oro.magento.dashboard.e_commerce_statistic.returning_customers_count.label
                     acl:           oro_magento_customer_view
-                    template:      OroDashboardBundle:Dashboard:bigNumberSubwidget.html.twig
+                    template:      '@OroDashboard/Dashboard/bigNumberSubwidget.html.twig'
                 average_order_value:
                     data_provider: "@oro_dashboard.provider.big_number.processor->getBigNumberValues($widgetOptions$, magento, getAOVValues, currency)"
                     label:         oro.magento.dashboard.e_commerce_statistic.average_order_value.label
                     acl:           oro_magento_customer_view
-                    template:      OroDashboardBundle:Dashboard:bigNumberSubwidget.html.twig
+                    template:      '@OroDashboard/Dashboard/bigNumberSubwidget.html.twig'
                 abandoned_revenue:
                     data_provider: "@oro_dashboard.provider.big_number.processor->getBigNumberValues($widgetOptions$, magento, getAbandonedRevenueValues, currency, true)"
                     label:         oro.magento.dashboard.e_commerce_statistic.abandoned_revenue.label
                     acl:           oro_magento_customer_view
-                    template:      OroDashboardBundle:Dashboard:bigNumberSubwidget.html.twig
+                    template:      '@OroDashboard/Dashboard/bigNumberSubwidget.html.twig'
                 abandoned_count:
                     data_provider: "@oro_dashboard.provider.big_number.processor->getBigNumberValues($widgetOptions$, magento, getAbandonedCountValues, integer, true)"
                     label:         oro.magento.dashboard.e_commerce_statistic.abandoned_count.label
                     acl:           oro_magento_customer_view
-                    template:      OroDashboardBundle:Dashboard:bigNumberSubwidget.html.twig
+                    template:      '@OroDashboard/Dashboard/bigNumberSubwidget.html.twig'
                 abandon_rate:
                     data_provider: "@oro_dashboard.provider.big_number.processor->getBigNumberValues($widgetOptions$, magento, getAbandonRateValues, percent, true)"
                     label:         oro.magento.dashboard.e_commerce_statistic.abandon_rate.label
                     acl:           oro_magento_customer_view
-                    template:      OroDashboardBundle:Dashboard:bigNumberSubwidget.html.twig
+                    template:      '@OroDashboard/Dashboard/bigNumberSubwidget.html.twig'
                 site_visits:
                     data_provider: "@oro_dashboard.provider.big_number.processor->getBigNumberValues($widgetOptions$, magento, getSiteVisitsValues, integer)"
                     label:         oro.magento.dashboard.e_commerce_statistic.site_visits.label
                     acl:           oro_magento_customer_view
-                    template:      OroDashboardBundle:Dashboard:bigNumberSubwidget.html.twig
+                    template:      '@OroDashboard/Dashboard/bigNumberSubwidget.html.twig'
                 order_conversion:
                     data_provider: "@oro_dashboard.provider.big_number.processor->getBigNumberValues($widgetOptions$, magento, getOrderConversionValues, percent)"
                     label:         oro.magento.dashboard.e_commerce_statistic.order_conversion.label
                     acl:           oro_magento_customer_view
-                    template:      OroDashboardBundle:Dashboard:bigNumberSubwidget.html.twig
+                    template:      '@OroDashboard/Dashboard/bigNumberSubwidget.html.twig'
                 customer_conversion:
                     data_provider: "@oro_dashboard.provider.big_number.processor->getBigNumberValues($widgetOptions$, magento, getCustomerConversionValues, percent)"
                     label:         oro.magento.dashboard.e_commerce_statistic.customer_conversion.label
                     acl:           oro_magento_customer_view
-                    template:      OroDashboardBundle:Dashboard:bigNumberSubwidget.html.twig
+                    template:      '@OroDashboard/Dashboard/bigNumberSubwidget.html.twig'
             configuration:
                 dateRange:
                     type: Oro\Bundle\DashboardBundle\Form\Type\WidgetDateRangeType

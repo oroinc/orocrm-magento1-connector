@@ -1,10 +1,10 @@
-{% import 'OroUIBundle::macros.html.twig' as UI %}
-{% import 'OroEmailBundle::actions.html.twig' as EmailActions %}
+{% import '@OroUI/macros.html.twig' as UI %}
+{% import '@OroEmail/actions.html.twig' as EmailActions %}
 {% set activeTab = app.request.get('_activeTab')|default(null) %}
 {% set uniqueSuffix = '_customer_' ~ customer.id ~ '_channel_' ~ channel.id %}
 {% set customer_general_info %}
     <div class="row-fluid">
-        {% include 'OroAnalyticsBundle::label.html.twig' with {entity: customer, vertical: true} %}
+        {% include '@OroAnalytics/label.html.twig' with {entity: customer, vertical: true} %}
         <div class="responsive-block">
             {{ UI.renderHtmlProperty(
                 'oro.magento.customer.name.label'|trans,

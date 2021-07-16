@@ -66,7 +66,7 @@ class CustomerController extends Controller
      *      permission="EDIT",
      *      class="OroMagentoBundle:Customer"
      * )
-     * @Template("OroMagentoBundle:Customer:update.html.twig")
+     * @Template("@OroMagento/Customer/update.html.twig")
      */
     public function updateAction(Customer $customer)
     {
@@ -81,7 +81,7 @@ class CustomerController extends Controller
      *      permission="CREATE",
      *      class="OroMagentoBundle:Customer"
      * )
-     * @Template("OroMagentoBundle:Customer:update.html.twig")
+     * @Template("@OroMagento/Customer/update.html.twig")
      */
     public function createAction()
     {

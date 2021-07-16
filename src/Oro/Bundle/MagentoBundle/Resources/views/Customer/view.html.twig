@@ -1,12 +1,12 @@
-{% extends 'OroUIBundle:actions:view.html.twig' %}
-{% import 'OroUIBundle::macros.html.twig' as macros %}
-{% import 'OroEmailBundle::macros.html.twig' as email %}
+{% extends '@OroUI/actions/view.html.twig' %}
+{% import '@OroUI/macros.html.twig' as macros %}
+{% import '@OroEmail/macros.html.twig' as email %}
 
 {% set fullname = entity|oro_format_name|default('N/A'|trans) %}
 {% oro_title_set({params : {"%customer.name%": fullname} }) %}
 
 {% block navButtons %}
-    {% import 'OroUIBundle::macros.html.twig' as UI %}
+    {% import '@OroUI/macros.html.twig' as UI %}
 
     {% if entity.originId and entity.channel.transport.adminUrl|default(false) %}
         {{
@@ -38,7 +38,7 @@
             })
         }}
     {% endif %}
-    {% include 'OroMagentoBundle:NewsletterSubscriber:buttons.html.twig' with { customer: entity } %}
+    {% include '@OroMagento/NewsletterSubscriber/buttons.html.twig' with { customer: entity } %}
     {% if is_granted('EDIT', entity) %}
         {% if entity.guest %}
             {{ UI.clientButton({
