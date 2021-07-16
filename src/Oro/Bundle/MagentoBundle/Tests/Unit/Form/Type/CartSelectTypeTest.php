@@ -29,8 +29,8 @@ class CartSelectTypeTest extends \PHPUnit\Framework\TestCase
                 [
                     'configs'            => [
                         'placeholder'             => 'oro.magento.form.choose_cart',
-                        'result_template_twig'    => 'OroMagentoBundle:Cart:Autocomplete/result.html.twig',
-                        'selection_template_twig' => 'OroMagentoBundle:Cart:Autocomplete/selection.html.twig'
+                        'result_template_twig'    => '@OroMagento/Cart/Autocomplete/result.html.twig',
+                        'selection_template_twig' => '@OroMagento/Cart/Autocomplete/selection.html.twig'
                     ],
                     'autocomplete_alias' => 'oro_magento.carts',
                 ]

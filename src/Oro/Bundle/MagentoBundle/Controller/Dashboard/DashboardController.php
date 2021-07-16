@@ -48,7 +48,7 @@ class DashboardController extends AbstractController
      *      name="oro_magento_dashboard_sales_flow_b2c_chart",
      *      requirements={"widget"="[\w_-]+"}
      * )
-     * @Template("OroSalesBundle:Dashboard:salesFlowChart.html.twig")
+     * @Template("@OroSales/Dashboard/salesFlowChart.html.twig")
      *
      * @param Request $request
      * @param $widget
@@ -112,7 +112,7 @@ class DashboardController extends AbstractController
      *      name="oro_magento_dashboard_average_order_amount",
      *      requirements={"widget"="[\w_-]+"}
      * )
-     * @Template("OroMagentoBundle:Dashboard:ordersByCustomers.html.twig")
+     * @Template("@OroMagento/Dashboard/ordersByCustomers.html.twig")
      *
      * @param Request $request
      *
@@ -142,7 +142,7 @@ class DashboardController extends AbstractController
      *      name="oro_magento_dashboard_new_customers_chart",
      *      requirements={"widget"="[\w_-]+"}
      * )
-     * @Template("OroMagentoBundle:Dashboard:newCustomersChart.html.twig")
+     * @Template("@OroMagento/Dashboard/newCustomersChart.html.twig")
      *
      * @param Request $request
      *
@@ -171,7 +171,7 @@ class DashboardController extends AbstractController
      *      name="oro_magento_dashboard_purchase_chart",
      *      requirements={"widget"="[\w_-]+"}
      * )
-     * @Template("OroMagentoBundle:Dashboard:purchaseChart.html.twig")
+     * @Template("@OroMagento/Dashboard/purchaseChart.html.twig")
      */
     public function purchaseAction()
     {
@@ -195,7 +195,7 @@ class DashboardController extends AbstractController
      *      name="oro_magento_dashboard_revenue_over_time_chart",
      *      requirements={"widget"="[\w_-]+"}
      * )
-     * @Template("OroMagentoBundle:Dashboard:revenueOverTimeChart.html.twig")
+     * @Template("@OroMagento/Dashboard/revenueOverTimeChart.html.twig")
      */
     public function revenueOverTimeAction()
     {
@@ -220,7 +220,7 @@ class DashboardController extends AbstractController
      *      name="oro_magento_dashboard_orders_over_time_chart",
      *      requirements={"widget"="[\w_-]+"}
      * )
-     * @Template("OroMagentoBundle:Dashboard:ordersOverTimeChart.html.twig")
+     * @Template("@OroMagento/Dashboard/ordersOverTimeChart.html.twig")
      */
     public function ordersOverTimeAction()
     {

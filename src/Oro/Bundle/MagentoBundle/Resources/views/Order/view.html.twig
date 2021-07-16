@@ -1,6 +1,6 @@
-{% extends 'OroUIBundle:actions:view.html.twig' %}
-{% import 'OroUIBundle::macros.html.twig' as macros %}
-{% import 'OroAddressBundle::macros.html.twig' as address %}
+{% extends '@OroUI/actions/view.html.twig' %}
+{% import '@OroUI/macros.html.twig' as macros %}
+{% import '@OroAddress/macros.html.twig' as address %}
 
 {% oro_title_set({params : {"%order.incrementId%":  entity.incrementId} }) %}
 
@@ -15,7 +15,7 @@
 {% endblock pageHeader %}
 
 {% block navButtons %}
-    {% import 'OroUIBundle::macros.html.twig' as UI %}
+    {% import '@OroUI/macros.html.twig' as UI %}
 
     {{ UI.button({
         'path':  path('oro_magento_order_actualize', {'id': entity.id}),

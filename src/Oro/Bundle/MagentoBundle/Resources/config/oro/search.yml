@@ -7,7 +7,7 @@ search:
             name:                       oro_magento_order_view
             parameters:
                 id:                     id
-        search_template:                OroMagentoBundle:Order:searchResult.html.twig
+        search_template:                '@OroMagento/Order/searchResult.html.twig'
         fields:
             -
                 name:                   incrementId
@@ -74,7 +74,7 @@ search:
             name:                       oro_magento_credit_memo_view
             parameters:
                 id:                     id
-        search_template:                OroMagentoBundle:CreditMemo:searchResult.html.twig
+        search_template:                '@OroMagento/CreditMemo/searchResult.html.twig'
         fields:
             -
                 name:                   incrementId
@@ -111,7 +111,7 @@ search:
             name:                       oro_magento_cart_view
             parameters:
                 id:                     id
-        search_template:                OroMagentoBundle:Cart:searchResult.html.twig
+        search_template:                '@OroMagento/Cart/searchResult.html.twig'
         fields:
             -
                 name:                   originId
@@ -199,7 +199,7 @@ search:
             name:                       oro_magento_customer_view
             parameters:
                 id:                     id
-        search_template:                OroMagentoBundle:Customer:searchResult.html.twig
+        search_template:                '@OroMagento/Customer/searchResult.html.twig'
         fields:
             -
                 name:                   namePrefix

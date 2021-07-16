@@ -19,7 +19,7 @@ charts:
         xaxis:
             mode: time
             noTicks: 12
-        template: OroChartsBundle:Chart:multiline.html.twig
+        template: '@OroCharts/Chart/multiline.html.twig'
 
     new_web_customers:
         label: oro.chart.multiline_chart.label
@@ -40,7 +40,7 @@ charts:
         xaxis:
             mode: time
             noTicks: 12
-        template: OroChartsBundle:Chart:multiline.html.twig
+        template: '@OroCharts/Chart/multiline.html.twig'
     revenue_over_time_chart:
         label: oro.chart.multiline_chart.label
         data_schema:
@@ -61,7 +61,7 @@ charts:
         xaxis:
             mode: time
             noTicks: 12
-        template: OroChartsBundle:Chart:multiline.html.twig
+        template: '@OroCharts/Chart/multiline.html.twig'
     orders_over_time_chart:
         label: oro.chart.line_chart.label
         data_schema:
@@ -81,7 +81,7 @@ charts:
         xaxis:
             mode: time
             noTicks: 12
-        template: OroChartsBundle:Chart:multiline.html.twig
+        template: '@OroCharts/Chart/multiline.html.twig'
     purchase_chart:
         label: oro.chart.funnel_chart.label
         data_schema:
@@ -103,7 +103,7 @@ charts:
                 label: oro.magento.dashboard.purchase_chart.is_nozzle
                 required: true
                 default_type: boolean
-        template: OroChartBundle:Chart:flow.html.twig
+        template: '@OroChart/Chart/flow.html.twig'
     website_chart:
         label: oro.chart.multiline_chart.label
         data_schema:
@@ -120,4 +120,4 @@ charts:
                 required: true
                 default_type: integer
                 field_name: count
-        template: OroChartsBundle:Chart:bar.html.twig
+        template: '@OroCharts/Chart/bar.html.twig'
