@@ -2,11 +2,12 @@
 
 namespace Oro\Bundle\MagentoBundle\Tests\Unit\ImportExport\Strategy;
 
-use Akeneo\Bundle\BatchBundle\Item\ExecutionContext;
+use Oro\Bundle\BatchBundle\Item\ExecutionContext;
 use Oro\Bundle\ImportExportBundle\Context\ContextInterface;
 use Oro\Bundle\IntegrationBundle\Entity\Channel;
 use Oro\Bundle\MagentoBundle\Entity\Cart;
 use Oro\Bundle\MagentoBundle\Entity\Customer;
+use Oro\Bundle\MagentoBundle\Entity\MagentoSoapTransport;
 use Oro\Bundle\MagentoBundle\Entity\MagentoTransport;
 use Oro\Bundle\MagentoBundle\Entity\Order;
 use Oro\Bundle\MagentoBundle\ImportExport\Strategy\OrderWithExistingCustomerStrategy;
@@ -43,20 +44,20 @@ class OrderWithExistingCustomerStrategyTest extends AbstractStrategyTest
     {
         parent::setUp();
 
-        $this->context = $this->getMockBuilder('Oro\Bundle\ImportExportBundle\Context\ContextInterface')
+        $this->context = $this->getMockBuilder(ContextInterface::class)
             ->getMock();
 
-        $this->transport = $this->getMockBuilder('Oro\Bundle\MagentoBundle\Entity\MagentoSoapTransport')
+        $this->transport = $this->getMockBuilder(MagentoSoapTransport::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->channel = $this->getMockBuilder('Oro\Bundle\IntegrationBundle\Entity\Channel')
+        $this->channel = $this->getMockBuilder(Channel::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->guestCustomerStrategyHelper = $this->createMock(GuestCustomerStrategyHelper::class);
 
-        $this->execution = $this->getMockBuilder('Akeneo\Bundle\BatchBundle\Item\ExecutionContext')
+        $this->execution = $this->getMockBuilder(ExecutionContext::class)
             ->getMock();
     }
 
@@ -173,7 +174,7 @@ class OrderWithExistingCustomerStrategyTest extends AbstractStrategyTest
                 $this->returnValueMap(
                     [
                         [
-                            'Oro\Bundle\MagentoBundle\Entity\Customer',
+                            Customer::class,
                             [
                                 'email' => $customerEmail,
                                 'channel' => $this->channel
@@ -243,7 +244,7 @@ class OrderWithExistingCustomerStrategyTest extends AbstractStrategyTest
                 $this->returnValueMap(
                     [
                         [
-                            'Oro\Bundle\MagentoBundle\Entity\Customer',
+                            Customer::class,
                             [
                                 'email' => $customerEmail,
                                 'channel' => $this->channel

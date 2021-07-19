@@ -2,9 +2,10 @@
 
 namespace Oro\Bundle\MagentoBundle\Tests\Unit\Provider\Reader;
 
-use Akeneo\Bundle\BatchBundle\Entity\JobExecution;
-use Akeneo\Bundle\BatchBundle\Entity\StepExecution;
-use Akeneo\Bundle\BatchBundle\Item\ExecutionContext;
+use Oro\Bundle\BatchBundle\Entity\JobExecution;
+use Oro\Bundle\BatchBundle\Entity\StepExecution;
+use Oro\Bundle\BatchBundle\Item\ExecutionContext;
+use Oro\Bundle\ImportExportBundle\Context\ContextInterface;
 use Oro\Bundle\ImportExportBundle\Context\ContextRegistry;
 use Oro\Bundle\MagentoBundle\Provider\Reader\ContextReader;
 
@@ -21,7 +22,7 @@ class ContextReaderTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp(): void
     {
-        $this->contextRegistry = $this->getMockBuilder('Oro\Bundle\ImportExportBundle\Context\ContextRegistry')
+        $this->contextRegistry = $this->getMockBuilder(ContextRegistry::class)
             ->disableOriginalConstructor()
             ->getMock();
     }
@@ -34,20 +35,20 @@ class ContextReaderTest extends \PHPUnit\Framework\TestCase
     public function testInitializeAndRead()
     {
         /** @var \PHPUnit\Framework\MockObject\MockObject|StepExecution $stepExecution */
-        $stepExecution = $this->getMockBuilder('Akeneo\Bundle\BatchBundle\Entity\StepExecution')
+        $stepExecution = $this->getMockBuilder(StepExecution::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $context = $this->createMock('Oro\Bundle\ImportExportBundle\Context\ContextInterface');
+        $context = $this->createMock(ContextInterface::class);
 
         $this->contextRegistry->expects($this->once())
             ->method('getByStepExecution')
             ->with($stepExecution)
             ->will($this->returnValue($context));
 
-        $this->executionContext = $this->createMock('Akeneo\Bundle\BatchBundle\Item\ExecutionContext');
+        $this->executionContext = $this->createMock(ExecutionContext::class);
 
-        $this->jobExecution = $this->createMock('Akeneo\Bundle\BatchBundle\Entity\JobExecution');
+        $this->jobExecution = $this->createMock(JobExecution::class);
         $this->jobExecution->expects($this->any())
             ->method('getExecutionContext')
             ->will($this->returnValue($this->executionContext));
@@ -107,11 +108,11 @@ class ContextReaderTest extends \PHPUnit\Framework\TestCase
         $reader = $this->getReader(null);
 
         /** @var \PHPUnit\Framework\MockObject\MockObject|StepExecution $stepExecution */
-        $stepExecution = $this->getMockBuilder('Akeneo\Bundle\BatchBundle\Entity\StepExecution')
+        $stepExecution = $this->getMockBuilder(StepExecution::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $context = $this->createMock('Oro\Bundle\ImportExportBundle\Context\ContextInterface');
+        $context = $this->createMock(ContextInterface::class);
 
         $this->contextRegistry->expects($this->once())
             ->method('getByStepExecution')

@@ -2,7 +2,7 @@
 
 namespace Oro\Bundle\MagentoBundle\ImportExport\Job;
 
-use Akeneo\Bundle\BatchBundle\Entity\JobInstance;
+use Oro\Bundle\BatchBundle\Entity\JobInstance;
 use Oro\Bundle\ImportExportBundle\Job\JobExecutor;
 use Oro\Bundle\ImportExportBundle\Serializer\Serializer;
 

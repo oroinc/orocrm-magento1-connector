@@ -2,9 +2,9 @@
 
 namespace Oro\Bundle\MagentoBundle\ImportExport\Strategy;
 
-use Akeneo\Bundle\BatchBundle\Entity\StepExecution;
-use Akeneo\Bundle\BatchBundle\Item\ExecutionContext;
-use Akeneo\Bundle\BatchBundle\Step\StepExecutionAwareInterface;
+use Oro\Bundle\BatchBundle\Entity\StepExecution;
+use Oro\Bundle\BatchBundle\Item\ExecutionContext;
+use Oro\Bundle\BatchBundle\Step\StepExecutionAwareInterface;
 use Oro\Bundle\ChannelBundle\ImportExport\Helper\ChannelHelper;
 use Oro\Bundle\ChannelBundle\Model\ChannelAwareInterface;
 use Oro\Bundle\IntegrationBundle\Entity\Channel;
@@ -18,8 +18,6 @@ abstract class AbstractImportStrategy extends DefaultMagentoImportStrategy imple
     LoggerAwareInterface,
     StepExecutionAwareInterface
 {
-    const CONTEXT_POST_PROCESS_IDS = 'postProcessIds';
-
     /**
      * @var LoggerInterface
      */

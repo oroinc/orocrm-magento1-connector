@@ -1,7 +1,8 @@
 <?php
+
 namespace Oro\Bundle\MagentoBundle\Tests\Unit\Importexport\Reader;
 
-use Akeneo\Bundle\BatchBundle\Entity\StepExecution;
+use Oro\Bundle\BatchBundle\Entity\StepExecution;
 use Oro\Bundle\ImportExportBundle\Context\ContextInterface;
 use Oro\Bundle\ImportExportBundle\Context\ContextRegistry;
 use Oro\Bundle\MagentoBundle\Provider\Reader\ContextOptionReader;
@@ -27,14 +28,14 @@ class ContextOptionReaderTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp(): void
     {
-        $this->contextRegistry = $this->getMockbuilder('Oro\Bundle\ImportExportBundle\Context\ContextRegistry')
+        $this->contextRegistry = $this->getMockbuilder(ContextRegistry::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->context = $this->createMock('Oro\Bundle\ImportExportBundle\Context\ContextInterface');
+        $this->context = $this->createMock(ContextInterface::class);
         $this->contextRegistry->expects($this->any())
             ->method('getByStepExecution')
             ->will($this->returnValue($this->context));
-        $this->stepExecution = $this->getMockBuilder('Akeneo\Bundle\BatchBundle\Entity\StepExecution')
+        $this->stepExecution = $this->getMockBuilder(StepExecution::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->reader = new ContextOptionReader($this->contextRegistry);

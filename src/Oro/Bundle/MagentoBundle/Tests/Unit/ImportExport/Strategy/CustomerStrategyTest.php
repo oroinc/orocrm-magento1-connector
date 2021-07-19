@@ -4,6 +4,8 @@ namespace Oro\Bundle\MagentoBundle\Tests\Unit\ImportExport\Strategy;
 
 use Oro\Bundle\AddressBundle\Entity\Country;
 use Oro\Bundle\AddressBundle\Entity\Region;
+use Oro\Bundle\BatchBundle\Item\ExecutionContext;
+use Oro\Bundle\ImportExportBundle\Context\ContextInterface;
 use Oro\Bundle\IntegrationBundle\Entity\Channel;
 use Oro\Bundle\MagentoBundle\Entity\Address;
 use Oro\Bundle\MagentoBundle\Entity\Customer;
@@ -40,13 +42,13 @@ class CustomerStrategyTest extends AbstractStrategyTest
             ->will($this->returnArgument(0));
 
         $strategy->setImportExportContext(
-            $this->getMockBuilder('Oro\Bundle\ImportExportBundle\Context\ContextInterface')
+            $this->getMockBuilder(ContextInterface::class)
             ->disableOriginalConstructor()
             ->getMock()
         );
-        $strategy->setEntityName('Oro\Bundle\MagentoBundle\Entity\Customer');
+        $strategy->setEntityName(Customer::class);
 
-        $execution = $this->getMockBuilder('Akeneo\Bundle\BatchBundle\Item\ExecutionContext')->getMock();
+        $execution = $this->getMockBuilder(ExecutionContext::class)->getMock();
         $this->jobExecution->expects($this->any())->method('getExecutionContext')
             ->will($this->returnValue($execution));
         $strategy->setStepExecution($this->stepExecution);
@@ -78,7 +80,7 @@ class CustomerStrategyTest extends AbstractStrategyTest
                 $this->returnValueMap(
                     [
                         [
-                            'Oro\Bundle\MagentoBundle\Entity\Customer',
+                            Customer::class,
                             [
                                 'email' => $customerEmail,
                                 'channel' => $channel
@@ -202,7 +204,7 @@ class CustomerStrategyTest extends AbstractStrategyTest
                 $this->returnValueMap(
                     [
                         [
-                            'Oro\Bundle\MagentoBundle\Entity\Website',
+                            Website::class,
                             [
                                 'originId' => 1,
                                 'channel' => $channel
@@ -210,7 +212,7 @@ class CustomerStrategyTest extends AbstractStrategyTest
                             $website
                         ],
                         [
-                            'Oro\Bundle\MagentoBundle\Entity\Customer',
+                            Customer::class,
                             [
                                 'email' => $email,
                                 'channel' => $channel,

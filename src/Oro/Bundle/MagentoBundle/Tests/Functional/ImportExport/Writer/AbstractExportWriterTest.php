@@ -2,8 +2,10 @@
 
 namespace Oro\Bundle\MagentoBundle\Tests\Functional\ImportExport\Writer;
 
-use Akeneo\Bundle\BatchBundle\Entity\JobExecution;
+use Oro\Bundle\BatchBundle\Entity\JobExecution;
+use Oro\Bundle\BatchBundle\Entity\JobInstance;
 use Oro\Bundle\MagentoBundle\Provider\Transport\MagentoTransportInterface;
+use Oro\Bundle\MagentoBundle\Tests\Functional\Fixture\LoadMagentoChannel;
 use Oro\Bundle\TestFrameworkBundle\Test\WebTestCase;
 
 abstract class AbstractExportWriterTest extends WebTestCase
@@ -19,9 +21,9 @@ abstract class AbstractExportWriterTest extends WebTestCase
 
         $this->initClient();
 
-        $this->loadFixtures(['Oro\Bundle\MagentoBundle\Tests\Functional\Fixture\LoadMagentoChannel']);
+        $this->loadFixtures([LoadMagentoChannel::class]);
 
-        $this->transport = $this->createMock('Oro\Bundle\MagentoBundle\Provider\Transport\MagentoTransportInterface');
+        $this->transport = $this->createMock(MagentoTransportInterface::class);
     }
 
     /**
@@ -33,7 +35,7 @@ abstract class AbstractExportWriterTest extends WebTestCase
     protected function getJobs($alias, $status)
     {
         $qb = $this->getContainer()->get('oro_entity.doctrine_helper')
-            ->getEntityRepository('AkeneoBatchBundle:JobInstance')
+            ->getEntityRepository(JobInstance::class)
             ->createQueryBuilder('job');
 
         $qb
