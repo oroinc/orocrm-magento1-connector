@@ -3,13 +3,17 @@
 namespace Oro\Bundle\MagentoBundle\ImportExport\Serializer\Normalizer;
 
 use Oro\Bundle\ImportExportBundle\Serializer\Normalizer\DateTimeNormalizer as BaseNormalizer;
-use Oro\Bundle\ImportExportBundle\Serializer\Normalizer\DenormalizerInterface;
-use Oro\Bundle\ImportExportBundle\Serializer\Normalizer\NormalizerInterface;
 use Oro\Bundle\ImportExportBundle\Serializer\Serializer;
 use Symfony\Component\Serializer\Exception\RuntimeException;
+use Symfony\Component\Serializer\Normalizer\ContextAwareDenormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 
-class DateTimeNormalizer implements NormalizerInterface, DenormalizerInterface
+class DateTimeNormalizer implements ContextAwareNormalizerInterface, ContextAwareDenormalizerInterface
 {
+    private BaseNormalizer $magentoNormalizer;
+
+    private BaseNormalizer $isoNormalizer;
+
     public function __construct()
     {
         $this->magentoNormalizer = new BaseNormalizer('Y-m-d H:i:s', 'Y-m-d', 'H:i:s', 'UTC');
@@ -19,19 +23,19 @@ class DateTimeNormalizer implements NormalizerInterface, DenormalizerInterface
     /**
      * {@inheritdoc}
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize($data, string $type, string $format = null, array $context = [])
     {
         try {
-            return $this->magentoNormalizer->denormalize($data, $class, $format, $context);
+            return $this->magentoNormalizer->denormalize($data, $type, $format, $context);
         } catch (RuntimeException $e) {
-            return $this->isoNormalizer->denormalize($data, $class, $format, $context);
+            return $this->isoNormalizer->denormalize($data, $type, $format, $context);
         }
     }
 
     /**
      * {@inheritdoc}
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize($object, string $format = null, array $context = [])
     {
         return $this->magentoNormalizer->normalize($object, $format, $context);
     }
@@ -39,7 +43,7 @@ class DateTimeNormalizer implements NormalizerInterface, DenormalizerInterface
     /**
      * {@inheritdoc}
      */
-    public function supportsDenormalization($data, $type, $format = null, array $context = array())
+    public function supportsDenormalization($data, string $type, string $format = null, array $context = []): bool
     {
         return $this->magentoNormalizer->supportsDenormalization($data, $type, $format, $context)
             && !empty($context[Serializer::PROCESSOR_ALIAS_KEY])
@@ -49,10 +53,10 @@ class DateTimeNormalizer implements NormalizerInterface, DenormalizerInterface
     /**
      * {@inheritdoc}
      */
-    public function supportsNormalization($data, $format = null, array $context = array())
+    public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
         return $this->magentoNormalizer->supportsNormalization($data, $format, $context)
             && !empty($context[Serializer::PROCESSOR_ALIAS_KEY])
-            && strpos($context[Serializer::PROCESSOR_ALIAS_KEY], 'oro_magento') !== false;
+            && str_contains($context[Serializer::PROCESSOR_ALIAS_KEY], 'oro_magento');
     }
 }

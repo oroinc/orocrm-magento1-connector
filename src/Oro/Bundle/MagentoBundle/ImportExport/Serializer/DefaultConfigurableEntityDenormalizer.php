@@ -3,17 +3,15 @@
 namespace Oro\Bundle\MagentoBundle\ImportExport\Serializer;
 
 use Oro\Bundle\EntityBundle\Helper\FieldHelper;
-use Oro\Bundle\ImportExportBundle\Serializer\Normalizer\DenormalizerInterface;
 use Oro\Bundle\MagentoBundle\Provider\MagentoChannelType;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Serializer\Normalizer\ContextAwareDenormalizerInterface;
 
-class DefaultConfigurableEntityDenormalizer implements DenormalizerInterface
+class DefaultConfigurableEntityDenormalizer implements ContextAwareDenormalizerInterface
 {
-    /** @var FieldHelper */
-    protected $fieldHelper;
+    protected FieldHelper $fieldHelper;
 
-    /** @var LoggerInterface */
-    protected $logger;
+    protected LoggerInterface $logger;
 
     /**
      * @param FieldHelper     $fieldHelper
@@ -28,10 +26,10 @@ class DefaultConfigurableEntityDenormalizer implements DenormalizerInterface
     /**
      * {@inheritdoc}
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, string $type, string $format = null, array $context = [])
     {
         $this->logger->warning(
-            sprintf('Invalid configuration for %s for mapping configurable entity attributes.', $class),
+            sprintf('Invalid configuration for %s for mapping configurable entity attributes.', $type),
             [
                 'data'    => $data,
                 'context' => $context
@@ -44,7 +42,7 @@ class DefaultConfigurableEntityDenormalizer implements DenormalizerInterface
     /**
      * {@inheritdoc}
      */
-    public function supportsDenormalization($data, $type, $format = null, array $context = [])
+    public function supportsDenormalization($data, string $type, string $format = null, array $context = []): bool
     {
         return
             !is_array($data) &&

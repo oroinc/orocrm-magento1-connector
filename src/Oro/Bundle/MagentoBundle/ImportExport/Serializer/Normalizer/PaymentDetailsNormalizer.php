@@ -3,19 +3,12 @@
 namespace Oro\Bundle\MagentoBundle\ImportExport\Serializer\Normalizer;
 
 use Oro\Bundle\ImportExportBundle\Serializer\Normalizer\ConfigurableEntityNormalizer;
-use Oro\Bundle\ImportExportBundle\Serializer\Normalizer\DenormalizerInterface;
 
-class PaymentDetailsNormalizer extends ConfigurableEntityNormalizer implements DenormalizerInterface
+class PaymentDetailsNormalizer extends ConfigurableEntityNormalizer
 {
-    /**
-     * @var string
-     */
-    protected $supportedClass;
+    protected ?string $supportedClass = null;
 
-    /**
-     * @param string $supportedClass
-     */
-    public function setSupportedClass($supportedClass)
+    public function setSupportedClass(string $supportedClass): void
     {
         $this->supportedClass = $supportedClass;
     }
@@ -23,7 +16,7 @@ class PaymentDetailsNormalizer extends ConfigurableEntityNormalizer implements D
     /**
      * {@inheritdoc}
      */
-    public function supportsNormalization($data, $format = null, array $context = [])
+    public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
         return false;
     }
@@ -31,19 +24,19 @@ class PaymentDetailsNormalizer extends ConfigurableEntityNormalizer implements D
     /**
      * {@inheritdoc}
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, string $type, string $format = null, array $context = [])
     {
         if (isset($data['paymentDetails'])) {
             $data['paymentDetails'] = $this->denormalizePaymentDetails($data['paymentDetails']);
         }
 
-        return parent::denormalize($data, $class, $format, $context);
+        return parent::denormalize($data, $type, $format, $context);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function supportsDenormalization($data, $type, $format = null, array $context = [])
+    public function supportsDenormalization($data, string $type, string $format = null, array $context = []): bool
     {
         return $type === $this->supportedClass;
     }
@@ -55,9 +48,9 @@ class PaymentDetailsNormalizer extends ConfigurableEntityNormalizer implements D
      *
      * @param array $paymentDetails
      *
-     * @return string
+     * @return string|null
      */
-    public function denormalizePaymentDetails($paymentDetails)
+    public function denormalizePaymentDetails(array $paymentDetails): ?string
     {
         $ccType = isset($paymentDetails['cc_type']) ? trim($paymentDetails['cc_type']) : null;
         $ccLast4 = isset($paymentDetails['cc_last4']) ? trim($paymentDetails['cc_last4']) : null;

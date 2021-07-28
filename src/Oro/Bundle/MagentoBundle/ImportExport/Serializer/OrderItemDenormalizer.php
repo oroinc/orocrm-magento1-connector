@@ -3,19 +3,18 @@
 namespace Oro\Bundle\MagentoBundle\ImportExport\Serializer;
 
 use Oro\Bundle\ImportExportBundle\Serializer\Normalizer\ConfigurableEntityNormalizer;
-use Oro\Bundle\ImportExportBundle\Serializer\Normalizer\DenormalizerInterface;
 use Oro\Bundle\MagentoBundle\Entity\OrderItem;
 use Oro\Bundle\MagentoBundle\Provider\Connector\MagentoConnectorInterface;
 
-class OrderItemDenormalizer extends ConfigurableEntityNormalizer implements DenormalizerInterface
+class OrderItemDenormalizer extends ConfigurableEntityNormalizer
 {
     /**
      * {@inheritdoc}
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, string $type, $format = null, array $context = [])
     {
         /** @var OrderItem $object */
-        $object = parent::denormalize($data, $class, $format, $context);
+        $object = parent::denormalize($data, $type, $format, $context);
 
         if ($object->getDiscountPercent()) {
             $object->setDiscountPercent($object->getDiscountPercent() / 100);
@@ -30,7 +29,7 @@ class OrderItemDenormalizer extends ConfigurableEntityNormalizer implements Deno
     /**
      * {@inheritdoc}
      */
-    public function supportsDenormalization($data, $type, $format = null, array $context = [])
+    public function supportsDenormalization($data, string $type, string $format = null, array $context = []): bool
     {
         return $type === MagentoConnectorInterface::ORDER_ITEM_TYPE;
     }
@@ -38,7 +37,7 @@ class OrderItemDenormalizer extends ConfigurableEntityNormalizer implements Deno
     /**
      * {@inheritdoc}
      */
-    public function supportsNormalization($data, $format = null, array $context = [])
+    public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
         return false;
     }
