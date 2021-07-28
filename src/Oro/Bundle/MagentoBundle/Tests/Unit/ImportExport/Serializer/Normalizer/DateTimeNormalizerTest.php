@@ -1,6 +1,6 @@
 <?php
 
-namespace Oro\Bundle\MagentoBundle\Test\Unit\ImportExport\Serializer\Normalizer;
+namespace Oro\Bundle\MagentoBundle\Tests\Unit\ImportExport\Serializer\Normalizer;
 
 use Oro\Bundle\MagentoBundle\ImportExport\Serializer\Normalizer\DateTimeNormalizer;
 

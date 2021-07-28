@@ -18,7 +18,7 @@ class ContextProcessor extends StepExecutionAwareImportProcessor
             throw new \InvalidArgumentException('Processor was not configured properly');
         }
 
-        $object = $this->serializer->deserialize(
+        $object = $this->serializer->denormalize(
             $item,
             $this->getEntityName(),
             '',

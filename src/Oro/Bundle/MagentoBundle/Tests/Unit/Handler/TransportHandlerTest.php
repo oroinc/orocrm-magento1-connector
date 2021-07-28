@@ -1,6 +1,6 @@
 <?php
 
-namespace Oro\Bundle\MagentoBundle\Test\Unit\Handler;
+namespace Oro\Bundle\MagentoBundle\Tests\Unit\Handler;
 
 use Oro\Bundle\IntegrationBundle\Manager\TypesRegistry;
 use Oro\Bundle\MagentoBundle\Entity\MagentoSoapTransport;

@@ -3,23 +3,23 @@
 namespace Oro\Bundle\MagentoBundle\ImportExport\Serializer;
 
 use Oro\Bundle\AddressBundle\Entity\Region as BAPRegion;
-use Oro\Bundle\ImportExportBundle\Serializer\Normalizer\DenormalizerInterface;
 use Oro\Bundle\MagentoBundle\Entity\Region;
 use Oro\Bundle\MagentoBundle\Provider\Connector\MagentoConnectorInterface;
+use Symfony\Component\Serializer\Normalizer\ContextAwareDenormalizerInterface;
 
-class RegionDenormalizer implements DenormalizerInterface
+class RegionDenormalizer implements ContextAwareDenormalizerInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, string $type, string $format = null, array $context = [])
     {
         if (empty($data)) {
             return false;
         }
 
         /** @var Region $resultObject */
-        $resultObject = new $class();
+        $resultObject = new $type();
 
         if (isset($data['region_id'])) {
             $resultObject->setRegionId($data['region_id']);
@@ -51,7 +51,7 @@ class RegionDenormalizer implements DenormalizerInterface
     /**
      * {@inheritdoc}
      */
-    public function supportsDenormalization($data, $type, $format = null, array $context = [])
+    public function supportsDenormalization($data, string $type, string $format = null, array $context = []): bool
     {
         return $type === MagentoConnectorInterface::REGION_TYPE;
     }
