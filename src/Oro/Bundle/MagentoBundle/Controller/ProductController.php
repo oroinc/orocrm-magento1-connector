@@ -6,13 +6,13 @@ use Oro\Bundle\MagentoBundle\Entity\Product;
 use Oro\Bundle\SecurityBundle\Annotation\Acl;
 use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/product")
  */
-class ProductController extends Controller
+class ProductController extends AbstractController
 {
     /**
      * @Route("/", name="oro_magento_product_index")

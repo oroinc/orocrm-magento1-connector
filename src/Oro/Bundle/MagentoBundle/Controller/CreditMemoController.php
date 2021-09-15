@@ -10,14 +10,14 @@ use Oro\Bundle\SecurityBundle\Annotation\Acl;
 use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * The controller for Magento CreditMemo entity.
  * @Route("/credit-memo")
  */
-class CreditMemoController extends Controller
+class CreditMemoController extends AbstractController
 {
     /**
      * @Route("/", name="oro_magento_credit_memo_index")

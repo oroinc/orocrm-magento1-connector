@@ -179,6 +179,9 @@ services:
             - { name: oro_integration.connector, type: cart, channel_type: magento }
             - { name: oro_magento.bundle_config.aware, argument_number: 3 }
 
+    Oro\Bundle\MagentoBundle\Provider\Connector\CartConnector:
+        alias: oro_magento.mage.cart_connector
+
     oro_magento.mage.order_connector:
         class: Oro\Bundle\MagentoBundle\Provider\Connector\OrderConnector
         parent: oro_magento.connector.abstract

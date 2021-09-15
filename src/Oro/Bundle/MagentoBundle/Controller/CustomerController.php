@@ -8,22 +8,24 @@ use Oro\Bundle\MagentoBundle\Entity\Cart;
 use Oro\Bundle\MagentoBundle\Entity\CreditMemo;
 use Oro\Bundle\MagentoBundle\Entity\Customer;
 use Oro\Bundle\MagentoBundle\Entity\Order;
+use Oro\Bundle\MagentoBundle\Form\Handler\CustomerHandler;
 use Oro\Bundle\MagentoBundle\Form\Type\CustomerType;
 use Oro\Bundle\SecurityBundle\Annotation\Acl;
 use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
 use Oro\Bundle\SecurityBundle\Annotation\CsrfProtection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Magento Customer Controller
  * @Route("/customer")
  */
-class CustomerController extends Controller
+class CustomerController extends AbstractController
 {
     /**
      * @Route("/", name="oro_magento_customer_index")
@@ -103,7 +105,7 @@ class CustomerController extends Controller
     public function registerAction(Customer $customer)
     {
         return new JsonResponse([
-            'successful' => $this->get('oro_magento.form.handler.customer')->handleRegister($customer),
+            'successful' => $this->get(CustomerHandler::class)->handleRegister($customer),
         ]);
     }
 
@@ -113,7 +115,7 @@ class CustomerController extends Controller
      */
     protected function update(Customer $customer)
     {
-        return $this->get('oro_magento.form.handler.customer')->handleUpdate(
+        return $this->get(CustomerHandler::class)->handleUpdate(
             $customer,
             $this->createForm(CustomerType::class, $customer),
             function (Customer $customer) {
@@ -128,7 +130,7 @@ class CustomerController extends Controller
                     'parameters' => ['id' => $customer->getId()]
                 ];
             },
-            $this->get('translator')->trans('oro.magento.customer.saved.message')
+            $this->get(TranslatorInterface::class)->trans('oro.magento.customer.saved.message')
         );
     }
 
@@ -224,5 +226,17 @@ class CustomerController extends Controller
     public function addressBookAction(Customer $customer)
     {
         return ['entity' => $customer];
+    }
+
+    public static function getSubscribedServices(): array
+    {
+        return array_merge(
+            parent::getSubscribedServices(),
+            [
+                TranslatorInterface::class,
+
+                CustomerHandler::class,
+            ]
+        );
     }
 }

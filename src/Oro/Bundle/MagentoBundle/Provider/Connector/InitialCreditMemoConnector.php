@@ -7,7 +7,7 @@ class InitialCreditMemoConnector extends AbstractMagentoConnector implements Ini
     /**
      * {@inheritdoc}
      */
-    public function getLabel()
+    public function getLabel(): string
     {
         return 'oro.magento.connector.credit_memo.initial.label';
     }

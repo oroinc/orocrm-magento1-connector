@@ -9,7 +9,7 @@ class CreditMemoConnector extends AbstractMagentoConnector
     /**
      * {@inheritdoc}
      */
-    public function getLabel()
+    public function getLabel(): string
     {
         return 'oro.magento.connector.credit_memo.label';
     }

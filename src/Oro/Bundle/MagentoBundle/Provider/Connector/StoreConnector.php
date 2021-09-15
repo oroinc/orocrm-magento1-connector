@@ -17,7 +17,7 @@ class StoreConnector extends AbstractMagentoConnector implements DictionaryConne
     /**
      * {@inheritdoc}
      */
-    public function getLabel()
+    public function getLabel(): string
     {
         return 'oro.magento.connector.store.label';
     }

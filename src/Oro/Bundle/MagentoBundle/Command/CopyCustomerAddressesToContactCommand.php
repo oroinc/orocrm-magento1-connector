@@ -91,5 +91,7 @@ class CopyCustomerAddressesToContactCommand extends Command
         $this->customerAddressManager->setLogger($logger);
         $this->customerAddressManager->copyToContact($ids, $integrationIds, $batchSize);
         $logger->info('Executing command finished.');
+
+        return Command::SUCCESS;
     }
 }

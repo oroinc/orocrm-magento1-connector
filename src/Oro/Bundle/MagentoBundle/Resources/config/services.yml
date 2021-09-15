@@ -188,10 +188,12 @@ services:
 
     oro_magento.form.handler.customer:
         class: Oro\Bundle\MagentoBundle\Form\Handler\CustomerHandler
-        public: true
         parent: oro_form.model.update_handler
         calls:
             - [setStateHandler,  ["@oro_magento.customer_state_handler"]]
+
+    Oro\Bundle\MagentoBundle\Form\Handler\CustomerHandler:
+        alias: oro_magento.form.handler.customer
 
     oro_magento.form.cart.api:
         class: Symfony\Component\Form\Form

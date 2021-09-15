@@ -11,7 +11,7 @@ class CustomerConnector extends AbstractMagentoConnector implements TwoWaySyncCo
     /**
      * {@inheritdoc}
      */
-    public function getLabel()
+    public function getLabel(): string
     {
         return 'oro.magento.connector.customer.label';
     }

@@ -10,7 +10,7 @@ use Oro\Bundle\MagentoBundle\Entity\Cart;
 use Oro\Bundle\MagentoBundle\Entity\Customer;
 use Oro\Bundle\SecurityBundle\Annotation\CsrfProtection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * Magento Order Place Controller
  * @Route("/order/place")
  */
-class OrderPlaceController extends Controller
+class OrderPlaceController extends AbstractController
 {
     const SYNC_SUCCESS    = 'success';
     const SYNC_ERROR      = 'error';

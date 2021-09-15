@@ -19,7 +19,7 @@ class WebsiteConnector extends AbstractMagentoConnector implements DictionaryCon
     /**
      * {@inheritdoc}
      */
-    public function getLabel()
+    public function getLabel(): string
     {
         return 'oro.magento.connector.website.label';
     }

@@ -9,7 +9,7 @@ class InitialCustomerConnector extends AbstractMagentoConnector implements Initi
     /**
      * {@inheritdoc}
      */
-    public function getLabel()
+    public function getLabel(): string
     {
         return 'oro.magento.connector.customer.initial.label';
     }

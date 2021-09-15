@@ -109,6 +109,8 @@ class SyncCartExpirationCommand extends Command implements CronCommandInterface
         }
 
         $logger->info('Completed');
+
+        return Command::SUCCESS;
     }
 
     /**

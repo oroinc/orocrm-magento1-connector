@@ -21,6 +21,7 @@ class OroMagentoExtension extends Extension
         $loader->load('importexport.yml');
         $loader->load('commands.yml');
         $loader->load('controllers.yml');
+        $loader->load('controllers_api.yml');
 
         if ($container->getParameter('kernel.environment') === 'test') {
             $loader->load('services_test.yml');
