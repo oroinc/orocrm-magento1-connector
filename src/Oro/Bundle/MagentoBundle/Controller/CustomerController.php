@@ -234,7 +234,6 @@ class CustomerController extends AbstractController
             parent::getSubscribedServices(),
             [
                 TranslatorInterface::class,
-
                 CustomerHandler::class,
             ]
         );
