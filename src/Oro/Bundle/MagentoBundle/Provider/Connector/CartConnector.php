@@ -11,7 +11,7 @@ class CartConnector extends AbstractMagentoConnector implements ExtensionAwareIn
     /**
      * {@inheritdoc}
      */
-    public function getLabel()
+    public function getLabel(): string
     {
         return 'oro.magento.connector.cart.label';
     }

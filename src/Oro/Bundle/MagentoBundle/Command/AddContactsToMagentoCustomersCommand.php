@@ -80,5 +80,7 @@ class AddContactsToMagentoCustomersCommand extends Command
         $this->customerContactManager->setLogger($logger);
         $this->customerContactManager->fillContacts($integrationIds, $batchSize);
         $logger->info('Executing command finished.');
+
+        return Command::SUCCESS;
     }
 }

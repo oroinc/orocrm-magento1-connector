@@ -10,7 +10,7 @@ use Oro\Bundle\SecurityBundle\Annotation\Acl;
 use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * @Route("/order")
  * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  */
-class OrderController extends Controller
+class OrderController extends AbstractController
 {
     /**
      * @Route("/", name="oro_magento_order_index")

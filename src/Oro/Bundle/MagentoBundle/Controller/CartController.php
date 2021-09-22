@@ -3,20 +3,25 @@
 namespace Oro\Bundle\MagentoBundle\Controller;
 
 use Oro\Bundle\IntegrationBundle\Entity\Channel;
+use Oro\Bundle\IntegrationBundle\Provider\SyncProcessor;
 use Oro\Bundle\MagentoBundle\Entity\Cart;
 use Oro\Bundle\MagentoBundle\Entity\Customer;
+use Oro\Bundle\MagentoBundle\Provider\Connector\CartConnector;
 use Oro\Bundle\SecurityBundle\Annotation\Acl;
 use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
+use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * The controller for Magento Cart entity.
  * @Route("/cart")
  */
-class CartController extends Controller
+class CartController extends AbstractController
 {
     /**
      * @Route("/", name="oro_magento_cart_index")
@@ -26,7 +31,7 @@ class CartController extends Controller
     public function indexAction()
     {
         return [
-            'entity_class' => Cart::class
+            'entity_class' => Cart::class,
         ];
     }
 
@@ -83,7 +88,7 @@ class CartController extends Controller
      */
     public function customerCartsAction(Customer $customer, Channel $channel)
     {
-        return array('customer' => $customer, 'channel' => $channel);
+        return ['customer' => $customer, 'channel' => $channel];
     }
 
     /**
@@ -99,41 +104,54 @@ class CartController extends Controller
      */
     public function customerCartsWidgetAction(Customer $customer, Channel $channel)
     {
-        return array('customer' => $customer, 'channel' => $channel);
+        return ['customer' => $customer, 'channel' => $channel];
     }
 
     /**
      * @Route("/actualize/{id}", name="oro_magento_cart_actualize", requirements={"id"="\d+"}))
      * @AclAncestor("oro_magento_cart_view")
      */
-    public function actualizeAction(Cart $cart)
+    public function actualizeAction(Cart $cart, Request $request)
     {
         $result = false;
-        $connector = $this->get('oro_magento.mage.cart_connector');
+        $connector = $this->get(CartConnector::class);
 
         try {
-            $processor = $this->get('oro_integration.sync.processor');
+            $processor = $this->get(SyncProcessor::class);
             $result = $processor->process(
                 $cart->getChannel(),
                 $connector->getType(),
                 ['filters' => ['entity_id' => $cart->getOriginId()]]
             );
         } catch (\LogicException $e) {
-            $this->get('logger')->addCritical($e->getMessage(), ['exception' => $e]);
+            $this->get(LoggerInterface::class)->addCritical($e->getMessage(), ['exception' => $e]);
         }
 
         if ($result === true) {
-            $this->get('session')->getFlashBag()->add(
+            $request->getSession()->getFlashBag()->add(
                 'success',
-                $this->get('translator')->trans('oro.magento.controller.synchronization_success')
+                $this->get(TranslatorInterface::class)->trans('oro.magento.controller.synchronization_success')
             );
         } else {
-            $this->get('session')->getFlashBag()->add(
+            $request->getSession()->getFlashBag()->add(
                 'error',
-                $this->get('translator')->trans('oro.magento.controller.synchronization_error')
+                $this->get(TranslatorInterface::class)->trans('oro.magento.controller.synchronization_error')
             );
         }
 
         return $this->redirect($this->generateUrl('oro_magento_cart_view', ['id' => $cart->getId()]));
+    }
+
+    public static function getSubscribedServices(): array
+    {
+        return array_merge(
+            parent::getSubscribedServices(),
+            [
+                TranslatorInterface::class,
+                LoggerInterface::class,
+                CartConnector::class,
+                SyncProcessor::class,
+            ]
+        );
     }
 }

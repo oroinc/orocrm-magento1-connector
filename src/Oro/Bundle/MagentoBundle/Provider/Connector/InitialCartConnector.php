@@ -13,7 +13,7 @@ class InitialCartConnector extends AbstractMagentoConnector implements
     /**
      * {@inheritdoc}
      */
-    public function getLabel()
+    public function getLabel(): string
     {
         return 'oro.magento.connector.cart.initial.label';
     }

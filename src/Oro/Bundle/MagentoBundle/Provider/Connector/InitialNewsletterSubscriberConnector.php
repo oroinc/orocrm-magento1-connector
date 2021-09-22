@@ -16,7 +16,7 @@ class InitialNewsletterSubscriberConnector extends AbstractMagentoConnector impl
     /**
      * {@inheritdoc}
      */
-    public function getLabel()
+    public function getLabel(): string
     {
         return 'oro.magento.connector.newsletter_subscriber.initial.label';
     }

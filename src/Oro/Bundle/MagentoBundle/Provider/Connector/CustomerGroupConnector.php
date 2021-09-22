@@ -17,7 +17,7 @@ class CustomerGroupConnector extends AbstractMagentoConnector implements Diction
     /**
      * {@inheritdoc}
      */
-    public function getLabel()
+    public function getLabel(): string
     {
         return 'oro.magento.connector.customer_group.label';
     }

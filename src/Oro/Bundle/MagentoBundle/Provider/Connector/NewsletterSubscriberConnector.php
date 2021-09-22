@@ -23,7 +23,7 @@ class NewsletterSubscriberConnector extends AbstractMagentoConnector implements 
     /**
      * {@inheritdoc}
      */
-    public function getLabel()
+    public function getLabel(): string
     {
         return 'oro.magento.connector.newsletter_subscriber.label';
     }

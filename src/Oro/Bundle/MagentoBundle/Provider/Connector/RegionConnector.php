@@ -7,7 +7,7 @@ class RegionConnector extends AbstractMagentoConnector implements DictionaryConn
     /**
      * {@inheritdoc}
      */
-    public function getLabel()
+    public function getLabel(): string
     {
         return 'oro.magento.connector.region.label';
     }

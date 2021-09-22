@@ -9,7 +9,7 @@ class OrderConnector extends AbstractMagentoConnector
     /**
      * {@inheritdoc}
      */
-    public function getLabel()
+    public function getLabel(): string
     {
         return 'oro.magento.connector.order.label';
     }
