@@ -20,9 +20,6 @@ use Oro\Bundle\MagentoBundle\Model\ExtendOrderAddress;
  *          "entity"={
  *              "icon"="fa-map-marker"
  *          },
- *          "note"={
- *              "immutable"=true
- *          },
  *          "activity"={
  *              "immutable"=true
  *          },

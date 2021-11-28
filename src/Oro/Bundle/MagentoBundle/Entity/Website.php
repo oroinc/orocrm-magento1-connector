@@ -20,9 +20,6 @@ use Oro\Bundle\MagentoBundle\Model\ExtendWebsite;
  * )
  * @Config(
  *      defaultValues={
- *          "note"={
- *              "immutable"=true
- *          },
  *          "activity"={
  *              "immutable"=true
  *          },

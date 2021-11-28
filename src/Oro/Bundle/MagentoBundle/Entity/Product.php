@@ -21,9 +21,6 @@ use Oro\Bundle\MagentoBundle\Model\ExtendProduct;
  *              "group_name"="",
  *              "category"="sales_data"
  *          },
- *          "note"={
- *              "immutable"=true
- *          },
  *          "activity"={
  *              "immutable"=true
  *          },

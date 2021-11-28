@@ -17,9 +17,6 @@ use Oro\Bundle\MagentoBundle\Model\ExtendCustomerGroup;
  *          "entity"={
  *              "icon"="fa-users"
  *          },
- *          "note"={
- *              "immutable"=true
- *          },
  *          "activity"={
  *              "immutable"=true
  *          },

@@ -19,9 +19,6 @@ use Oro\Bundle\MagentoBundle\Model\ExtendAddress;
  * @ORM\HasLifecycleCallbacks()
  * @Config(
  *      defaultValues={
- *          "note"={
- *              "immutable"=true
- *          },
  *          "activity"={
  *              "immutable"=true
  *          },

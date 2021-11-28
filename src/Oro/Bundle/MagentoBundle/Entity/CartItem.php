@@ -31,9 +31,6 @@ use Oro\Bundle\OrganizationBundle\Entity\Organization;
  *              "group_name"="",
  *              "category"="sales_data"
  *          },
- *          "note"={
- *              "immutable"=true
- *          },
  *          "activity"={
  *              "immutable"=true
  *          },
