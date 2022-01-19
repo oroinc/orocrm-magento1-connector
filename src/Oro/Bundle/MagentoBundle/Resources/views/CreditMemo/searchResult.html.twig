@@ -10,7 +10,7 @@
 {% set recordUrl = indexer_item.recordUrl %}
 {% set title = entity ?
     'oro.magento.entity_number'|trans({'%entityName%': 'oro.magento.creditmemo.entity_label'|trans, '%entityNumber%': entity.incrementId})
-    : indexer_item.recordTitle
+    : indexer_item.selectedData.name
 %}
 
 {% set entityType = 'oro.magento.creditmemo.entity_label'|trans %}
