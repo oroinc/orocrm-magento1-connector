@@ -61,7 +61,7 @@
 {% block oro_magento_website_select_row %}
     {% import _self as fields %}
 
-    {% spaceless %}
+    {% apply spaceless %}
         <div class="control-group{% if attr.class is defined %} {{ attr.class }}{% endif %}">
             {% if label is not same as(false) %}
                 <div class="control-label wrap">
@@ -85,7 +85,7 @@
                 {{ form_errors(form) }}
             </div>
         </div>
-    {% endspaceless %}
+    {% endapply %}
 {% endblock %}
 
 {% block oro_magento_order_place_form_type_row %}
