@@ -2,7 +2,6 @@ search:
     Oro\Bundle\MagentoBundle\Entity\Order:
         alias:                          oro_magento_order
         label:                          oro.magento.order.entity_plural_label
-        title_fields:                   [incrementId]
         route:
             name:                       oro_magento_order_view
             parameters:
@@ -106,7 +105,6 @@ search:
     Oro\Bundle\MagentoBundle\Entity\Cart:
         alias:                          oro_magento_cart
         label:                          oro.magento.cart.entity_plural_label
-        title_fields:                   [originId]
         route:
             name:                       oro_magento_cart_view
             parameters:
@@ -194,7 +192,6 @@ search:
     Oro\Bundle\MagentoBundle\Entity\Customer:
         alias:                          oro_magento_customer
         label:                          oro.magento.customer.entity_plural_label
-        title_fields:                   [firstName, lastName]
         route:
             name:                       oro_magento_customer_view
             parameters:
