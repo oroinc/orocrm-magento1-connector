@@ -68,7 +68,6 @@ search:
     Oro\Bundle\MagentoBundle\Entity\CreditMemo:
         alias:                          oro_magento_credit_memo
         label:                          oro.magento.creditmemo.entity_plural_label
-        title_fields:                   [incrementId]
         route:
             name:                       oro_magento_credit_memo_view
             parameters:
