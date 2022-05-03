@@ -48,7 +48,7 @@ dashboards:
         big_numbers_widget:
             label:       oro.magento.dashboard.e_commerce_statistic.title
             route:       oro_dashboard_itemized_data_widget
-            route_parameters: { bundle: OroDashboardBundle, name: bigNumbers }
+            route_parameters: { bundle: OroDashboard, name: bigNumbers }
             acl:         oro_magento_cart_view
             description: oro.magento.dashboard.e_commerce_statistic.description
             icon:        bundles/oromagento/img/icon-big_numbers.png
