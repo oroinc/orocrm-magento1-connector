@@ -14,7 +14,7 @@ Oro\Bundle\MagentoBundle\Entity\MagentoSoapTransport:
           - NotBlank: ~
         syncStartDate:
           - NotBlank: ~
-          - Oro\Bundle\MagentoBundle\Validator\Constraints\StartSyncDateConstraint: ~
+          - Oro\Bundle\MagentoBundle\Validator\Constraints\StartSyncDateConstraint: { groups: ['form'] }
         websiteId:
           - NotBlank: ~
         sharedGuestEmailList:
@@ -101,9 +101,9 @@ Oro\Bundle\MagentoBundle\Entity\Customer:
         birthday:
             - Date: ~
         createdAt:
-            - DateTime: ~
+            - NotBlank: ~
         updatedAt:
-            - DateTime: ~
+            - NotBlank: ~
         store:
             - NotBlank: { groups: ['form'] }
         group:
@@ -233,10 +233,8 @@ Oro\Bundle\MagentoBundle\Entity\CartItem:
         taxPercent:
             - NotNull: ~
         createdAt:
-            - DateTime: ~
             - NotBlank: ~
         updatedAt:
-            - DateTime: ~
             - NotBlank: ~
 
 Oro\Bundle\MagentoBundle\Entity\Order:
@@ -270,10 +268,8 @@ Oro\Bundle\MagentoBundle\Entity\Order:
         items:
             - Valid: ~
         createdAt:
-            - DateTime: ~
             - NotBlank: ~
         updatedAt:
-            - DateTime: ~
             - NotBlank: ~
         dataChannel:
             - NotBlank: ~
