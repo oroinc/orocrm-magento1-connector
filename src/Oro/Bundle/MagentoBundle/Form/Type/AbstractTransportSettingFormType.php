@@ -20,6 +20,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraint;
 
 abstract class AbstractTransportSettingFormType extends AbstractType
 {
@@ -153,7 +154,10 @@ abstract class AbstractTransportSettingFormType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(['data_class' => $this->transport->getSettingsEntityFQCN()]);
+        $resolver->setDefaults([
+            'data_class' => $this->transport->getSettingsEntityFQCN(),
+            'validation_groups' => [Constraint::DEFAULT_GROUP, 'form']
+        ]);
     }
 
     /**
