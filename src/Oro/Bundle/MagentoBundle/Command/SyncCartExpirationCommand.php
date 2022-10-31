@@ -6,11 +6,9 @@ use Doctrine\Persistence\ManagerRegistry;
 use Oro\Bundle\CronBundle\Command\CronCommandInterface;
 use Oro\Bundle\IntegrationBundle\Entity\Channel as Integration;
 use Oro\Bundle\IntegrationBundle\Entity\Repository\ChannelRepository as IntegrationRepository;
-use Oro\Bundle\MagentoBundle\Async\Topics;
+use Oro\Bundle\MagentoBundle\Async\Topic\SyncCartExpirationIntegrationTopic;
 use Oro\Bundle\MagentoBundle\Provider\MagentoChannelType;
 use Oro\Component\Log\OutputLogger;
-use Oro\Component\MessageQueue\Client\Message;
-use Oro\Component\MessageQueue\Client\MessagePriority;
 use Oro\Component\MessageQueue\Client\MessageProducerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -100,11 +98,8 @@ class SyncCartExpirationCommand extends Command implements CronCommandInterface
             $logger->info(sprintf('Run sync for "%s" channel.', $channel->getName()));
 
             $this->messageProducer->send(
-                Topics::SYNC_CART_EXPIRATION_INTEGRATION,
-                new Message(
-                    ['integrationId' => $channel->getId()],
-                    MessagePriority::VERY_LOW
-                )
+                SyncCartExpirationIntegrationTopic::getName(),
+                ['integrationId' => $channel->getId()]
             );
         }
 

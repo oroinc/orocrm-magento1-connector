@@ -27,6 +27,6 @@ class ScheduleStuckedJobs implements Migration, ContainerAwareInterface
     public function up(Schema $schema, QueryBag $queries)
     {
         $this->container->get('oro_message_queue.message_producer')
-            ->send(ScheduleStuckedJobsProcessor::TOPIC_NAME, '');
+            ->send(ScheduleStuckedJobsTopic::getName(), []);
     }
 }
