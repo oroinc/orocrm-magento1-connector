@@ -6,7 +6,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Oro\Bundle\IntegrationBundle\Entity\Channel as Integration;
 use Oro\Bundle\IntegrationBundle\Entity\Repository\ChannelRepository as IntegrationRepository;
 use Oro\Bundle\MagentoBundle\Async\SyncCartExpirationIntegrationProcessor;
-use Oro\Bundle\MagentoBundle\Async\Topics;
+use Oro\Bundle\MagentoBundle\Async\Topic\SyncCartExpirationIntegrationTopic;
 use Oro\Bundle\MagentoBundle\Exception\ExtensionRequiredException;
 use Oro\Bundle\MagentoBundle\Provider\CartExpirationProcessor;
 use Oro\Bundle\OrganizationBundle\Entity\Organization;
@@ -15,7 +15,6 @@ use Oro\Component\MessageQueue\Consumption\MessageProcessorInterface;
 use Oro\Component\MessageQueue\Test\JobRunner;
 use Oro\Component\MessageQueue\Transport\Message;
 use Oro\Component\MessageQueue\Transport\SessionInterface;
-use Oro\Component\MessageQueue\Util\JSON;
 use Oro\Component\Testing\ClassExtensionTrait;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -40,7 +39,7 @@ class SyncCartExpirationIntegrationProcessorTest extends \PHPUnit\Framework\Test
     public function testShouldSubscribeOnSyncCartExpirationIntegrationTopic()
     {
         $this->assertEquals(
-            [Topics::SYNC_CART_EXPIRATION_INTEGRATION],
+            [SyncCartExpirationIntegrationTopic::getName()],
             SyncCartExpirationIntegrationProcessor::getSubscribedTopics()
         );
     }
@@ -56,67 +55,19 @@ class SyncCartExpirationIntegrationProcessorTest extends \PHPUnit\Framework\Test
         );
     }
 
-    public function testShouldLogAndRejectIfMessageBodyMissIntegrationId()
-    {
-        $message = new Message();
-        $message->setBody('[]');
-
-        $logger = $this->createLoggerMock();
-        $logger
-            ->expects($this->once())
-            ->method('critical')
-            ->with('The message invalid. It must have integrationId set')
-        ;
-
-        $processor = new SyncCartExpirationIntegrationProcessor(
-            $this->createRegistryStub(),
-            $this->createSyncProcessorMock(),
-            new JobRunner(),
-            $this->createTokenStorageMock(),
-            $logger
-        );
-
-        /** @var SessionInterface|\PHPUnit\Framework\MockObject\MockObject $session */
-        $session = $this->createMock(SessionInterface::class);
-        $status = $processor->process($message, new $session);
-
-        $this->assertEquals(MessageProcessorInterface::REJECT, $status);
-    }
-
-    public function testThrowIfMessageBodyInvalidJson()
-    {
-        $this->expectException(\LogicException::class);
-        $this->expectExceptionMessage('The malformed json given.');
-
-        $processor = new SyncCartExpirationIntegrationProcessor(
-            $this->createRegistryStub(),
-            $this->createSyncProcessorMock(),
-            new JobRunner(),
-            $this->createTokenStorageMock(),
-            $this->createLoggerMock()
-        );
-
-        $message = new Message();
-        $message->setBody('[}');
-
-        /** @var SessionInterface|\PHPUnit\Framework\MockObject\MockObject $session */
-        $session = $this->createMock(SessionInterface::class);
-        $processor->process($message, $session);
-    }
-
     public function testShouldRejectMessageIfIntegrationNotExist()
     {
         $repositoryStub = $this->createIntegrationRepositoryStub(null);
         $registryStub = $this->createRegistryStub($repositoryStub);
 
         $message = new Message();
-        $message->setBody(JSON::encode(['integrationId' => 'theIntegrationId']));
+        $message->setBody(['integrationId' => PHP_INT_MAX]);
 
         $logger = $this->createLoggerMock();
         $logger
             ->expects($this->once())
             ->method('error')
-            ->with('The integration should exist and be enabled: theIntegrationId')
+            ->with('The integration should exist and be enabled: ' . PHP_INT_MAX)
         ;
 
         $processor = new SyncCartExpirationIntegrationProcessor(
@@ -143,13 +94,13 @@ class SyncCartExpirationIntegrationProcessorTest extends \PHPUnit\Framework\Test
         $registryStub = $this->createRegistryStub($repositoryMock);
 
         $message = new Message();
-        $message->setBody(JSON::encode(['integrationId' => 'theIntegrationId']));
+        $message->setBody(['integrationId' => PHP_INT_MAX]);
 
         $logger = $this->createLoggerMock();
         $logger
             ->expects($this->once())
             ->method('error')
-            ->with('The integration should exist and be enabled: theIntegrationId')
+            ->with('The integration should exist and be enabled: ' . PHP_INT_MAX)
         ;
 
         $processor = new SyncCartExpirationIntegrationProcessor(
@@ -177,14 +128,14 @@ class SyncCartExpirationIntegrationProcessorTest extends \PHPUnit\Framework\Test
         $registryStub = $this->createRegistryStub($repositoryMock);
 
         $message = new Message();
-        $message->setBody(JSON::encode(['integrationId' => 'theIntegrationId']));
+        $message->setBody(['integrationId' => PHP_INT_MAX]);
 
         $logger = $this->createLoggerMock();
         $logger
             ->expects($this->once())
             ->method('error')
             ->with(
-                'The integration should have cart in connectors: theIntegrationId',
+                'The integration should have cart in connectors: ' . PHP_INT_MAX,
                 [
                     'integration' => $integration
                 ]
@@ -242,7 +193,7 @@ class SyncCartExpirationIntegrationProcessorTest extends \PHPUnit\Framework\Test
         );
 
         $message = new Message();
-        $message->setBody(JSON::encode(['integrationId' => 'theIntegrationId']));
+        $message->setBody(['integrationId' => PHP_INT_MAX]);
 
         /** @var SessionInterface|\PHPUnit\Framework\MockObject\MockObject $session */
         $session = $this->createMock(SessionInterface::class);
@@ -277,7 +228,7 @@ class SyncCartExpirationIntegrationProcessorTest extends \PHPUnit\Framework\Test
         );
 
         $message = new Message();
-        $message->setBody(JSON::encode(['integrationId' => 'theIntegrationId']));
+        $message->setBody(['integrationId' => PHP_INT_MAX]);
 
         /** @var SessionInterface|\PHPUnit\Framework\MockObject\MockObject $session */
         $session = $this->createMock(SessionInterface::class);

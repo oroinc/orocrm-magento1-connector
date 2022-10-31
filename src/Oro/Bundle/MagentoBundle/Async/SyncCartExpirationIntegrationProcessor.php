@@ -5,6 +5,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Oro\Bundle\IntegrationBundle\Authentication\Token\IntegrationTokenAwareTrait;
 use Oro\Bundle\IntegrationBundle\Entity\Channel as Integration;
 use Oro\Bundle\IntegrationBundle\Entity\Repository\ChannelRepository as IntegrationRepository;
+use Oro\Bundle\MagentoBundle\Async\Topic\SyncCartExpirationIntegrationTopic;
 use Oro\Bundle\MagentoBundle\Exception\ExtensionRequiredException;
 use Oro\Bundle\MagentoBundle\Provider\CartExpirationProcessor;
 use Oro\Component\MessageQueue\Client\TopicSubscriberInterface;
@@ -12,10 +13,12 @@ use Oro\Component\MessageQueue\Consumption\MessageProcessorInterface;
 use Oro\Component\MessageQueue\Job\JobRunner;
 use Oro\Component\MessageQueue\Transport\MessageInterface;
 use Oro\Component\MessageQueue\Transport\SessionInterface;
-use Oro\Component\MessageQueue\Util\JSON;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
+/**
+ * Syncs cart expiration integration
+ */
 class SyncCartExpirationIntegrationProcessor implements MessageProcessorInterface, TopicSubscriberInterface
 {
     use IntegrationTokenAwareTrait;
@@ -66,7 +69,7 @@ class SyncCartExpirationIntegrationProcessor implements MessageProcessorInterfac
      */
     public static function getSubscribedTopics()
     {
-        return [Topics::SYNC_CART_EXPIRATION_INTEGRATION];
+        return [SyncCartExpirationIntegrationTopic::getName()];
     }
 
     /**
@@ -74,27 +77,18 @@ class SyncCartExpirationIntegrationProcessor implements MessageProcessorInterfac
      */
     public function process(MessageInterface $message, SessionInterface $session)
     {
-        $body = JSON::decode($message->getBody());
-        $body = array_replace_recursive([
-            'integrationId' => null,
-        ], $body);
-
-        if (! $body['integrationId']) {
-            $this->logger->critical('The message invalid. It must have integrationId set');
-
-            return self::REJECT;
-        }
+        $messageBody = $message->getBody();
 
         $ownerId = $message->getMessageId();
-        $jobName = 'oro_magento:sync_cart_expiration_integration:'.$body['integrationId'];
+        $jobName = 'oro_magento:sync_cart_expiration_integration:' . $messageBody['integrationId'];
 
         /** @var IntegrationRepository $repository */
         $repository = $this->doctrine->getRepository(Integration::class);
-        $integration = $repository->getOrLoadById($body['integrationId']);
+        $integration = $repository->getOrLoadById($messageBody['integrationId']);
 
         if (! $integration || ! $integration->isEnabled()) {
             $this->logger->error(
-                sprintf('The integration should exist and be enabled: %s', $body['integrationId'])
+                sprintf('The integration should exist and be enabled: %s', $messageBody['integrationId'])
             );
 
             return self::REJECT;
@@ -102,7 +96,7 @@ class SyncCartExpirationIntegrationProcessor implements MessageProcessorInterfac
 
         if (! is_array($integration->getConnectors()) || ! in_array('cart', $integration->getConnectors())) {
             $this->logger->error(
-                sprintf('The integration should have cart in connectors: %s', $body['integrationId']),
+                sprintf('The integration should have cart in connectors: %s', $messageBody['integrationId']),
                 ['integration' => $integration]
             );
 

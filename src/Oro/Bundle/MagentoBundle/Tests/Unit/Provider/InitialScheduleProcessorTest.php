@@ -4,6 +4,7 @@ namespace Oro\Bundle\MagentoBundle\Tests\Unit\Provider;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Oro\Bundle\EntityBundle\ORM\DoctrineHelper;
+use Oro\Bundle\MagentoBundle\Async\Topic\SyncInitialIntegrationTopic;
 use Oro\Bundle\MagentoBundle\Async\Topics;
 use Oro\Bundle\MagentoBundle\Entity\MagentoTransport;
 use Oro\Bundle\MagentoBundle\Provider\AbstractInitialProcessor;
@@ -68,7 +69,7 @@ class InitialScheduleProcessorTest extends AbstractSyncProcessorTest
         $this->processor->process($integration);
 
         self::assertMessageSent(
-            Topics::SYNC_INITIAL_INTEGRATION,
+            SyncInitialIntegrationTopic::getName(),
             new Message(
                 [
                     'integration_id' => 'testChannel',
@@ -122,7 +123,7 @@ class InitialScheduleProcessorTest extends AbstractSyncProcessorTest
         $this->processor->process($integration);
 
         self::assertMessageSent(
-            Topics::SYNC_INITIAL_INTEGRATION,
+            SyncInitialIntegrationTopic::getName(),
             new Message(
                 [
                     'integration_id' => 'testChannel',
@@ -176,7 +177,7 @@ class InitialScheduleProcessorTest extends AbstractSyncProcessorTest
         $this->processor->process($integration);
 
         self::assertMessageSent(
-            Topics::SYNC_INITIAL_INTEGRATION,
+            SyncInitialIntegrationTopic::getName(),
             new Message(
                 [
                     'integration_id' => 'testChannel',
@@ -230,7 +231,7 @@ class InitialScheduleProcessorTest extends AbstractSyncProcessorTest
 
         $this->processor->process($integration);
 
-        self::assertMessagesEmpty(Topics::SYNC_INITIAL_INTEGRATION);
+        self::assertMessagesEmpty(SyncInitialIntegrationTopic::getName());
     }
 
     public function testProcessForce()
@@ -299,7 +300,7 @@ class InitialScheduleProcessorTest extends AbstractSyncProcessorTest
 
         $this->processor->process($integration, null, ['force' => true]);
 
-        self::assertMessagesEmpty(Topics::SYNC_INITIAL_INTEGRATION);
+        self::assertMessagesEmpty(SyncInitialIntegrationTopic::getName());
     }
 
     public function testProcessInitialAfterForce()

@@ -32,7 +32,7 @@ class UpdateRelationsAccountsAndContacts implements Migration, ContainerAwareInt
         // send migration message to queue. we should process this migration asynchronous because instances
         // could have a lot of magento customers in system.
         $this->container->get('oro_message_queue.message_producer')
-            ->send(UpdateRelationsAccountsAndContactsProcessor::TOPIC_NAME, '');
+            ->send(UpdateRelationsAccountsAndContactsTopic::getName(), []);
 
         self::$executed = true;
     }

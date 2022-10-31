@@ -8,6 +8,7 @@ use Oro\Bundle\ChannelBundle\Entity\Channel;
 use Oro\Bundle\EntityBundle\ORM\DoctrineHelper;
 use Oro\Bundle\IntegrationBundle\Authentication\Token\IntegrationTokenAwareTrait;
 use Oro\Bundle\IntegrationBundle\Entity\Channel as Integration;
+use Oro\Bundle\MagentoBundle\Async\Topic\SyncInitialIntegrationTopic;
 use Oro\Bundle\MagentoBundle\Provider\InitialSyncProcessor;
 use Oro\Bundle\PlatformBundle\Manager\OptionalListenerManager;
 use Oro\Bundle\SearchBundle\Engine\IndexerInterface;
@@ -16,10 +17,12 @@ use Oro\Component\MessageQueue\Consumption\MessageProcessorInterface;
 use Oro\Component\MessageQueue\Job\JobRunner;
 use Oro\Component\MessageQueue\Transport\MessageInterface;
 use Oro\Component\MessageQueue\Transport\SessionInterface;
-use Oro\Component\MessageQueue\Util\JSON;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
+/**
+ * Syncs initial integration
+ */
 class SyncInitialIntegrationProcessor implements MessageProcessorInterface, TopicSubscriberInterface
 {
     use IntegrationTokenAwareTrait;
@@ -95,20 +98,9 @@ class SyncInitialIntegrationProcessor implements MessageProcessorInterface, Topi
      */
     public function process(MessageInterface $message, SessionInterface $session)
     {
-        $body = JSON::decode($message->getBody());
-        $body = array_replace_recursive([
-            'integration_id' => null,
-            'connector' => null,
-            'connector_parameters' => [],
-        ], $body);
+        $messageBody = $message->getBody();
 
-        if (false == $body['integration_id']) {
-            $this->logger->critical('The message invalid. It must have integrationId set');
-
-            return self::REJECT;
-        }
-
-        $jobName = 'orocrm_magento:sync_initial_integration:'.$body['integration_id'];
+        $jobName = 'orocrm_magento:sync_initial_integration:' . $messageBody['integration_id'];
         $ownerId = $message->getMessageId();
 
         /** @var EntityManagerInterface $em */
@@ -116,23 +108,23 @@ class SyncInitialIntegrationProcessor implements MessageProcessorInterface, Topi
         $em->getConnection()->getConfiguration()->setSQLLogger(null);
 
         /** @var Integration $integration */
-        $integration = $em->find(Integration::class, $body['integration_id']);
+        $integration = $em->find(Integration::class, $messageBody['integration_id']);
         if (! $integration) {
             $this->logger->error(
-                sprintf('Integration not found: %s', $body['integration_id'])
+                sprintf('Integration not found: %s', $messageBody['integration_id'])
             );
 
             return self::REJECT;
         }
         if (! $integration->isEnabled()) {
             $this->logger->error(
-                sprintf('Integration is not enabled: %s', $body['integration_id'])
+                sprintf('Integration is not enabled: %s', $messageBody['integration_id'])
             );
 
             return self::REJECT;
         }
 
-        $result = $this->jobRunner->runUnique($ownerId, $jobName, function () use ($body, $integration) {
+        $result = $this->jobRunner->runUnique($ownerId, $jobName, function () use ($messageBody, $integration) {
             $enabledListeners = [
                 'oro_search.index_listener',
                 'oro_entity.event_listener.entity_modify_created_updated_properties_listener',
@@ -148,8 +140,8 @@ class SyncInitialIntegrationProcessor implements MessageProcessorInterface, Topi
 
             $result = $this->initialSyncProcessor->process(
                 $integration,
-                $body['connector'],
-                $body['connector_parameters']
+                $messageBody['connector'],
+                $messageBody['connector_parameters']
             );
 
             if ($result) {
@@ -169,7 +161,7 @@ class SyncInitialIntegrationProcessor implements MessageProcessorInterface, Topi
      */
     public static function getSubscribedTopics()
     {
-        return [Topics::SYNC_INITIAL_INTEGRATION];
+        return [SyncInitialIntegrationTopic::getName()];
     }
 
     /**

@@ -44,8 +44,8 @@ class UpdateRelationsAccountsAndContactsProcessor implements MessageProcessorInt
     {
         if ($message->getBody() !== '') {
             // we have page number we should process, so now process this page
-            $body = json_decode($message->getBody(), true);
-            $this->processBatch((int)$body['batch_number']);
+            $body = $message->getBody();
+            $this->processBatch($body['batch_number']);
         } else {
             // we have no page number we should process, so now split work to batches
             $this->scheduleMigrateProcesses();
@@ -70,7 +70,10 @@ class UpdateRelationsAccountsAndContactsProcessor implements MessageProcessorInt
             );
         $jobsCount = floor((int)$maxItemNumber / self::BATCH_SIZE);
         for ($i = 0; $i <= $jobsCount; $i++) {
-            $this->messageProducer->send(self::TOPIC_NAME, json_encode(['batch_number' => $i]));
+            $this->messageProducer->send(
+                UpdateRelationsAccountsAndContactsTopic::getName(),
+                [UpdateRelationsAccountsAndContactsTopic::BATCH_NUMBER => $i]
+            );
         }
     }
 

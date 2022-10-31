@@ -12,7 +12,7 @@ use Oro\Bundle\EntityBundle\ORM\DoctrineHelper;
 use Oro\Bundle\IntegrationBundle\Entity\Channel as Integration;
 use Oro\Bundle\IntegrationBundle\Logger\LoggerStrategy;
 use Oro\Bundle\MagentoBundle\Async\SyncInitialIntegrationProcessor;
-use Oro\Bundle\MagentoBundle\Async\Topics;
+use Oro\Bundle\MagentoBundle\Async\Topic\SyncInitialIntegrationTopic;
 use Oro\Bundle\MagentoBundle\Provider\InitialSyncProcessor;
 use Oro\Bundle\OrganizationBundle\Entity\Organization;
 use Oro\Bundle\PlatformBundle\Manager\OptionalListenerManager;
@@ -22,7 +22,6 @@ use Oro\Component\MessageQueue\Consumption\MessageProcessorInterface;
 use Oro\Component\MessageQueue\Test\JobRunner;
 use Oro\Component\MessageQueue\Transport\Message;
 use Oro\Component\MessageQueue\Transport\SessionInterface;
-use Oro\Component\MessageQueue\Util\JSON;
 use Oro\Component\Testing\ClassExtensionTrait;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -125,61 +124,21 @@ class SyncInitialIntegrationProcessorTest extends \PHPUnit\Framework\TestCase
 
     public function testShouldSubscribeOnSyncInitialIntegrationTopic()
     {
-        $this->assertEquals([Topics::SYNC_INITIAL_INTEGRATION], SyncInitialIntegrationProcessor::getSubscribedTopics());
-    }
-
-    public function testShouldLogAndRejectIfMessageBodyMissIntegrationId()
-    {
-        $message = new Message();
-        $message->setBody('[]');
-
-        $this->logger
-            ->expects($this->once())
-            ->method('critical')
-            ->with('The message invalid. It must have integrationId set');
-
-        $this->optionalListenerManager
-            ->expects($this->never())
-            ->method('disableListener');
-        $this->optionalListenerManager
-            ->expects($this->never())
-            ->method('disableListeners');
-        $this->optionalListenerManager
-            ->expects($this->never())
-            ->method('enableListener');
-        $this->optionalListenerManager
-            ->expects($this->never())
-            ->method('enableListeners');
-
-        /** @var SessionInterface|\PHPUnit\Framework\MockObject\MockObject $session */
-        $session = $this->createMock(SessionInterface::class);
-        $status = $this->processor->process($message, $session);
-
-        $this->assertEquals(MessageProcessorInterface::REJECT, $status);
-    }
-
-    public function testThrowIfMessageBodyInvalidJson()
-    {
-        $this->expectException(\LogicException::class);
-        $this->expectExceptionMessage('The malformed json given.');
-
-        $message = new Message();
-        $message->setBody('[}');
-
-        /** @var SessionInterface|\PHPUnit\Framework\MockObject\MockObject $session */
-        $session = $this->createMock(SessionInterface::class);
-        $this->processor->process($message, $session);
+        $this->assertEquals(
+            [SyncInitialIntegrationTopic::getName()],
+            SyncInitialIntegrationProcessor::getSubscribedTopics()
+        );
     }
 
     public function testShouldRejectMessageIfIntegrationNotExist()
     {
         $message = new Message();
-        $message->setBody(JSON::encode(['integration_id' => 'theIntegrationId']));
+        $message->setBody(['integration_id' => PHP_INT_MAX]);
 
         $this->logger
             ->expects($this->once())
             ->method('error')
-            ->with('Integration not found: theIntegrationId');
+            ->with('Integration not found: ' . PHP_INT_MAX);
 
         $this->optionalListenerManager
             ->expects($this->never())
@@ -206,12 +165,12 @@ class SyncInitialIntegrationProcessorTest extends \PHPUnit\Framework\TestCase
             ->willReturn($integration);
 
         $message = new Message();
-        $message->setBody(JSON::encode(['integration_id' => 'theIntegrationId']));
+        $message->setBody(['integration_id' => PHP_INT_MAX]);
 
         $this->logger
             ->expects($this->once())
             ->method('error')
-            ->with('Integration is not enabled: theIntegrationId');
+            ->with('Integration is not enabled: ' . PHP_INT_MAX);
 
         $this->optionalListenerManager
             ->expects($this->never())
@@ -255,11 +214,11 @@ class SyncInitialIntegrationProcessorTest extends \PHPUnit\Framework\TestCase
             ->willReturn(true);
 
         $message = new Message();
-        $message->setBody(JSON::encode([
-            'integration_id' => 'theIntegrationId',
+        $message->setBody([
+            'integration_id' => PHP_INT_MAX,
             'connector' => 'theConnector',
             'connector_parameters' => ['foo' => 'fooVal'],
-        ]));
+        ]);
         $message->setMessageId('theMessageId');
 
         $this->optionalListenerManager
@@ -316,11 +275,11 @@ class SyncInitialIntegrationProcessorTest extends \PHPUnit\Framework\TestCase
             ->willReturn(false);
 
         $message = new Message();
-        $message->setBody(JSON::encode([
-            'integration_id' => 'theIntegrationId',
+        $message->setBody([
+            'integration_id' => PHP_INT_MAX,
             'connector' => 'theConnector',
             'connector_parameters' => ['foo' => 'fooVal'],
-        ]));
+        ]);
         $message->setMessageId('theMessageId');
 
         $this->optionalListenerManager
@@ -367,7 +326,11 @@ class SyncInitialIntegrationProcessorTest extends \PHPUnit\Framework\TestCase
             ->willReturn($integration);
 
         $message = new Message();
-        $message->setBody(JSON::encode(['integration_id' => 'theIntegrationId']));
+        $message->setBody([
+            'integration_id' => PHP_INT_MAX,
+            'connector' => null,
+            'connector_parameters' => [],
+        ]);
         $message->setMessageId('theMessageId');
 
         $this->optionalListenerManager
@@ -402,7 +365,7 @@ class SyncInitialIntegrationProcessorTest extends \PHPUnit\Framework\TestCase
         $uniqueJobs = $this->jobRunner->getRunUniqueJobs();
 
         $this->assertCount(1, $uniqueJobs);
-        $this->assertEquals('orocrm_magento:sync_initial_integration:theIntegrationId', $uniqueJobs[0]['jobName']);
+        $this->assertEquals('orocrm_magento:sync_initial_integration:' . PHP_INT_MAX, $uniqueJobs[0]['jobName']);
         $this->assertEquals('theMessageId', $uniqueJobs[0]['ownerId']);
     }
 }
