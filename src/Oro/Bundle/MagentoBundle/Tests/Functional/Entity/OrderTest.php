@@ -2,7 +2,7 @@
 namespace Oro\Bundle\MagentoBundle\Tests\Functional\Entity;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Oro\Bundle\AnalyticsBundle\Async\Topics;
+use Oro\Bundle\AnalyticsBundle\Async\Topic\CalculateChannelAnalyticsTopic;
 use Oro\Bundle\ChannelBundle\Entity\Channel;
 use Oro\Bundle\MagentoBundle\Entity\Order;
 use Oro\Bundle\MagentoBundle\Tests\Functional\Fixture\LoadRFMOrderData;
@@ -47,7 +47,7 @@ class OrderTest extends WebTestCase
         $this->getEntityManager()->persist($order);
         $this->getEntityManager()->flush();
 
-        $traces = self::getMessageCollector()->getTopicSentMessages(Topics::CALCULATE_CHANNEL_ANALYTICS);
+        $traces = self::getMessageCollector()->getTopicSentMessages(CalculateChannelAnalyticsTopic::getName());
         self::assertCount(1, $traces);
         self::assertEquals([
             'channel_id' => $order->getDataChannel()->getId(),
