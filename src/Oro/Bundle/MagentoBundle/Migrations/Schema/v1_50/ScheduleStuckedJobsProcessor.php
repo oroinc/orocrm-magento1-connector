@@ -3,7 +3,7 @@
 namespace Oro\Bundle\MagentoBundle\Migrations\Schema\v1_50;
 
 use Oro\Bundle\EntityBundle\ORM\NativeQueryExecutorHelper;
-use Oro\Bundle\WorkflowBundle\Async\Topics;
+use Oro\Bundle\WorkflowBundle\Async\Topic\ExecuteProcessJobTopic;
 use Oro\Bundle\WorkflowBundle\Entity\ProcessJob;
 use Oro\Bundle\WorkflowBundle\Model\ProcessLogger;
 use Oro\Component\MessageQueue\Client\Message;
@@ -61,7 +61,7 @@ class ScheduleStuckedJobsProcessor implements MessageProcessorInterface
             $message = new Message();
             $message->setBody(['process_job_id' => $processJob->getId()]);
 
-            $this->messageProducer->send(Topics::EXECUTE_PROCESS_JOB, $message);
+            $this->messageProducer->send(ExecuteProcessJobTopic::getName(), $message);
             $this->logger->debug('Process queued', $processJob->getProcessTrigger(), $processJob->getData());
         }
 

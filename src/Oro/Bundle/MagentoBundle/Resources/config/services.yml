@@ -1119,7 +1119,7 @@ services:
             - '@oro_message_queue.message_producer'
             - '@oro_entity.orm.native_query_executor_helper'
         tags:
-            - { name: 'oro_message_queue.client.message_processor', topicName: 'oro_magento.upgrade_relations_accounts_contacts' }
+            - { name: 'oro_message_queue.client.message_processor', topicName: !php/const Oro\Bundle\MagentoBundle\Migrations\Schema\v1_49\UpdateRelationsAccountsAndContactsTopic::NAME }
 
     oro_magento.async.schedule_stucked_jobs_processor:
         class: Oro\Bundle\MagentoBundle\Migrations\Schema\v1_50\ScheduleStuckedJobsProcessor
@@ -1128,7 +1128,7 @@ services:
             - '@oro_entity.orm.native_query_executor_helper'
             - '@oro_workflow.process.logger'
         tags:
-            - { name: 'oro_message_queue.client.message_processor', topicName: 'oro_magento.schedule_stucked_jobs' }
+            - { name: 'oro_message_queue.client.message_processor', topicName: !php/const Oro\Bundle\MagentoBundle\Migrations\Schema\v1_50\ScheduleStuckedJobsTopic::NAME }
 
     oro_magento.twig.order_notes_extension:
         class: Oro\Bundle\MagentoBundle\Twig\OrderNotesExtension

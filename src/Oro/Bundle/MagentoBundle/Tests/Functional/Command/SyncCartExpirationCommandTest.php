@@ -2,12 +2,10 @@
 namespace Oro\Bundle\MagentoBundle\Tests\Functional\Command;
 
 use Oro\Bundle\IntegrationBundle\Entity\Channel;
-use Oro\Bundle\MagentoBundle\Async\Topics;
+use Oro\Bundle\MagentoBundle\Async\Topic\SyncCartExpirationIntegrationTopic;
 use Oro\Bundle\MagentoBundle\Tests\Functional\Fixture\LoadMagentoChannel;
 use Oro\Bundle\MessageQueueBundle\Test\Functional\MessageQueueExtension;
 use Oro\Bundle\TestFrameworkBundle\Test\WebTestCase;
-use Oro\Component\MessageQueue\Client\Message;
-use Oro\Component\MessageQueue\Client\MessagePriority;
 
 /**
  * @dbIsolationPerTest
@@ -33,11 +31,8 @@ class SyncCartExpirationCommandTest extends WebTestCase
         static::assertStringContainsString('Completed', $result);
 
         self::assertMessageSent(
-            Topics::SYNC_CART_EXPIRATION_INTEGRATION,
-            new Message(
-                ['integrationId' => $integration->getId()],
-                MessagePriority::VERY_LOW
-            )
+            SyncCartExpirationIntegrationTopic::getName(),
+            ['integrationId' => $integration->getId()]
         );
     }
 }

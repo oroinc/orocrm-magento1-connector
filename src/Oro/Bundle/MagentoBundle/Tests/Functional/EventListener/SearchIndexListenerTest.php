@@ -11,7 +11,7 @@ use Oro\Bundle\MagentoBundle\EventListener\SearchIndexListener;
 use Oro\Bundle\MagentoBundle\Tests\Functional\Fixture\LoadCustomerContact;
 use Oro\Bundle\MagentoBundle\Tests\Functional\Fixture\LoadCustomerData;
 use Oro\Bundle\MessageQueueBundle\Test\Functional\MessageQueueAssertTrait;
-use Oro\Bundle\SearchBundle\Async\Topics;
+use Oro\Bundle\SearchBundle\Async\Topic\IndexEntitiesByIdTopic;
 use Oro\Bundle\TestFrameworkBundle\Test\WebTestCase;
 
 /**
@@ -73,19 +73,19 @@ class SearchIndexListenerTest extends WebTestCase
         $em->persist($customer);
         $em->flush();
 
-        self::assertMessagesEmpty(Topics::INDEX_ENTITIES);
+        self::assertMessagesEmpty(IndexEntitiesByIdTopic::getName());
 
         $this->listener->onFinish(new SyncEvent('magento_test_job', []));
 
-        self::assertMessageSent(Topics::INDEX_ENTITIES, [
+        self::assertMessageSent(IndexEntitiesByIdTopic::getName(), [
             'class' => Contact::class,
             'entityIds' => [$customer->getContact()->getId() => $customer->getContact()->getId()]
         ]);
-        self::assertMessageSent(Topics::INDEX_ENTITIES, [
+        self::assertMessageSent(IndexEntitiesByIdTopic::getName(), [
             'class' => Customer::class,
             'entityIds' => [$customer->getId() => $customer->getId()]
         ]);
-        self::assertMessageSent(Topics::INDEX_ENTITIES, [
+        self::assertMessageSent(IndexEntitiesByIdTopic::getName(), [
             'class' => Account::class,
             'entityIds' => [$customer->getAccount()->getId() => $customer->getAccount()->getId()]
         ]);
@@ -104,19 +104,19 @@ class SearchIndexListenerTest extends WebTestCase
         $em->persist($customer);
         $em->flush();
 
-        self::assertMessagesEmpty(Topics::INDEX_ENTITIES);
+        self::assertMessagesEmpty(IndexEntitiesByIdTopic::getName());
 
         $this->listener->onFinish(new SyncEvent('magento_test_job', []));
 
-        self::assertMessageSent(Topics::INDEX_ENTITIES, [
+        self::assertMessageSent(IndexEntitiesByIdTopic::getName(), [
             'class' => Contact::class,
             'entityIds' => [$customer->getContact()->getId() => $customer->getContact()->getId()]
         ]);
-        self::assertMessageSent(Topics::INDEX_ENTITIES, [
+        self::assertMessageSent(IndexEntitiesByIdTopic::getName(), [
             'class' => Customer::class,
             'entityIds' => [$customer->getId() => $customer->getId()]
         ]);
-        self::assertMessageSent(Topics::INDEX_ENTITIES, [
+        self::assertMessageSent(IndexEntitiesByIdTopic::getName(), [
             'class' => Account::class,
             'entityIds' => [$customer->getAccount()->getId() => $customer->getAccount()->getId()]
         ]);
@@ -134,11 +134,11 @@ class SearchIndexListenerTest extends WebTestCase
         $em->remove($customer);
         $em->flush();
 
-        self::assertMessagesEmpty(Topics::INDEX_ENTITIES);
+        self::assertMessagesEmpty(IndexEntitiesByIdTopic::getName());
 
         $this->listener->onFinish(new SyncEvent('magento_test_job', []));
 
-        self::assertMessageSent(Topics::INDEX_ENTITIES, [
+        self::assertMessageSent(IndexEntitiesByIdTopic::getName(), [
             'class' => Customer::class,
             'entityIds' => [$customerId => $customerId]
         ]);
