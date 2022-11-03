@@ -1,0 +1,10 @@
+services:
+    _defaults:
+        tags:
+            - { name: oro_message_queue.topic }
+
+    Oro\Bundle\MagentoBundle\Migrations\Schema\v1_49\UpdateRelationsAccountsAndContactsTopic: ~
+    Oro\Bundle\MagentoBundle\Migrations\Schema\v1_50\ScheduleStuckedJobsTopic: ~
+
+    Oro\Bundle\MagentoBundle\Async\Topic\SyncInitialIntegrationTopic: ~
+    Oro\Bundle\MagentoBundle\Async\Topic\SyncCartExpirationIntegrationTopic: ~

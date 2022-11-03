@@ -6,11 +6,9 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\IntegrationBundle\Entity\Channel as Integration;
 use Oro\Bundle\IntegrationBundle\Entity\Repository\ChannelRepository as IntegrationRepository;
-use Oro\Bundle\MagentoBundle\Async\Topics;
+use Oro\Bundle\MagentoBundle\Async\Topic\SyncInitialIntegrationTopic;
 use Oro\Bundle\MagentoBundle\Provider\Connector\InitialNewsletterSubscriberConnector;
 use Oro\Bundle\MagentoBundle\Provider\MagentoChannelType;
-use Oro\Component\MessageQueue\Client\Message;
-use Oro\Component\MessageQueue\Client\MessagePriority;
 use Oro\Component\MessageQueue\Client\MessageProducerInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
@@ -34,15 +32,12 @@ class ScheduleNewsletterSubscribersResync implements FixtureInterface, Container
         if ($applicableIntegrations) {
             foreach ($applicableIntegrations as $integration) {
                 $this->getMessageProducer()->send(
-                    Topics::SYNC_INITIAL_INTEGRATION,
-                    new Message(
-                        [
-                            'integration_id'       => $integration->getId(),
-                            'connector'            => InitialNewsletterSubscriberConnector::TYPE,
-                            'connector_parameters' => ['skip-dictionary' => true],
-                        ],
-                        MessagePriority::VERY_LOW
-                    )
+                    SyncInitialIntegrationTopic::getName(),
+                    [
+                        'integration_id'       => $integration->getId(),
+                        'connector'            => InitialNewsletterSubscriberConnector::TYPE,
+                        'connector_parameters' => ['skip-dictionary' => true],
+                    ]
                 );
             }
         }

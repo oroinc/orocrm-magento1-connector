@@ -3,7 +3,7 @@
 namespace Oro\Bundle\MagentoBundle\Tests\Functional\Entity;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Oro\Bundle\AnalyticsBundle\Async\Topics;
+use Oro\Bundle\AnalyticsBundle\Async\Topic\CalculateChannelAnalyticsTopic;
 use Oro\Bundle\ChannelBundle\Entity\Channel;
 use Oro\Bundle\ChannelBundle\Tests\Functional\Fixture\LoadChannel;
 use Oro\Bundle\IntegrationBundle\Entity\Channel as Integration;
@@ -55,7 +55,7 @@ class StatusTest extends WebTestCase
         $this->getEntityManager()->persist($status);
         $this->getEntityManager()->flush();
 
-        $traces = self::getMessageCollector()->getTopicSentMessages(Topics::CALCULATE_CHANNEL_ANALYTICS);
+        $traces = self::getMessageCollector()->getTopicSentMessages(CalculateChannelAnalyticsTopic::getName());
         self::assertCount(1, $traces);
         self::assertEquals([
             'channel_id' => $channel->getId(),
