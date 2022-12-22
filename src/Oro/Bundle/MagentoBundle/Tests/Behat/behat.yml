@@ -53,15 +53,14 @@ oro_behat_extension:
     OroMagentoBundle:
       contexts:
         - Oro\Bundle\TestFrameworkBundle\Tests\Behat\Context\OroMainContext
-#        - OroSecurityBundle::ACLContext
-#        - OroUserBundle::FeatureContext
-#        - OroSalesBundle::SalesContext
-#        - OroDataGridBundle::GridContext
-#        - OroFormBundle::FormContext
-#        - OroMagentoBundle::FeatureContext
-#        - OroQueryDesignerBundle::QueryDesignerContext
-#        - OroConfigBundle::FeatureContext
-#        - OroNavigationBundle::FeatureContext
-#        - OroLocaleBundle::LocalizationContext
+        - Oro\Bundle\SecurityBundle\Tests\Behat\Context\ACLContext
+        - Oro\Bundle\UserBundle\Tests\Behat\Context\FeatureContext
+        - Oro\Bundle\SalesBundle\Tests\Behat\Context\SalesContext
+        - Oro\Bundle\DataGridBundle\Tests\Behat\Context\GridContext
+        - Oro\Bundle\FormBundle\Tests\Behat\Context\FormContext
+        - Oro\Bundle\QueryDesignerBundle\Tests\Behat\Context\QueryDesignerContext
+        - Oro\Bundle\ConfigBundle\Tests\Behat\Context\FeatureContext
+        - Oro\Bundle\NavigationBundle\Tests\Behat\Context\FeatureContext
+        - Oro\Bundle\LocaleBundle\Tests\Behat\Context\LocalizationContext
       paths:
         - '@OroMagentoBundle/Tests/Behat/Features'
