@@ -37,7 +37,12 @@ class StartSyncDateValidator extends ConstraintValidator
             return;
         }
 
-        $integration = $this->context->getRoot()->getData();
+        $root = $this->context->getRoot();
+        if (!method_exists($root, 'getData')) {
+            return;
+        }
+
+        $integration = $root->getData();
         if (!$integration instanceof Channel) {
             return;
         }
