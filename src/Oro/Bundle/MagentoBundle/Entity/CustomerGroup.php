@@ -3,8 +3,10 @@
 namespace Oro\Bundle\MagentoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Oro\Bundle\BusinessEntitiesBundle\Entity\BasePersonGroup;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
-use Oro\Bundle\MagentoBundle\Model\ExtendCustomerGroup;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
 
 /**
  * Class CustomerGroup
@@ -26,9 +28,12 @@ use Oro\Bundle\MagentoBundle\Model\ExtendCustomerGroup;
  *      }
  * )
  */
-class CustomerGroup extends ExtendCustomerGroup implements OriginAwareInterface, IntegrationAwareInterface
+class CustomerGroup extends BasePersonGroup implements
+    OriginAwareInterface,
+    IntegrationAwareInterface,
+    ExtendEntityInterface
 {
-    use IntegrationEntityTrait, OriginTrait;
+    use IntegrationEntityTrait, OriginTrait, ExtendEntityTrait;
 
     /**
      * @var string

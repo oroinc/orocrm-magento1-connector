@@ -3,8 +3,10 @@
 namespace Oro\Bundle\MagentoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Oro\Bundle\BusinessEntitiesBundle\Entity\BaseOrderItem;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
-use Oro\Bundle\MagentoBundle\Model\ExtendOrderItem;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
 use Oro\Bundle\OrganizationBundle\Entity\Organization;
 
 /**
@@ -34,9 +36,9 @@ use Oro\Bundle\OrganizationBundle\Entity\Organization;
  *      }
  * )
  */
-class OrderItem extends ExtendOrderItem implements IntegrationAwareInterface, OriginAwareInterface
+class OrderItem extends BaseOrderItem implements IntegrationAwareInterface, OriginAwareInterface, ExtendEntityInterface
 {
-    use IntegrationEntityTrait, OriginTrait;
+    use IntegrationEntityTrait, OriginTrait, ExtendEntityTrait;
 
     /**
      * @var Order

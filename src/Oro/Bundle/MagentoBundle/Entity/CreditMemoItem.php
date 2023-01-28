@@ -4,7 +4,8 @@ namespace Oro\Bundle\MagentoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
-use Oro\Bundle\MagentoBundle\Model\ExtendCreditMemoItem;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
 use Oro\Bundle\OrganizationBundle\Entity\Organization;
 
 /**
@@ -40,9 +41,9 @@ use Oro\Bundle\OrganizationBundle\Entity\Organization;
  *      }
  * )
  */
-class CreditMemoItem extends ExtendCreditMemoItem implements IntegrationAwareInterface, OriginAwareInterface
+class CreditMemoItem implements IntegrationAwareInterface, OriginAwareInterface, ExtendEntityInterface
 {
-    use IntegrationEntityTrait, OriginTrait;
+    use IntegrationEntityTrait, OriginTrait, ExtendEntityTrait;
 
     /**
      * @var int

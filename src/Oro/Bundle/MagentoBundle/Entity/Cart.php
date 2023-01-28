@@ -5,12 +5,14 @@ namespace Oro\Bundle\MagentoBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Oro\Bundle\BusinessEntitiesBundle\Entity\BaseCart;
 use Oro\Bundle\ChannelBundle\Model\ChannelAwareInterface;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
 use Oro\Bundle\LocaleBundle\Model\FirstNameInterface;
 use Oro\Bundle\LocaleBundle\Model\LastNameInterface;
-use Oro\Bundle\MagentoBundle\Model\ExtendCart;
 use Oro\Bundle\OrganizationBundle\Entity\Organization;
 use Oro\Bundle\SalesBundle\Entity\Opportunity;
 use Oro\Bundle\UserBundle\Entity\User;
@@ -65,14 +67,15 @@ use Oro\Bundle\UserBundle\Entity\User;
  *      }
  * )
  */
-class Cart extends ExtendCart implements
+class Cart extends BaseCart implements
     ChannelAwareInterface,
     FirstNameInterface,
     LastNameInterface,
     OriginAwareInterface,
-    IntegrationAwareInterface
+    IntegrationAwareInterface,
+    ExtendEntityInterface
 {
-    use IntegrationEntityTrait, OriginTrait, NamesAwareTrait, ChannelEntityTrait;
+    use IntegrationEntityTrait, OriginTrait, NamesAwareTrait, ChannelEntityTrait, ExtendEntityTrait;
 
     /**
      * @var CartItem[]|Collection

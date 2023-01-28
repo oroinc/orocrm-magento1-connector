@@ -5,7 +5,8 @@ namespace Oro\Bundle\MagentoBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
-use Oro\Bundle\MagentoBundle\Model\ExtendStore;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
 
 /**
  * Class Store
@@ -32,9 +33,9 @@ use Oro\Bundle\MagentoBundle\Model\ExtendStore;
  *      }
  * )
  */
-class Store extends ExtendStore implements OriginAwareInterface, IntegrationAwareInterface
+class Store implements OriginAwareInterface, IntegrationAwareInterface, ExtendEntityInterface
 {
-    use IntegrationEntityTrait, OriginTrait;
+    use IntegrationEntityTrait, OriginTrait, ExtendEntityTrait;
 
     const ADMIN_STORE_ID = 0;
 

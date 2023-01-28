@@ -5,12 +5,14 @@ namespace Oro\Bundle\MagentoBundle\Entity;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Oro\Bundle\AddressBundle\Entity\AbstractAddress;
+use Oro\Bundle\AddressBundle\Entity\AbstractTypedAddress;
 use Oro\Bundle\AddressBundle\Entity\Country;
 use Oro\Bundle\ContactBundle\Entity\ContactAddress;
 use Oro\Bundle\ContactBundle\Entity\ContactPhone;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
-use Oro\Bundle\MagentoBundle\Model\ExtendAddress;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
 
 /**
  * Represents an address.
@@ -30,12 +32,15 @@ use Oro\Bundle\MagentoBundle\Model\ExtendAddress;
  * @ORM\Entity
  * @SuppressWarnings(PHPMD.TooManyFields)
  */
-class Address extends ExtendAddress implements OriginAwareInterface, IntegrationAwareInterface
+class Address extends AbstractTypedAddress implements
+    OriginAwareInterface,
+    IntegrationAwareInterface,
+    ExtendEntityInterface
 {
     const SYNC_TO_MAGENTO = 1;
     const MAGENTO_REMOVED = 2;
 
-    use IntegrationEntityTrait, OriginTrait, CountryTextTrait;
+    use IntegrationEntityTrait, OriginTrait, CountryTextTrait, ExtendEntityTrait;
 
     /*
      * FIELDS are duplicated to enable dataaudit only for customer address fields

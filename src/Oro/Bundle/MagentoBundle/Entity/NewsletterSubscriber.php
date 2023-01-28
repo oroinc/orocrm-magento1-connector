@@ -6,7 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Oro\Bundle\ChannelBundle\Model\ChannelAwareInterface;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
-use Oro\Bundle\MagentoBundle\Model\ExtendNewsletterSubscriber;
+use Oro\Bundle\EntityExtendBundle\Entity\AbstractEnumValue;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
 use Oro\Bundle\OrganizationBundle\Entity\Organization;
 use Oro\Bundle\UserBundle\Entity\User;
 
@@ -35,18 +37,22 @@ use Oro\Bundle\UserBundle\Entity\User;
  *          }
  *      }
  * )
+ *
+ * @method AbstractEnumValue getStatus()
+ * @method NewsletterSubscriber setStatus(AbstractEnumValue $enumId)
  */
-class NewsletterSubscriber extends ExtendNewsletterSubscriber implements
+class NewsletterSubscriber implements
     ChannelAwareInterface,
     OriginAwareInterface,
-    IntegrationAwareInterface
+    IntegrationAwareInterface,
+    ExtendEntityInterface
 {
     const STATUS_SUBSCRIBED = 1;
     const STATUS_NOT_ACTIVE = 2;
     const STATUS_UNSUBSCRIBED = 3;
     const STATUS_UNCONFIRMED = 4;
 
-    use IntegrationEntityTrait, OriginTrait, ChannelEntityTrait;
+    use IntegrationEntityTrait, OriginTrait, ChannelEntityTrait, ExtendEntityTrait;
 
     /**
      * @var int

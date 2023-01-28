@@ -4,7 +4,8 @@ namespace Oro\Bundle\MagentoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
-use Oro\Bundle\MagentoBundle\Model\ExtendOrderNote;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
 use Oro\Bundle\OrganizationBundle\Entity\Organization;
 use Oro\Bundle\UserBundle\Entity\User;
 
@@ -45,16 +46,18 @@ use Oro\Bundle\UserBundle\Entity\User;
  *     }
  * )
  */
-class OrderNote extends ExtendOrderNote implements
+class OrderNote implements
     OriginAwareInterface,
     CreatedAtAwareInterface,
     UpdatedAtAwareInterface,
-    IntegrationAwareInterface
+    IntegrationAwareInterface,
+    ExtendEntityInterface
 {
     use OriginTrait;
     use CreatedAtTrait;
     use UpdatedAtTrait;
     use IntegrationEntityTrait;
+    use ExtendEntityTrait;
 
     /**
      * @var integer

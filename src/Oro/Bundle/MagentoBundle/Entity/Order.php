@@ -7,12 +7,14 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Oro\Bundle\AddressBundle\Entity\AbstractTypedAddress;
 use Oro\Bundle\AddressBundle\Entity\AddressType;
+use Oro\Bundle\BusinessEntitiesBundle\Entity\BaseOrder;
 use Oro\Bundle\ChannelBundle\Model\ChannelAwareInterface;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
 use Oro\Bundle\LocaleBundle\Model\FirstNameInterface;
 use Oro\Bundle\LocaleBundle\Model\LastNameInterface;
-use Oro\Bundle\MagentoBundle\Model\ExtendOrder;
 use Oro\Bundle\OrganizationBundle\Entity\Organization;
 use Oro\Bundle\UserBundle\Entity\User;
 
@@ -63,17 +65,18 @@ use Oro\Bundle\UserBundle\Entity\User;
  * @SuppressWarnings(PHPMD.TooManyFields)
  * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  */
-class Order extends ExtendOrder implements
+class Order extends BaseOrder implements
     ChannelAwareInterface,
     FirstNameInterface,
     LastNameInterface,
     IntegrationAwareInterface,
-    OriginAwareInterface
+    OriginAwareInterface,
+    ExtendEntityInterface
 {
     const STATUS_CANCELED  = 'canceled';
     const STATUS_COMPLETED = 'completed';
 
-    use IntegrationEntityTrait, NamesAwareTrait, ChannelEntityTrait, OriginTrait;
+    use IntegrationEntityTrait, NamesAwareTrait, ChannelEntityTrait, OriginTrait, ExtendEntityTrait;
 
     /**
      * Mage entity origin id

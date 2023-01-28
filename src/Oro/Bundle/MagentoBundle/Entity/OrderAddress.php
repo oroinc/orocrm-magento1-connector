@@ -4,9 +4,11 @@ namespace Oro\Bundle\MagentoBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Oro\Bundle\AddressBundle\Entity\AbstractTypedAddress;
 use Oro\Bundle\AddressBundle\Entity\Country;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
-use Oro\Bundle\MagentoBundle\Model\ExtendOrderAddress;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
 
 /**
  * Refers to the address information that was used by customer users
@@ -30,9 +32,12 @@ use Oro\Bundle\MagentoBundle\Model\ExtendOrderAddress;
  * )
  * @SuppressWarnings(PHPMD.TooManyFields)
  */
-class OrderAddress extends ExtendOrderAddress implements IntegrationAwareInterface, OriginAwareInterface
+class OrderAddress extends AbstractTypedAddress implements
+    IntegrationAwareInterface,
+    OriginAwareInterface,
+    ExtendEntityInterface
 {
-    use IntegrationEntityTrait, OriginTrait, CountryTextTrait;
+    use IntegrationEntityTrait, OriginTrait, CountryTextTrait, ExtendEntityTrait;
 
     /**
      * @var ArrayCollection

@@ -3,8 +3,10 @@
 namespace Oro\Bundle\MagentoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Oro\Bundle\BusinessEntitiesBundle\Entity\BaseCartItem;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
-use Oro\Bundle\MagentoBundle\Model\ExtendCartItem;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
 use Oro\Bundle\OrganizationBundle\Entity\Organization;
 
 /**
@@ -41,9 +43,9 @@ use Oro\Bundle\OrganizationBundle\Entity\Organization;
  * )
  * @SuppressWarnings(PHPMD.TooManyFields)
  */
-class CartItem extends ExtendCartItem implements OriginAwareInterface, IntegrationAwareInterface
+class CartItem extends BaseCartItem implements OriginAwareInterface, IntegrationAwareInterface, ExtendEntityInterface
 {
-    use IntegrationEntityTrait, OriginTrait;
+    use IntegrationEntityTrait, OriginTrait, ExtendEntityTrait;
 
     /**
      * @ORM\ManyToOne(targetEntity="Cart", inversedBy="cartItems",cascade={"persist"})

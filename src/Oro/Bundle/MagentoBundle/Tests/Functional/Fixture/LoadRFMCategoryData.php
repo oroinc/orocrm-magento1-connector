@@ -8,9 +8,9 @@ use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\AnalyticsBundle\Entity\RFMMetricCategory;
 use Oro\Bundle\AnalyticsBundle\Model\RFMAwareInterface;
 use Oro\Bundle\ChannelBundle\Entity\Channel;
+use Oro\Bundle\EntityExtendBundle\PropertyAccess;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class LoadRFMCategoryData extends AbstractFixture implements DependentFixtureInterface, ContainerAwareInterface
 {

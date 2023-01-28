@@ -4,9 +4,11 @@ namespace Oro\Bundle\MagentoBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Oro\Bundle\BusinessEntitiesBundle\Entity\BaseProduct;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
-use Oro\Bundle\MagentoBundle\Model\ExtendProduct;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
 
 /**
  * Class Product
@@ -30,9 +32,9 @@ use Oro\Bundle\MagentoBundle\Model\ExtendProduct;
  *      }
  * )
  */
-class Product extends ExtendProduct implements IntegrationAwareInterface
+class Product extends BaseProduct implements IntegrationAwareInterface, ExtendEntityInterface
 {
-    use IntegrationEntityTrait;
+    use IntegrationEntityTrait, ExtendEntityTrait;
 
     /*
      * FIELDS are duplicated to enable dataaudit only for customer fields

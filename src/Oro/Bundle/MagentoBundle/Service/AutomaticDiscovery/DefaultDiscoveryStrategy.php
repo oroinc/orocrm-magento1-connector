@@ -3,8 +3,8 @@
 namespace Oro\Bundle\MagentoBundle\Service\AutomaticDiscovery;
 
 use Doctrine\ORM\QueryBuilder;
+use Oro\Bundle\EntityExtendBundle\PropertyAccess;
 use Oro\Component\DoctrineUtils\ORM\QueryBuilderUtil;
-use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class DefaultDiscoveryStrategy extends AbstractDiscoveryStrategy
 {

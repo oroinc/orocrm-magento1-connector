@@ -3,9 +3,11 @@
 namespace Oro\Bundle\MagentoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Oro\Bundle\AddressBundle\Entity\AbstractAddress;
 use Oro\Bundle\AddressBundle\Entity\Country;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
-use Oro\Bundle\MagentoBundle\Model\ExtendCartAddress;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
 
 /**
  * @ORM\Table("orocrm_magento_cart_address")
@@ -25,9 +27,9 @@ use Oro\Bundle\MagentoBundle\Model\ExtendCartAddress;
  * )
  * @ORM\Entity
  */
-class CartAddress extends ExtendCartAddress implements OriginAwareInterface
+class CartAddress extends AbstractAddress implements OriginAwareInterface, ExtendEntityInterface
 {
-    use IntegrationEntityTrait, OriginTrait, CountryTextTrait;
+    use IntegrationEntityTrait, OriginTrait, CountryTextTrait, ExtendEntityTrait;
 
     /**
      * @var string

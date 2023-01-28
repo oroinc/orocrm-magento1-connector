@@ -8,7 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Oro\Bundle\ChannelBundle\Model\ChannelAwareInterface;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
-use Oro\Bundle\MagentoBundle\Model\ExtendCreditMemo;
+use Oro\Bundle\EntityExtendBundle\Entity\AbstractEnumValue;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
 use Oro\Bundle\OrganizationBundle\Entity\Organization;
 use Oro\Bundle\UserBundle\Entity\User;
 
@@ -49,16 +51,21 @@ use Oro\Bundle\UserBundle\Entity\User;
  *          }
  *     }
  * )
+ *
+ * @method AbstractEnumValue getStatus()
+ * @method ExtendCreditMemo  setStatus(AbstractEnumValue $enumValue)
+
  * @SuppressWarnings(PHPMD.ExcessivePublicCount)
  * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  * @SuppressWarnings(PHPMD.TooManyFields)
  */
-class CreditMemo extends ExtendCreditMemo implements
+class CreditMemo implements
     ChannelAwareInterface,
     IntegrationAwareInterface,
-    OriginAwareInterface
+    OriginAwareInterface,
+    ExtendEntityInterface
 {
-    use IntegrationEntityTrait, ChannelEntityTrait, OriginTrait;
+    use IntegrationEntityTrait, ChannelEntityTrait, OriginTrait, ExtendEntityTrait;
 
     const STATUS_ENUM_CODE = 'creditmemo_status';
 

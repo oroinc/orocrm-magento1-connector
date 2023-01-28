@@ -4,7 +4,8 @@ namespace Oro\Bundle\MagentoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
-use Oro\Bundle\MagentoBundle\Model\ExtendWebsite;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
+use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
 
 /**
  * Class Website
@@ -29,9 +30,9 @@ use Oro\Bundle\MagentoBundle\Model\ExtendWebsite;
  *      }
  * )
  */
-class Website extends ExtendWebsite implements OriginAwareInterface, IntegrationAwareInterface
+class Website implements OriginAwareInterface, IntegrationAwareInterface, ExtendEntityInterface
 {
-    use IntegrationEntityTrait, OriginTrait;
+    use IntegrationEntityTrait, OriginTrait, ExtendEntityTrait;
 
     const ADMIN_WEBSITE_ID  = 0;
     const ALL_WEBSITES      = -1;

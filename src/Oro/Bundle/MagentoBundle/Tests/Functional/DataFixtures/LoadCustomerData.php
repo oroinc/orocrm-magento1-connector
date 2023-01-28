@@ -6,8 +6,8 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\ChannelBundle\Entity\Channel;
+use Oro\Bundle\EntityExtendBundle\PropertyAccess;
 use Oro\Bundle\MagentoBundle\Entity\Customer;
-use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class LoadCustomerData extends AbstractFixture implements DependentFixtureInterface
 {

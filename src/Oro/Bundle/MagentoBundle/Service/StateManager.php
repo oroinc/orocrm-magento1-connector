@@ -2,7 +2,7 @@
 
 namespace Oro\Bundle\MagentoBundle\Service;
 
-use Symfony\Component\PropertyAccess\PropertyAccess;
+use Oro\Bundle\EntityExtendBundle\PropertyAccess;
 
 class StateManager
 {

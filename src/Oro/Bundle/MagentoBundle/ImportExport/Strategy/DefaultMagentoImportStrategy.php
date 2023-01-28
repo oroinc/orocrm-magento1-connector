@@ -3,10 +3,10 @@
 namespace Oro\Bundle\MagentoBundle\ImportExport\Strategy;
 
 use Oro\Bundle\AddressBundle\Entity\Region;
+use Oro\Bundle\EntityExtendBundle\PropertyAccess;
 use Oro\Bundle\ImportExportBundle\Strategy\Import\ConfigurableAddOrReplaceStrategy;
 use Oro\Bundle\MagentoBundle\Entity\Customer;
 use Oro\Bundle\MagentoBundle\Entity\Region as MagentoRegion;
-use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 
 class DefaultMagentoImportStrategy extends ConfigurableAddOrReplaceStrategy

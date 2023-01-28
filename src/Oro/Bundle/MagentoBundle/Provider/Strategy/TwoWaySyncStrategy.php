@@ -4,10 +4,10 @@ namespace Oro\Bundle\MagentoBundle\Provider\Strategy;
 
 use Oro\Bundle\BatchBundle\Entity\StepExecution;
 use Oro\Bundle\EntityBundle\ORM\DoctrineHelper;
+use Oro\Bundle\EntityExtendBundle\PropertyAccess;
 use Oro\Bundle\IntegrationBundle\ImportExport\Processor\StepExecutionAwareExportProcessor;
 use Oro\Bundle\IntegrationBundle\ImportExport\Processor\StepExecutionAwareImportProcessor;
 use Oro\Bundle\IntegrationBundle\Provider\TwoWaySyncConnectorInterface;
-use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class TwoWaySyncStrategy implements TwoWaySyncStrategyInterface
 {

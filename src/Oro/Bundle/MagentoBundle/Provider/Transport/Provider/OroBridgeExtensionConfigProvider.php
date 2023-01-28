@@ -2,11 +2,11 @@
 
 namespace Oro\Bundle\MagentoBundle\Provider\Transport\Provider;
 
+use Oro\Bundle\EntityExtendBundle\PropertyAccess;
 use Oro\Bundle\IntegrationBundle\Provider\Rest\Client\RestClientInterface;
 use Oro\Bundle\IntegrationBundle\Provider\Rest\Exception\RestException;
 use Oro\Bundle\MagentoBundle\Model\OroBridgeExtension\Config;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PropertyAccess\PropertyAccess;
 
 /**
  * Incapsulate logic of requesting information form Magento extension
