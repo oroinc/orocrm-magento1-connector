@@ -277,7 +277,6 @@ class CreditMemo implements
      */
     public function __construct()
     {
-        parent::__construct();
         $this->items = new ArrayCollection();
     }
 
