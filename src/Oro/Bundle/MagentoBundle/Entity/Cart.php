@@ -301,8 +301,6 @@ class Cart extends BaseCart implements
 
     public function __construct()
     {
-        parent::__construct();
-
         $this->status    = new CartStatus('open');
         $this->cartItems = new ArrayCollection();
     }
