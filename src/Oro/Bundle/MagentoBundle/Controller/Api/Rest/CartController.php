@@ -83,7 +83,7 @@ class CartController extends RestController
      *      id="oro_magento_cart_create",
      *      type="entity",
      *      permission="CREATE",
-     *      class="OroMagentoBundle:Cart"
+     *      class="Oro\Bundle\MagentoBundle\Entity\Cart"
      * )
      */
     public function postAction()
@@ -126,7 +126,7 @@ class CartController extends RestController
      *      id="oro_magento_cart_update",
      *      type="entity",
      *      permission="EDIT",
-     *      class="OroMagentoBundle:Cart"
+     *      class="Oro\Bundle\MagentoBundle\Entity\Cart"
      * )
      * @return Response
      */
@@ -150,7 +150,7 @@ class CartController extends RestController
      *      id="oro_magento_cart_delete",
      *      type="entity",
      *      permission="DELETE",
-     *      class="OroMagentoBundle:Cart"
+     *      class="Oro\Bundle\MagentoBundle\Entity\Cart"
      * )
      * @return Response
      */

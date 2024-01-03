@@ -5,6 +5,8 @@ namespace Oro\Bundle\MagentoBundle\Migrations\Data\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\WorkflowBundle\Entity\Repository\WorkflowItemRepository;
+use Oro\Bundle\WorkflowBundle\Entity\WorkflowDefinition;
+use Oro\Bundle\WorkflowBundle\Entity\WorkflowItem;
 
 class UpdateWorkflowStartStep extends AbstractFixture
 {
@@ -14,8 +16,8 @@ class UpdateWorkflowStartStep extends AbstractFixture
     public function load(ObjectManager $manager)
     {
         /** @var WorkflowItemRepository $workflowItemRepository */
-        $workflowItemRepository = $manager->getRepository('OroWorkflowBundle:WorkflowItem');
-        $workflowDefinitionRepository = $manager->getRepository('OroWorkflowBundle:WorkflowDefinition');
+        $workflowItemRepository = $manager->getRepository(WorkflowItem::class);
+        $workflowDefinitionRepository = $manager->getRepository(WorkflowDefinition::class);
 
         // update start step for default shopping cart workflow
         $shoppingCartWorkflowDefinition = $workflowDefinitionRepository->find('b2c_flow_abandoned_shopping_cart');

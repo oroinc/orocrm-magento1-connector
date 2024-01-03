@@ -2,8 +2,11 @@
 
 namespace Oro\Bundle\MagentoBundle\Form\Type;
 
+use Oro\Bundle\ChannelBundle\Entity\Channel;
 use Oro\Bundle\FormBundle\Form\Type\OroMoneyType;
 use Oro\Bundle\IntegrationBundle\Form\Type\IntegrationSelectType;
+use Oro\Bundle\MagentoBundle\Entity\CartStatus;
+use Oro\Bundle\MagentoBundle\Entity\Store;
 use Oro\Bundle\MagentoBundle\Form\EventListener\CartApiFormSubscriber;
 use Oro\Bundle\SoapBundle\Form\EventListener\PatchSubscriber;
 use Oro\Bundle\TranslationBundle\Form\Type\TranslatableEntityType;
@@ -41,7 +44,7 @@ class CartApiType extends AbstractType
             'store',
             TranslatableEntityType::class,
             [
-                'class' => 'OroMagentoBundle:Store',
+                'class' => Store::class,
                 'choice_label' => 'name'
             ]
         );
@@ -61,7 +64,7 @@ class CartApiType extends AbstractType
             'status',
             TranslatableEntityType::class,
             [
-                'class' => 'OroMagentoBundle:CartStatus',
+                'class' => CartStatus::class,
                 'choice_label' => 'name'
             ]
         );
@@ -80,7 +83,7 @@ class CartApiType extends AbstractType
             'dataChannel',
             TranslatableEntityType::class,
             [
-                'class' => 'OroChannelBundle:Channel',
+                'class' => Channel::class,
                 'choice_label' => 'name',
                 'required' => false
             ]

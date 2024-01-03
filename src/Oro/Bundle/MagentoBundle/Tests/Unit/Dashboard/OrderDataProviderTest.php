@@ -6,16 +6,19 @@ use DateTime;
 use Oro\Bundle\DashboardBundle\Helper\DateHelper;
 use Oro\Bundle\LocaleBundle\Formatter\DateTimeFormatterInterface;
 use Oro\Bundle\MagentoBundle\Dashboard\OrderDataProvider;
+use Oro\Bundle\MagentoBundle\Entity\Order;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
-class OrderDataProviderTest extends \PHPUnit\Framework\TestCase
+class OrderDataProviderTest extends TestCase
 {
-    /** @var \PHPUnit\Framework\MockObject\MockObject */
+    /** @var MockObject */
     protected $registry;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject */
+    /** @var MockObject */
     protected $aclHelper;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject */
+    /** @var MockObject */
     protected $configProvider;
 
     /** @var OrderDataProvider */
@@ -120,7 +123,7 @@ class OrderDataProviderTest extends \PHPUnit\Framework\TestCase
 
         $this->registry->expects($this->once())
             ->method('getRepository')
-            ->with('OroMagentoBundle:Order')
+            ->with(Order::class)
             ->will($this->returnValue($orderRepository));
 
         $chartView = $this->getMockBuilder('Oro\Bundle\ChartBundle\Model\ChartView')
@@ -204,7 +207,7 @@ class OrderDataProviderTest extends \PHPUnit\Framework\TestCase
 
         $this->registry->expects($this->any())
             ->method('getRepository')
-            ->with('OroMagentoBundle:Order')
+            ->with(Order::class)
             ->will($this->returnValue($orderRepository));
 
         $chartView = $this->getMockBuilder('Oro\Bundle\ChartBundle\Model\ChartView')
@@ -353,7 +356,7 @@ class OrderDataProviderTest extends \PHPUnit\Framework\TestCase
             ->will($this->returnValue($sourceData[1]));
         $this->registry->expects($this->any())
             ->method('getRepository')
-            ->with('OroMagentoBundle:Order')
+            ->with(Order::class)
             ->will($this->returnValue($orderRepository));
         $chartView = $this->getMockBuilder('Oro\Bundle\ChartBundle\Model\ChartView')
             ->disableOriginalConstructor()

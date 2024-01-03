@@ -6,6 +6,14 @@ use Doctrine\DBAL\Platforms\PostgreSqlPlatform;
 use Doctrine\ORM\EntityManager;
 use Oro\Bundle\IntegrationBundle\Entity\Channel;
 use Oro\Bundle\IntegrationBundle\Manager\DeleteProviderInterface;
+use Oro\Bundle\MagentoBundle\Entity\Cart;
+use Oro\Bundle\MagentoBundle\Entity\CartAddress;
+use Oro\Bundle\MagentoBundle\Entity\Customer;
+use Oro\Bundle\MagentoBundle\Entity\CustomerGroup;
+use Oro\Bundle\MagentoBundle\Entity\NewsletterSubscriber;
+use Oro\Bundle\MagentoBundle\Entity\Order;
+use Oro\Bundle\MagentoBundle\Entity\Store;
+use Oro\Bundle\MagentoBundle\Entity\Website;
 use Oro\Bundle\MagentoBundle\Provider\Magento2ChannelType;
 use Oro\Bundle\MagentoBundle\Provider\MagentoChannelType;
 use Oro\Bundle\WorkflowBundle\Entity\WorkflowItem;
@@ -49,15 +57,15 @@ class MagentoDeleteProvider implements DeleteProviderInterface
     public function deleteRelatedData(Channel $channel)
     {
         $this->channel = $channel;
-        $this->removeWorkflowDefinitions('OroMagentoBundle:Order')
-            ->removeFromEntityByChannelId('OroMagentoBundle:Order')
-            ->removeWorkflowDefinitions('OroMagentoBundle:Cart')
+        $this->removeWorkflowDefinitions(Order::class)
+            ->removeFromEntityByChannelId(Order::class)
+            ->removeWorkflowDefinitions(Cart::class)
             ->removeCarts()
-            ->removeFromEntityByChannelId('OroMagentoBundle:Customer')
-            ->removeFromEntityByChannelId('OroMagentoBundle:Store')
-            ->removeFromEntityByChannelId('OroMagentoBundle:Website')
-            ->removeFromEntityByChannelId('OroMagentoBundle:CustomerGroup')
-            ->removeFromEntityByChannelId('OroMagentoBundle:NewsletterSubscriber');
+            ->removeFromEntityByChannelId(Customer::class)
+            ->removeFromEntityByChannelId(Store::class)
+            ->removeFromEntityByChannelId(Website::class)
+            ->removeFromEntityByChannelId(CustomerGroup::class)
+            ->removeFromEntityByChannelId(NewsletterSubscriber::class);
     }
 
     /**
@@ -77,7 +85,7 @@ class MagentoDeleteProvider implements DeleteProviderInterface
      */
     protected function removeCarts()
     {
-        $cartTable = $this->em->getClassMetadata('OroMagentoBundle:Cart')->getTableName();
+        $cartTable = $this->em->getClassMetadata(Cart::class)->getTableName();
         $shippingAddresses = sprintf(
             'SELECT sa.shipping_address_id FROM %s sa WHERE sa.channel_id = %s',
             $cartTable,
@@ -91,13 +99,13 @@ class MagentoDeleteProvider implements DeleteProviderInterface
         $this->em->getConnection()->executeQuery(
             sprintf(
                 'DELETE FROM %s WHERE id IN (%s) OR id IN (%s)',
-                $this->em->getClassMetadata('OroMagentoBundle:CartAddress')->getTableName(),
+                $this->em->getClassMetadata(CartAddress::class)->getTableName(),
                 $shippingAddresses,
                 $billingAddresses
             )
         );
 
-        $this->removeFromEntityByChannelId('OroMagentoBundle:Cart');
+        $this->removeFromEntityByChannelId(Cart::class);
 
         return $this;
     }

@@ -6,6 +6,8 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\AccountBundle\Entity\Account;
 use Oro\Bundle\AddressBundle\Entity\Address;
+use Oro\Bundle\AddressBundle\Entity\Country;
+use Oro\Bundle\AddressBundle\Entity\Region;
 use Oro\Bundle\ChannelBundle\Builder\BuilderFactory;
 use Oro\Bundle\ChannelBundle\Entity\Channel;
 use Oro\Bundle\ContactBundle\Entity\Contact;
@@ -85,9 +87,9 @@ class LoadMagentoChannel extends AbstractFixture implements ContainerAwareInterf
     public function load(ObjectManager $manager)
     {
         $this->em        = $manager;
-        $this->countries = $this->loadStructure('OroAddressBundle:Country', 'getIso2Code');
-        $this->regions   = $this->loadStructure('OroAddressBundle:Region', 'getCombinedCode');
-        $this->organization = $manager->getRepository('OroOrganizationBundle:Organization')->getFirst();
+        $this->countries = $this->loadStructure(Country::class, 'getIso2Code');
+        $this->regions   = $this->loadStructure(Region::class, 'getCombinedCode');
+        $this->organization = $manager->getRepository(Organization::class)->getFirst();
 
         $this
             ->createTransport()
@@ -404,7 +406,7 @@ class LoadMagentoChannel extends AbstractFixture implements ContainerAwareInterf
     protected function getUser()
     {
         if (!$this->user) {
-            $this->user = $this->em->getRepository('OroUserBundle:User')->findOneBy(['username' => 'admin']);
+            $this->user = $this->em->getRepository(User::class)->findOneBy(['username' => 'admin']);
         }
 
         return $this->user;

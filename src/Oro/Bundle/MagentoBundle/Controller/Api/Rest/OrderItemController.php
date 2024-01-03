@@ -64,7 +64,7 @@ class OrderItemController extends RestController implements ClassResourceInterfa
      *      id="oro_magento_order_item_create",
      *      type="entity",
      *      permission="CREATE",
-     *      class="OroMagentoBundle:OrderItem"
+     *      class="Oro\Bundle\MagentoBundle\Entity\OrderItem"
      * )
      * @param int $orderId
      *
@@ -160,7 +160,7 @@ class OrderItemController extends RestController implements ClassResourceInterfa
      *      id="oro_magento_order_item_update",
      *      type="entity",
      *      permission="EDIT",
-     *      class="OroMagentoBundle:OrderItem"
+     *      class="Oro\Bundle\MagentoBundle\Entity\OrderItem"
      * )
      * @return Response
      */
@@ -197,7 +197,7 @@ class OrderItemController extends RestController implements ClassResourceInterfa
      *      id="oro_magento_order_item_delete",
      *      type="entity",
      *      permission="DELETE",
-     *      class="OroMagentoBundle:OrderItem"
+     *      class="Oro\Bundle\MagentoBundle\Entity\OrderItem"
      * )
      * @return Response
      */

@@ -104,7 +104,7 @@ class AddressImportHelper
      */
     protected function updateAddressType($name)
     {
-        $typeClass = 'OroAddressBundle:AddressType';
+        $typeClass = AddressType::class;
 
         if (empty($this->addressTypesCache[$name])
             || !$this->doctrineHelper->getEntityManager($typeClass)

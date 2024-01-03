@@ -126,7 +126,7 @@ class OrderListener
     protected function updateCustomerLifetime(EntityManager $entityManager, Order $order)
     {
         /** @var CustomerRepository $customerRepository */
-        $customerRepository = $entityManager->getRepository('OroMagentoBundle:Customer');
+        $customerRepository = $entityManager->getRepository(Customer::class);
 
         $subtotalAmount = $order->getSubtotalAmount();
         if ($subtotalAmount) {

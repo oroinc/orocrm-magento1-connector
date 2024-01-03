@@ -4,6 +4,7 @@ namespace Oro\Bridge\MarketingCRM\Provider;
 
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Oro\Bundle\ChannelBundle\Entity\Channel;
 use Oro\Bundle\ChannelBundle\Entity\Repository\ChannelRepository;
 use Oro\Bundle\DashboardBundle\Provider\BigNumber\BigNumberDateHelper;
 use Oro\Bundle\FeatureToggleBundle\Checker\FeatureCheckerHolderTrait;
@@ -12,6 +13,7 @@ use Oro\Bundle\MagentoBundle\Provider\DateFilterTrait;
 use Oro\Bundle\MagentoBundle\Provider\MagentoChannelType;
 use Oro\Bundle\MagentoBundle\Provider\WebsiteVisitProviderInterface;
 use Oro\Bundle\SecurityBundle\ORM\Walker\AclHelper;
+use Oro\Bundle\TrackingBundle\Entity\TrackingVisit;
 
 class WebsiteVisitProvider implements WebsiteVisitProviderInterface, FeatureToggleableInterface
 {
@@ -59,7 +61,7 @@ class WebsiteVisitProvider implements WebsiteVisitProviderInterface, FeatureTogg
 
         list($start, $end) = $this->dateHelper->getPeriod(
             $dateRange,
-            'OroTrackingBundle:TrackingVisit',
+            TrackingVisit::class,
             'firstActionTime'
         );
         $this->applyDateFiltering($visitsQb, 'visit.firstActionTime', $start, $end);
@@ -72,6 +74,6 @@ class WebsiteVisitProvider implements WebsiteVisitProviderInterface, FeatureTogg
      */
     protected function getChannelRepository()
     {
-        return $this->doctrine->getRepository('OroChannelBundle:Channel');
+        return $this->doctrine->getRepository(Channel::class);
     }
 }

@@ -3,17 +3,20 @@
 namespace Oro\Bundle\MagentoBundle\Tests\Unit\EventListener;
 
 use Oro\Bundle\AddressBundle\Datagrid\CountryDatagridHelper;
+use Oro\Bundle\AddressBundle\Entity\Country;
 use Oro\Bundle\DataGridBundle\Datagrid\Common\DatagridConfiguration;
 use Oro\Bundle\DataGridBundle\Datagrid\Datagrid;
 use Oro\Bundle\DataGridBundle\Datagrid\ParameterBag;
 use Oro\Bundle\DataGridBundle\Event\BuildBefore;
 use Oro\Bundle\DataGridBundle\Provider\State\DatagridStateProviderInterface;
 use Oro\Bundle\MagentoBundle\EventListener\OrderGridListener;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
-class OrderGridListenerTest extends \PHPUnit\Framework\TestCase
+class OrderGridListenerTest extends TestCase
 {
     /**
-     * @var OrderGridListener|\PHPUnit\Framework\MockObject\MockObject
+     * @var OrderGridListener|MockObject
      */
     protected $listener;
 
@@ -112,7 +115,7 @@ class OrderGridListenerTest extends \PHPUnit\Framework\TestCase
                                 'enabled'   => false,
                                 'options'   => [
                                     'field_options' => [
-                                        'class'                => 'OroAddressBundle:Country',
+                                        'class'                => Country::class,
                                         'choice_label'         => 'name',
                                         'query_builder'        => null,
                                         'translatable_options' => false
@@ -224,7 +227,7 @@ class OrderGridListenerTest extends \PHPUnit\Framework\TestCase
                                 'enabled'   => false,
                                 'options'   => [
                                     'field_options' => [
-                                        'class'                => 'OroAddressBundle:Country',
+                                        'class'                => Country::class,
                                         'choice_label'         => 'name',
                                         'query_builder'        => null,
                                         'translatable_options' => false

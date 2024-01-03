@@ -83,7 +83,7 @@ class CustomerControllerTest extends WebTestCase
         if (is_null($this->customerGroup)) {
             $this->customerGroup = self::getContainer()
                 ->get('doctrine')
-                ->getRepository('OroMagentoBundle:CustomerGroup')
+                ->getRepository(CustomerGroup::class)
                 ->findOneByName(self::GROUP_NAME);
         } else {
             $this->customerGroup = false;
@@ -262,7 +262,7 @@ class CustomerControllerTest extends WebTestCase
      */
     protected function getUser()
     {
-        return $this->getEntityManager()->getRepository('OroUserBundle:User')->findOneByUsername(self::USER_NAME);
+        return $this->getEntityManager()->getRepository(User::class)->findOneByUsername(self::USER_NAME);
     }
 
     /**

@@ -9,6 +9,8 @@ use Oro\Bundle\ChartBundle\Model\ChartViewBuilder;
 use Oro\Bundle\ChartBundle\Model\ConfigProvider;
 use Oro\Bundle\DashboardBundle\Helper\DateHelper;
 use Oro\Bundle\LocaleBundle\Formatter\DateTimeFormatterInterface;
+use Oro\Bundle\MagentoBundle\Entity\Customer;
+use Oro\Bundle\MagentoBundle\Entity\Order;
 use Oro\Bundle\MagentoBundle\Entity\Repository\OrderRepository;
 use Oro\Bundle\SecurityBundle\ORM\Walker\AclHelper;
 
@@ -72,13 +74,13 @@ class OrderDataProvider
      */
     public function getAverageOrderAmountChartView(ChartViewBuilder $viewBuilder, $dateRange, DateHelper $dateHelper)
     {
-        [$start, $end] = $dateHelper->getPeriod($dateRange, 'OroMagentoBundle:Customer', 'createdAt');
+        [$start, $end] = $dateHelper->getPeriod($dateRange, Customer::class, 'createdAt');
         if ($start === null && $end === null) {
             $start = new \DateTime(DateHelper::MIN_DATE, new \DateTimeZone('UTC'));
             $end   = new \DateTime('now', new \DateTimeZone('UTC'));
         }
         /** @var OrderRepository $orderRepository */
-        $orderRepository = $this->registry->getRepository('OroMagentoBundle:Order');
+        $orderRepository = $this->registry->getRepository(Order::class);
         $result          = $orderRepository->getAverageOrderAmount($this->aclHelper, $start, $end, $dateHelper);
 
         $chartOptions = array_merge_recursive(
@@ -108,7 +110,7 @@ class OrderDataProvider
     {
         /* @var $from DateTime */
         /* @var $to DateTime */
-        [$from, $to] = $this->dateHelper->getPeriod($dateRange, 'OroMagentoBundle:Order', 'createdAt');
+        [$from, $to] = $this->dateHelper->getPeriod($dateRange, Order::class, 'createdAt');
         if ($from === null && $to === null) {
             $from = new \DateTime(DateHelper::MIN_DATE, new \DateTimeZone('UTC'));
             $to   = new \DateTime('now', new \DateTimeZone('UTC'));
@@ -150,7 +152,7 @@ class OrderDataProvider
     {
         /* @var $from DateTime */
         /* @var $to DateTime */
-        [$from, $to] = $this->dateHelper->getPeriod($dateRange, 'OroMagentoBundle:Order', 'createdAt');
+        [$from, $to] = $this->dateHelper->getPeriod($dateRange, Order::class, 'createdAt');
         if ($from === null && $to === null) {
             $from = new \DateTime(DateHelper::MIN_DATE, new \DateTimeZone('UTC'));
             $to   = new \DateTime('now', new \DateTimeZone('UTC'));
@@ -245,6 +247,6 @@ class OrderDataProvider
      */
     protected function getOrderRepository()
     {
-        return $this->registry->getRepository('OroMagentoBundle:Order');
+        return $this->registry->getRepository(Order::class);
     }
 }

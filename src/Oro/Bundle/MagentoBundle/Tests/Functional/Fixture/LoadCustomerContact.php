@@ -8,6 +8,7 @@ use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\ContactBundle\Entity\Contact;
 use Oro\Bundle\ContactBundle\Entity\ContactEmail;
 use Oro\Bundle\MagentoBundle\Entity\Customer;
+use Oro\Bundle\OrganizationBundle\Entity\Organization;
 use Oro\Bundle\UserBundle\Entity\UserManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -41,7 +42,7 @@ class LoadCustomerContact extends AbstractFixture implements DependentFixtureInt
         $this->setReference('admin_user', $admin);
         $contact->setOwner($admin);
 
-        $contact->setOrganization($manager->getRepository('OroOrganizationBundle:Organization')->getFirst());
+        $contact->setOrganization($manager->getRepository(Organization::class)->getFirst());
 
         $customer->setContact($contact);
 

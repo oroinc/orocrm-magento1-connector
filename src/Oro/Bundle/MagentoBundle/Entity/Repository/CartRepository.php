@@ -3,12 +3,14 @@
 namespace Oro\Bundle\MagentoBundle\Entity\Repository;
 
 use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use Oro\Bundle\BatchBundle\ORM\Query\BufferedIdentityQueryResultIterator;
 use Oro\Bundle\IntegrationBundle\Entity\Channel;
 use Oro\Bundle\MagentoBundle\Entity\Cart;
 use Oro\Bundle\MagentoBundle\Entity\CartStatus;
+use Oro\Bundle\MagentoBundle\Entity\Order;
 use Oro\Bundle\SecurityBundle\ORM\Walker\AclHelper;
 use Oro\Bundle\WorkflowBundle\Helper\WorkflowQueryTrait;
 use Oro\Bundle\WorkflowBundle\Model\Workflow;
@@ -164,7 +166,7 @@ class CartRepository extends ChannelAwareEntityRepository
         foreach ($ids as $id) {
             /** @var Cart $cart */
             $cart = $em->getReference($this->getEntityName(), $id);
-            $cart->setStatus($em->getReference('OroMagentoBundle:CartStatus', 'expired'));
+            $cart->setStatus($em->getReference(CartStatus::class, 'expired'));
         }
 
         $em->flush();
@@ -202,7 +204,7 @@ class CartRepository extends ChannelAwareEntityRepository
      * @param AclHelper $aclHelper
      *
      * @return int
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function getAbandonedRevenueByPeriod(\DateTime $start, \DateTime $end, AclHelper $aclHelper)
     {
@@ -220,7 +222,7 @@ class CartRepository extends ChannelAwareEntityRepository
      * @param AclHelper $aclHelper
      *
      * @return int
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function getAbandonedCountByPeriod(\DateTime $start, \DateTime $end, AclHelper $aclHelper)
     {
@@ -238,7 +240,7 @@ class CartRepository extends ChannelAwareEntityRepository
      * @param AclHelper $aclHelper
      *
      * @return float|null
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function getAbandonRateByPeriod(\DateTime $start, \DateTime $end, AclHelper $aclHelper)
     {
@@ -275,7 +277,7 @@ class CartRepository extends ChannelAwareEntityRepository
     {
         $qb = $this->createQueryBuilder('cart');
 
-        $qbWithCart =  $this->_em->getRepository('OroMagentoBundle:Order')
+        $qbWithCart =  $this->_em->getRepository(Order::class)
             ->createQueryBuilder('mOrder')
             ->where('mOrder.cart = cart');
 

@@ -33,7 +33,7 @@ class LoadRegions extends AbstractFixture implements ContainerAwareInterface
      */
     public function load(ObjectManager $manager)
     {
-        $this->regionRepository = $manager->getRepository('OroMagentoBundle:Region');
+        $this->regionRepository = $manager->getRepository(Region::class);
 
         $dir = $this->container
             ->get('kernel')

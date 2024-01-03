@@ -10,16 +10,19 @@ use Oro\Bundle\ChannelBundle\EventListener\ChannelDoctrineListener;
 use Oro\Bundle\MagentoBundle\Entity\Customer;
 use Oro\Bundle\MagentoBundle\Entity\Order;
 use Oro\Bundle\MagentoBundle\EventListener\OrderListener;
+use PHPUnit\Framework\Exception;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
-class OrderListenerTest extends \PHPUnit\Framework\TestCase
+class OrderListenerTest extends TestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var MockObject
      */
     protected $customerRepository;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|ChannelDoctrineListener
+     * @var MockObject|ChannelDoctrineListener
      */
     protected $listener;
 
@@ -171,7 +174,7 @@ class OrderListenerTest extends \PHPUnit\Framework\TestCase
      * @param Order|null $order
      *
      * @return EntityManager
-     * @throws \PHPUnit\Framework\Exception
+     * @throws Exception
      */
     protected function createEntityManagerMock($order = null)
     {
@@ -221,7 +224,7 @@ class OrderListenerTest extends \PHPUnit\Framework\TestCase
         $entityManager
             ->expects($this->any())
             ->method('getRepository')
-            ->with('OroMagentoBundle:Customer')
+            ->with(Customer::class)
             ->will($this->returnValue($this->customerRepository));
         $entityManager
             ->expects($this->any())

@@ -7,6 +7,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Util\ClassUtils;
 use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\CampaignBundle\Entity\EmailCampaign;
+use Oro\Bundle\ContactBundle\Entity\Contact;
 use Oro\Bundle\MarketingActivityBundle\Entity\MarketingActivity;
 use Oro\Bundle\OrganizationBundle\Entity\Organization;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -49,7 +50,7 @@ class LoadMarketingActivityData extends AbstractFixture implements ContainerAwar
         /** @var Organization $organization */
         $organization = $this->getReference('default_organization');
         /** @var array $entities */
-        $entities = $manager->getRepository('OroContactBundle:Contact')->findAll();
+        $entities = $manager->getRepository(Contact::class)->findAll();
         /** @var EmailCampaign $emailCampaign */
         $emailCampaign = $this->getReference('marketing_activity_campaign');
         $rareTypes = [

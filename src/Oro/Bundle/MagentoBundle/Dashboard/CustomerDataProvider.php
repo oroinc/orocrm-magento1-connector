@@ -3,11 +3,13 @@
 namespace Oro\Bundle\MagentoBundle\Dashboard;
 
 use Doctrine\Persistence\ManagerRegistry;
+use Oro\Bundle\ChannelBundle\Entity\Channel;
 use Oro\Bundle\ChannelBundle\Entity\Repository\ChannelRepository;
 use Oro\Bundle\ChartBundle\Model\ChartView;
 use Oro\Bundle\ChartBundle\Model\ChartViewBuilder;
 use Oro\Bundle\ChartBundle\Model\ConfigProvider;
 use Oro\Bundle\DashboardBundle\Helper\DateHelper;
+use Oro\Bundle\MagentoBundle\Entity\Customer;
 use Oro\Bundle\MagentoBundle\Entity\Repository\CustomerRepository;
 use Oro\Bundle\MagentoBundle\Provider\MagentoChannelType;
 use Oro\Bundle\SecurityBundle\ORM\Walker\AclHelper;
@@ -53,11 +55,11 @@ class CustomerDataProvider
     public function getNewCustomerChartView(ChartViewBuilder $viewBuilder, $dateRange)
     {
         /** @var CustomerRepository $customerRepository */
-        $customerRepository = $this->registry->getRepository('OroMagentoBundle:Customer');
+        $customerRepository = $this->registry->getRepository(Customer::class);
 
         /** @var ChannelRepository $channelRepository */
-        $channelRepository = $this->registry->getRepository('OroChannelBundle:Channel');
-        [$past, $now]  = $this->dateHelper->getPeriod($dateRange, 'OroMagentoBundle:Customer', 'createdAt');
+        $channelRepository = $this->registry->getRepository(Channel::class);
+        [$past, $now]  = $this->dateHelper->getPeriod($dateRange, Customer::class, 'createdAt');
         if ($past === null && $now === null) {
             $past = new \DateTime(DateHelper::MIN_DATE, new \DateTimeZone('UTC'));
             $now   = new \DateTime('now', new \DateTimeZone('UTC'));

@@ -44,7 +44,7 @@ class CartControllerTest extends AbstractController
         $organization = $this->client
             ->getContainer()
             ->get('doctrine')
-            ->getRepository('OroOrganizationBundle:Organization')
+            ->getRepository(Organization::class)
             ->getFirst();
 
         static::assertStringContainsString(

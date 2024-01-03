@@ -64,7 +64,7 @@ class CartAddressController extends RestController implements ClassResourceInter
      *      id="oro_magento_cart_address_create",
      *      type="entity",
      *      permission="CREATE",
-     *      class="OroMagentoBundle:CartAddress"
+     *      class="Oro\Bundle\MagentoBundle\Entity\CartAddress"
      * )
      * @param int $cartId
      *
@@ -88,7 +88,7 @@ class CartAddressController extends RestController implements ClassResourceInter
      *      id="oro_magento_cart_address_create",
      *      type="entity",
      *      permission="CREATE",
-     *      class="OroMagentoBundle:CartAddress"
+     *      class="Oro\Bundle\MagentoBundle\Entity\CartAddress"
      * )
      * @param int $cartId
      *
@@ -154,7 +154,7 @@ class CartAddressController extends RestController implements ClassResourceInter
      *      id="oro_magento_cart_address_update",
      *      type="entity",
      *      permission="EDIT",
-     *      class="OroMagentoBundle:CartAddress"
+     *      class="Oro\Bundle\MagentoBundle\Entity\CartAddress"
      * )
      * @return Response
      */
@@ -198,7 +198,7 @@ class CartAddressController extends RestController implements ClassResourceInter
      *      id="oro_magento_cart_address_delete",
      *      type="entity",
      *      permission="DELETE",
-     *      class="OroMagentoBundle:CartAddress"
+     *      class="Oro\Bundle\MagentoBundle\Entity\CartAddress"
      * )
      * @return Response
      */

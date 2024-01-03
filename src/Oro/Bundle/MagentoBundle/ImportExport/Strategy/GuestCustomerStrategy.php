@@ -3,6 +3,7 @@
 namespace Oro\Bundle\MagentoBundle\ImportExport\Strategy;
 
 use Oro\Bundle\MagentoBundle\Entity\Customer;
+use Oro\Bundle\MagentoBundle\Entity\CustomerGroup;
 use Oro\Bundle\MagentoBundle\ImportExport\Strategy\StrategyHelper\GuestCustomerStrategyHelper;
 
 class GuestCustomerStrategy extends AbstractImportStrategy
@@ -128,8 +129,8 @@ class GuestCustomerStrategy extends AbstractImportStrategy
     protected function setDefaultGroup(Customer $entity)
     {
         if (!$entity->getGroup()) {
-            $em = $this->strategyHelper->getEntityManager('OroMagentoBundle:CustomerGroup');
-            $group = $em->getRepository('OroMagentoBundle:CustomerGroup')
+            $em = $this->strategyHelper->getEntityManager(CustomerGroup::class);
+            $group = $em->getRepository(CustomerGroup::class)
                 ->findOneBy(
                     [
                         'originId' => static::NOT_LOGGED_IN_ID,

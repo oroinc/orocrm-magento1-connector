@@ -172,7 +172,7 @@ class CustomerAddressController extends RestController implements ClassResourceI
      *      id="oro_magento_customer_delete",
      *      type="entity",
      *      permission="DELETE",
-     *      class="OroMagentoBundle:Address"
+     *      class="Oro\Bundle\MagentoBundle\Entity\Address"
      * )
      * @return Response
      */

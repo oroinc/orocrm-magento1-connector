@@ -8,6 +8,7 @@ use Oro\Bundle\ImportExportBundle\Writer\EntityWriter;
 use Oro\Bundle\IntegrationBundle\Entity\Channel;
 use Oro\Bundle\MagentoBundle\Entity\Cart;
 use Oro\Bundle\MagentoBundle\Entity\Customer;
+use Oro\Bundle\MagentoBundle\Entity\Order;
 use Oro\Bundle\SecurityBundle\Annotation\CsrfProtection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -89,7 +90,7 @@ class OrderPlaceController extends AbstractController
                 throw new \LogicException('Unable to load information.');
             }
 
-            $order = $em->getRepository('OroMagentoBundle:Order')->getLastPlacedOrderBy($cart, 'cart');
+            $order = $em->getRepository(Order::class)->getLastPlacedOrderBy($cart, 'cart');
             if (null === $order) {
                 throw new \LogicException('Unable to load order.');
             }
@@ -165,7 +166,7 @@ class OrderPlaceController extends AbstractController
             if (!$isOrderLoaded) {
                 throw new \LogicException('Unable to load order.');
             }
-            $order = $em->getRepository('OroMagentoBundle:Order')->getLastPlacedOrderBy($customer, 'customer');
+            $order = $em->getRepository(Order::class)->getLastPlacedOrderBy($customer, 'customer');
             if (null === $order) {
                 throw new \LogicException('Unable to load order.');
             }

@@ -48,7 +48,7 @@ class CustomerController extends AbstractController
      *      id="oro_magento_customer_view",
      *      type="entity",
      *      permission="VIEW",
-     *      class="OroMagentoBundle:Customer"
+     *      class="Oro\Bundle\MagentoBundle\Entity\Customer"
      * )
      * @Template
      */
@@ -66,7 +66,7 @@ class CustomerController extends AbstractController
      *      id="oro_magento_customer_update",
      *      type="entity",
      *      permission="EDIT",
-     *      class="OroMagentoBundle:Customer"
+     *      class="Oro\Bundle\MagentoBundle\Entity\Customer"
      * )
      * @Template("@OroMagento/Customer/update.html.twig")
      */
@@ -81,7 +81,7 @@ class CustomerController extends AbstractController
      *      id="oro_magento_customer_create",
      *      type="entity",
      *      permission="CREATE",
-     *      class="OroMagentoBundle:Customer"
+     *      class="Oro\Bundle\MagentoBundle\Entity\Customer"
      * )
      * @Template("@OroMagento/Customer/update.html.twig")
      */
@@ -157,8 +157,8 @@ class CustomerController extends AbstractController
      *          name="oro_magento_widget_account_customers_info",
      *          requirements={"accountId"="\d+", "channelId"="\d+"}
      * )
-     * @ParamConverter("account", class="OroAccountBundle:Account", options={"id" = "accountId"})
-     * @ParamConverter("channel", class="OroChannelBundle:Channel", options={"id" = "channelId"})
+     * @ParamConverter("account", class="Oro\Bundle\AccountBundle\Entity\Account", options={"id" = "accountId"})
+     * @ParamConverter("channel", class="Oro\Bundle\ChannelBundle\Entity\Channel", options={"id" = "channelId"})
      * @AclAncestor("oro_magento_customer_view")
      * @Template
      */
@@ -187,7 +187,7 @@ class CustomerController extends AbstractController
      *        name="oro_magento_widget_customer_info",
      *        requirements={"id"="\d+", "channelId"="\d+"}
      * )
-     * @ParamConverter("channel", class="OroChannelBundle:Channel", options={"id" = "channelId"})
+     * @ParamConverter("channel", class="Oro\Bundle\ChannelBundle\Entity\Channel", options={"id" = "channelId"})
      * @AclAncestor("oro_magento_customer_view")
      * @Template
      */

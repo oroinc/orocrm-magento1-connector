@@ -30,7 +30,7 @@ class ProductController extends AbstractController
      *      id="oro_magento_product_view",
      *      type="entity",
      *      permission="VIEW",
-     *      class="OroMagentoBundle:Product"
+     *      class="Oro\Bundle\MagentoBundle\Entity\Product"
      * )
      * @Template
      */

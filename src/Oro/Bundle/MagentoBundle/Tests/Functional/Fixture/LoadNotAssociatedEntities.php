@@ -6,6 +6,10 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\AccountBundle\Entity\Account;
 use Oro\Bundle\ContactBundle\Entity\Contact;
+use Oro\Bundle\OrganizationBundle\Entity\BusinessUnit;
+use Oro\Bundle\OrganizationBundle\Entity\Organization;
+use Oro\Bundle\UserBundle\Entity\Group;
+use Oro\Bundle\UserBundle\Entity\Role;
 use Oro\Bundle\UserBundle\Entity\User;
 use Oro\Bundle\UserBundle\Entity\UserManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -25,17 +29,17 @@ class LoadNotAssociatedEntities extends AbstractFixture implements ContainerAwar
         $userManager = $this->container->get('oro_user.manager');
 
         $role  = $manager
-            ->getRepository('OroUserBundle:Role')
+            ->getRepository(Role::class)
             ->findOneByRole('ROLE_ADMINISTRATOR');
         $group = $manager
-            ->getRepository('OroUserBundle:Group')
+            ->getRepository(Group::class)
             ->findOneByName('Administrators');
 
         $unit = $manager
-            ->getRepository('OroOrganizationBundle:BusinessUnit')
+            ->getRepository(BusinessUnit::class)
             ->findOneByName('Main');
 
-        $organization = $manager->getRepository('OroOrganizationBundle:Organization')->getFirst();
+        $organization = $manager->getRepository(Organization::class)->getFirst();
 
         $user = new User();
         $user->setUsername('somename');

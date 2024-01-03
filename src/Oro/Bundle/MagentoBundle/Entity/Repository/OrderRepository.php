@@ -4,8 +4,10 @@ namespace Oro\Bundle\MagentoBundle\Entity\Repository;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
+use Oro\Bundle\ChannelBundle\Entity\Channel;
 use Oro\Bundle\DashboardBundle\Helper\DateHelper;
 use Oro\Bundle\EntityBundle\Exception\InvalidEntityException;
 use Oro\Bundle\MagentoBundle\Entity\Cart;
@@ -100,7 +102,7 @@ class OrderRepository extends ChannelAwareEntityRepository
      *
      * @return float|int
      *
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function getDiscountedOrdersPercentByDatePeriod(
         \DateTime $start,
@@ -164,7 +166,7 @@ class OrderRepository extends ChannelAwareEntityRepository
          * Remove dependency on exact magento channel type in CRM-8154
          */
         $channels      = $entityManager
-            ->getRepository('OroChannelBundle:Channel')
+            ->getRepository(Channel::class)
             ->getAvailableChannelNames($aclHelper, MagentoChannelType::TYPE);
 
         // execute data query

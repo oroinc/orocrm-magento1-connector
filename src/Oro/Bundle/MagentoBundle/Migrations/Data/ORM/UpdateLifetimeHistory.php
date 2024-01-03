@@ -55,7 +55,7 @@ class UpdateLifetimeHistory extends AbstractFixture implements ContainerAwareInt
         $channelClass = Channel::class;
 
         /** @var LifetimeHistoryRepository $lifetimeRepo */
-        $lifetimeRepo = $manager->getRepository('OroChannelBundle:LifetimeValueHistory');
+        $lifetimeRepo = $manager->getRepository(LifetimeValueHistory::class);
 
         $brokenAccountQb = $this->getBrokenAccountsQueryBuilder($customerIdentityClass, $lifetimeField, $lifetimeRepo);
         $brokenAccountsData = new BufferedQueryResultIterator($brokenAccountQb);

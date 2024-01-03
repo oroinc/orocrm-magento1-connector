@@ -64,7 +64,7 @@ class CartItemController extends RestController implements ClassResourceInterfac
      *      id="oro_magento_cart_item_create",
      *      type="entity",
      *      permission="CREATE",
-     *      class="OroMagentoBundle:CartItem"
+     *      class="Oro\Bundle\MagentoBundle\Entity\CartItem"
      * )
      * @param int $cartId
      *
@@ -160,7 +160,7 @@ class CartItemController extends RestController implements ClassResourceInterfac
      *      id="oro_magento_cart_item_update",
      *      type="entity",
      *      permission="EDIT",
-     *      class="OroMagentoBundle:CartItem"
+     *      class="Oro\Bundle\MagentoBundle\Entity\CartItem"
      * )
      * @return Response
      */
@@ -197,7 +197,7 @@ class CartItemController extends RestController implements ClassResourceInterfac
      *      id="oro_magento_cart_item_delete",
      *      type="entity",
      *      permission="DELETE",
-     *      class="OroMagentoBundle:CartItem"
+     *      class="Oro\Bundle\MagentoBundle\Entity\CartItem"
      * )
      * @return Response
      */

@@ -8,6 +8,8 @@ use Oro\Bundle\ChartBundle\Model\ChartView;
 use Oro\Bundle\ChartBundle\Model\ChartViewBuilder;
 use Oro\Bundle\ChartBundle\Model\ConfigProvider;
 use Oro\Bundle\DashboardBundle\Provider\Converters\FilterDateRangeConverter;
+use Oro\Bundle\MagentoBundle\Entity\Cart;
+use Oro\Bundle\MagentoBundle\Entity\Order;
 use Oro\Bundle\MagentoBundle\Entity\Repository\CartRepository;
 use Oro\Bundle\MagentoBundle\Entity\Repository\OrderRepository;
 use Oro\Bundle\MagentoBundle\Provider\TrackingVisitProviderInterface;
@@ -117,7 +119,7 @@ class PurchaseDataProvider
      */
     protected function getCartRepository()
     {
-        return $this->registry->getRepository('OroMagentoBundle:Cart');
+        return $this->registry->getRepository(Cart::class);
     }
 
     /**
@@ -125,6 +127,6 @@ class PurchaseDataProvider
      */
     protected function getOrderRepository()
     {
-        return $this->registry->getRepository('OroMagentoBundle:Order');
+        return $this->registry->getRepository(Order::class);
     }
 }

@@ -5,6 +5,7 @@ namespace Oro\Bundle\MagentoBundle\Tests\Functional\Controller;
 use Oro\Bundle\IntegrationBundle\Entity\Channel;
 use Oro\Bundle\MagentoBundle\Entity\Cart;
 use Oro\Bundle\MagentoBundle\Entity\Customer;
+use Oro\Bundle\MagentoBundle\Entity\Order;
 use Oro\Bundle\MagentoBundle\Tests\Functional\Fixture\LoadMagentoChannel;
 use Oro\Bundle\TestFrameworkBundle\Test\WebTestCase;
 
@@ -34,7 +35,7 @@ class DeleteChannelTest extends WebTestCase
     {
         return $this->getContainer()
             ->get('doctrine')
-            ->getRepository('OroIntegrationBundle:Channel')
+            ->getRepository(Channel::class)
             ->findOneByName('Demo Web store');
     }
 
@@ -47,7 +48,7 @@ class DeleteChannelTest extends WebTestCase
     {
         return $this->getContainer()
             ->get('doctrine')
-            ->getRepository('OroMagentoBundle:Cart')
+            ->getRepository(Cart::class)
             ->findOneByChannel($channel);
     }
 
@@ -60,7 +61,7 @@ class DeleteChannelTest extends WebTestCase
     {
         return $this->getContainer()
             ->get('doctrine')
-            ->getRepository('OroMagentoBundle:Order')
+            ->getRepository(Order::class)
             ->findOneByChannel($channel);
     }
 
@@ -73,7 +74,7 @@ class DeleteChannelTest extends WebTestCase
     {
         return $this->getContainer()
             ->get('doctrine')
-            ->getRepository('OroMagentoBundle:Customer')
+            ->getRepository(Customer::class)
             ->findOneByChannel($channel);
     }
 

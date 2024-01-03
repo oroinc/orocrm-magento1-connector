@@ -5,6 +5,7 @@ namespace Oro\Bridge\MarketingCRM\Migrations\Data\Demo\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Oro\Bundle\ChannelBundle\Entity\Channel;
 use Oro\Bundle\MagentoBundle\Entity\Customer;
 use Oro\Bundle\MagentoBundle\Provider\MagentoChannelType;
 use Oro\Bundle\MagentoBundle\Provider\TrackingCustomerIdentificationEvents as TrackingEvents;
@@ -63,7 +64,7 @@ class LoadTrackingWebsiteData extends AbstractFixture implements
     public function load(ObjectManager $om)
     {
         $organization = $this->getReference('default_organization');
-        $customers = $om->getRepository('OroMagentoBundle:Customer')->findAll();
+        $customers = $om->getRepository(Customer::class)->findAll();
 
         $websites = $this->persistTrackingWebsites($om, $organization);
         $eventDictionary = $this->persistEventDictionaries($om, $websites);
@@ -91,7 +92,7 @@ class LoadTrackingWebsiteData extends AbstractFixture implements
      */
     protected function persistTrackingWebsites(ObjectManager $om, Organization $organization)
     {
-        $channels = $om->getRepository('OroChannelBundle:Channel')->findBy([
+        $channels = $om->getRepository(Channel::class)->findBy([
             'channelType' => MagentoChannelType::TYPE
         ]);
 

@@ -67,7 +67,7 @@ class OrderNoteTest extends WebTestCase
     public function testGetCreatedOrderNote()
     {
         $orderNote = $this->manager
-                          ->getRepository('OroMagentoBundle:OrderNote')
+                          ->getRepository(OrderNote::class)
                           ->findOneBy(['originId' => LoadOrderNotesData::DEFAULT_ORIGIN_ID]);
 
         $this->assertNotNull($orderNote);

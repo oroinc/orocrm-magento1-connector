@@ -37,7 +37,7 @@ class CreditMemoController extends AbstractController
      *      id="oro_magento_credit_memo_view",
      *      type="entity",
      *      permission="VIEW",
-     *      class="OroMagentoBundle:CreditMemo"
+     *      class="Oro\Bundle\MagentoBundle\Entity\CreditMemo"
      * )
      * @Template
      * @param CreditMemo $entity
@@ -81,8 +81,8 @@ class CreditMemoController extends AbstractController
      *         requirements={"customerId"="\d+", "channelId"="\d+"}
      * )
      * @AclAncestor("oro_magento_credit_memo_view")
-     * @ParamConverter("customer", class="OroMagentoBundle:Customer", options={"id" = "customerId"})
-     * @ParamConverter("channel", class="OroIntegrationBundle:Channel", options={"id" = "channelId"})
+     * @ParamConverter("customer", class="Oro\Bundle\MagentoBundle\Entity\Customer", options={"id" = "customerId"})
+     * @ParamConverter("channel", class="Oro\Bundle\IntegrationBundle\Entity\Channel", options={"id" = "channelId"})
      * @Template
      * @param Customer $customer
      * @param Channel $channel
@@ -100,8 +100,8 @@ class CreditMemoController extends AbstractController
      *         requirements={"customerId"="\d+", "channelId"="\d+"}
      * )
      * @AclAncestor("oro_magento_credit_memo_view")
-     * @ParamConverter("customer", class="OroMagentoBundle:Customer", options={"id" = "customerId"})
-     * @ParamConverter("channel", class="OroIntegrationBundle:Channel", options={"id" = "channelId"})
+     * @ParamConverter("customer", class="Oro\Bundle\MagentoBundle\Entity\Customer", options={"id" = "customerId"})
+     * @ParamConverter("channel", class="Oro\Bundle\IntegrationBundle\Entity\Channel", options={"id" = "channelId"})
      * @Template
      * @param Customer $customer
      * @param Channel $channel
@@ -119,7 +119,7 @@ class CreditMemoController extends AbstractController
      *         requirements={"orderId"="\d+"}
      * )
      * @AclAncestor("oro_magento_credit_memo_view")
-     * @ParamConverter("order", class="OroMagentoBundle:Order", options={"id" = "orderId"})
+     * @ParamConverter("order", class="Oro\Bundle\MagentoBundle\Entity\Order", options={"id" = "orderId"})
      * @Template
      * @param Order $order
      * @return array

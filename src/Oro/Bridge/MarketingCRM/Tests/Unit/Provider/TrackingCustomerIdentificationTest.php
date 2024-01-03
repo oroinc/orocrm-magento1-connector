@@ -5,27 +5,33 @@ namespace Oro\Bridge\MarketingCRM\Tests\Unit\Provider;
 use Oro\Bridge\MarketingCRM\Provider\TrackingCustomerIdentification;
 use Oro\Bridge\MarketingCRM\Tests\Unit\Fixtures\Entity\TestTrackingWebsite;
 use Oro\Bundle\ChannelBundle\Entity\Channel;
+use Oro\Bundle\MagentoBundle\Entity\Cart;
+use Oro\Bundle\MagentoBundle\Entity\Customer;
+use Oro\Bundle\MagentoBundle\Entity\Order;
+use Oro\Bundle\MagentoBundle\Entity\Product;
 use Oro\Bundle\MagentoBundle\Provider\MagentoChannelType;
 use Oro\Bundle\TrackingBundle\Entity\TrackingEvent;
 use Oro\Bundle\TrackingBundle\Entity\TrackingEventDictionary;
 use Oro\Bundle\TrackingBundle\Entity\TrackingVisit;
 use Oro\Bundle\TrackingBundle\Entity\TrackingVisitEvent;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  */
-class TrackingCustomerIdentificationTest extends \PHPUnit\Framework\TestCase
+class TrackingCustomerIdentificationTest extends TestCase
 {
     /** @var TrackingCustomerIdentification */
     protected $provider;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject */
+    /** @var MockObject */
     protected $em;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject */
+    /** @var MockObject */
     protected $extendConfigProvider;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject */
+    /** @var MockObject */
     protected $settingsProvider;
 
     protected function setUp(): void
@@ -210,7 +216,7 @@ class TrackingCustomerIdentificationTest extends \PHPUnit\Framework\TestCase
             [
                 'cart item added',
                 100,
-                'OroMagentoBundle:Product',
+                Product::class,
                 [
                     'originId' => 100
                 ],
@@ -219,7 +225,7 @@ class TrackingCustomerIdentificationTest extends \PHPUnit\Framework\TestCase
             [
                 'order successfully placed',
                 108.8,
-                'OroMagentoBundle:Order',
+                Order::class,
                 [
                     'subtotalAmount' => 108.8,
                     'dataChannel' => $channel
@@ -229,7 +235,7 @@ class TrackingCustomerIdentificationTest extends \PHPUnit\Framework\TestCase
             [
                 'order placed',
                 1000098,
-                'OroMagentoBundle:Order',
+                Order::class,
                 [
                     'incrementId' => 1000098,
                     'dataChannel' => $channel
@@ -239,7 +245,7 @@ class TrackingCustomerIdentificationTest extends \PHPUnit\Framework\TestCase
             [
                 'user entered checkout',
                 45.78,
-                'OroMagentoBundle:Cart',
+                Cart::class,
                 [
                     'subTotal' => 45.78,
                     'dataChannel' => $channel
@@ -249,7 +255,7 @@ class TrackingCustomerIdentificationTest extends \PHPUnit\Framework\TestCase
             [
                 'user logged out',
                 123,
-                'OroMagentoBundle:Customer',
+                Customer::class,
                 [
                     'originId' => 123,
                     'dataChannel' => $channel

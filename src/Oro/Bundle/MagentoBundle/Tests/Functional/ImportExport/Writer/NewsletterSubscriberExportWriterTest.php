@@ -57,7 +57,7 @@ class NewsletterSubscriberExportWriterTest extends AbstractExportWriterTest
         $this->assertTrue($jobResult->isSuccessful());
 
         $newsletterSubscriber = $this->getContainer()->get('doctrine')
-            ->getRepository('OroMagentoBundle:NewsletterSubscriber')
+            ->getRepository(NewsletterSubscriber::class)
             ->findOneBy(['originId' => $newsletterSubscriber->getOriginId()]);
         $this->assertEquals(NewsletterSubscriber::STATUS_UNSUBSCRIBED, $newsletterSubscriber->getStatus()->getId());
 
@@ -111,7 +111,7 @@ class NewsletterSubscriberExportWriterTest extends AbstractExportWriterTest
         $this->assertTrue($jobResult->isSuccessful());
 
         $newsletterSubscriber = $this->getContainer()->get('doctrine')
-            ->getRepository('OroMagentoBundle:NewsletterSubscriber')
+            ->getRepository(NewsletterSubscriber::class)
             ->findOneBy(['originId' => $originId]);
         $this->assertEquals(NewsletterSubscriber::STATUS_SUBSCRIBED, $newsletterSubscriber->getStatus()->getId());
 

@@ -6,6 +6,8 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\MarketingListBundle\Entity\MarketingList;
+use Oro\Bundle\MarketingListBundle\Entity\MarketingListType;
+use Oro\Bundle\SegmentBundle\Entity\Segment;
 use Oro\Bundle\UserBundle\Entity\Role;
 use Oro\Bundle\UserBundle\Entity\User;
 
@@ -27,8 +29,8 @@ class LoadMarketingListData extends AbstractFixture implements DependentFixtureI
     public function load(ObjectManager $manager)
     {
         $defaultUser = $this->getAdminUser($manager);
-        $type = $manager->getRepository('OroMarketingListBundle:MarketingListType')->findOneBy(['name' => 'dynamic']);
-        $segment = $manager->getRepository('OroSegmentBundle:Segment')->findOneBy(['name' => 'Contact List Segment']);
+        $type = $manager->getRepository(MarketingListType::class)->findOneBy(['name' => 'dynamic']);
+        $segment = $manager->getRepository(Segment::class)->findOneBy(['name' => 'Contact List Segment']);
         $list = new MarketingList();
         $list->setName('Contact list')
             ->setDescription('Contact list')

@@ -3,6 +3,7 @@
 namespace Oro\Bundle\MagentoBundle\EventListener;
 
 use Oro\Bundle\AddressBundle\Datagrid\CountryDatagridHelper;
+use Oro\Bundle\AddressBundle\Entity\Country;
 use Oro\Bundle\DataGridBundle\Datagrid\Common\DatagridConfiguration;
 use Oro\Bundle\DataGridBundle\Event\BuildBefore;
 use Oro\Bundle\DataGridBundle\Provider\State\DatagridStateProviderInterface;
@@ -117,7 +118,7 @@ class OrderGridListener
                     'enabled' => false,
                     'options' => [
                         'field_options' => [
-                            'class' => 'OroAddressBundle:Country',
+                            'class' => Country::class,
                             'choice_label' => 'name',
                             'query_builder' => $this->datagridHelper->getCountryFilterQueryBuilder(),
                             'translatable_options' => false
@@ -149,7 +150,7 @@ class OrderGridListener
             'enabled'   => $enabled,
             'options'   => [
                 'field_options' => [
-                    'class'                => 'OroAddressBundle:Country',
+                    'class'                => Country::class,
                     'choice_label'         => 'name',
                     'query_builder'        => $this->datagridHelper->getCountryFilterQueryBuilder(),
                     'translatable_options' => false

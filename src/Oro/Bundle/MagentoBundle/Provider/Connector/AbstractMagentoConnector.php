@@ -219,7 +219,7 @@ abstract class AbstractMagentoConnector extends AbstractConnector implements Mag
             throw new RuntimeException('Doctrine manager registry is not initialized. Use setManagerRegistry method.');
         }
 
-        return $this->managerRegistry->getRepository('OroIntegrationBundle:Channel')
+        return $this->managerRegistry->getRepository(Integration::class)
             ->getLastStatusForConnector($integration, $connector, Status::STATUS_COMPLETED);
     }
 

@@ -4,6 +4,7 @@ namespace Oro\Bundle\MagentoBundle\Tests\Functional\Fixture;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Persistence\ObjectManager;
+use Oro\Bundle\AddressBundle\Entity\AddressType;
 use Oro\Bundle\MagentoBundle\Entity\Address;
 use Oro\Bundle\MagentoBundle\Entity\Customer;
 
@@ -84,7 +85,7 @@ class LoadAddressDiscoveryData extends AbstractFixture
      */
     public function load(ObjectManager $manager)
     {
-        $addressTypeRepo = $manager->getRepository('OroAddressBundle:AddressType');
+        $addressTypeRepo = $manager->getRepository(AddressType::class);
 
         foreach (self::$data as $item) {
             $customer = new Customer();

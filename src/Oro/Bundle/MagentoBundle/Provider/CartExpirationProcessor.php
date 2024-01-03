@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Oro\Bundle\IntegrationBundle\Entity\Channel;
 use Oro\Bundle\IntegrationBundle\Provider\ConnectorContextMediator;
 use Oro\Bundle\IntegrationBundle\Provider\SyncProcessorInterface;
+use Oro\Bundle\MagentoBundle\Entity\Cart;
 use Oro\Bundle\MagentoBundle\Entity\Website;
 use Oro\Bundle\MagentoBundle\Exception\ExtensionRequiredException;
 use Oro\Bundle\MagentoBundle\Provider\Transport\MagentoSoapTransportInterface;
@@ -56,7 +57,7 @@ class CartExpirationProcessor implements SyncProcessorInterface
     {
         $this->configure($channel);
 
-        $result = $this->em->getRepository('OroMagentoBundle:Cart')->getCartsByChannelIdsIterator($channel);
+        $result = $this->em->getRepository(Cart::class)->getCartsByChannelIdsIterator($channel);
 
         $ids   = [];
         $count = 0;
@@ -107,7 +108,7 @@ class CartExpirationProcessor implements SyncProcessorInterface
         );
         $resultIds  = array_flip($resultIds);
         $removedIds = array_values(array_diff_key($ids, $resultIds));
-        $this->em->getRepository('OroMagentoBundle:Cart')->markExpired($removedIds);
+        $this->em->getRepository(Cart::class)->markExpired($removedIds);
     }
 
     /**

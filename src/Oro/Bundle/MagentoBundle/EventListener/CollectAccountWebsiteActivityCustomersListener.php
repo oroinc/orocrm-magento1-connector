@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Oro\Bundle\MagentoBundle\EventListener;
 
 use Oro\Bundle\AccountBundle\Event\CollectAccountWebsiteActivityCustomersEvent;
+use Oro\Bundle\MagentoBundle\Entity\Customer;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
 
 class CollectAccountWebsiteActivityCustomersListener
@@ -19,7 +20,7 @@ class CollectAccountWebsiteActivityCustomersListener
     public function onAccountView(CollectAccountWebsiteActivityCustomersEvent $event)
     {
         $customers = $this->doctrine
-            ->getRepository('OroMagentoBundle:Customer')
+            ->getRepository(Customer::class)
             ->findBy(['account' => $event->getAccountId()]);
         $event->setCustomers($customers);
     }

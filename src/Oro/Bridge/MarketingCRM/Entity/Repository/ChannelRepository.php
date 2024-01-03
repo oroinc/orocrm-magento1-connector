@@ -5,6 +5,8 @@ namespace Oro\Bridge\MarketingCRM\Entity\Repository;
 use Oro\Bundle\ChannelBundle\Entity\Channel;
 use Oro\Bundle\ChannelBundle\Entity\Repository\ChannelRepositoryAbstract;
 use Oro\Bundle\ConfigBundle\Config\ConfigManager;
+use Oro\Bundle\TrackingBundle\Entity\TrackingVisit;
+use Oro\Bundle\TrackingBundle\Entity\UniqueTrackingVisit;
 
 class ChannelRepository extends ChannelRepositoryAbstract
 {
@@ -37,8 +39,8 @@ class ChannelRepository extends ChannelRepositoryAbstract
         $qb = $this->_em->createQueryBuilder();
 
         $entityName = $this->isPrecalculatedStatisticEnabled() ?
-            'OroTrackingBundle:UniqueTrackingVisit' :
-            'OroTrackingBundle:TrackingVisit';
+            UniqueTrackingVisit::class :
+            TrackingVisit::class;
 
         $qb->select('COUNT(visit.id)')
             ->from($entityName, 'visit')

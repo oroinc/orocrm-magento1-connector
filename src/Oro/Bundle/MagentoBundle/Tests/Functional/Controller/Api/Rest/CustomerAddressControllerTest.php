@@ -220,7 +220,7 @@ class CustomerAddressControllerTest extends WebTestCase
      */
     protected function getUser()
     {
-        return $this->getEntityManager()->getRepository('OroUserBundle:User')->findOneByUsername(self::USER_NAME);
+        return $this->getEntityManager()->getRepository(User::class)->findOneByUsername(self::USER_NAME);
     }
 
     /**

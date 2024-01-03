@@ -2,23 +2,26 @@
 
 namespace Oro\Bundle\MagentoBundle\Tests\Unit\Converter;
 
+use Oro\Bundle\ChannelBundle\Entity\Channel;
 use Oro\Bundle\MagentoBundle\Dashboard\CustomerDataProvider;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
-class CustomerDataProviderTest extends \PHPUnit\Framework\TestCase
+class CustomerDataProviderTest extends TestCase
 {
-    /** @var \PHPUnit\Framework\MockObject\MockObject */
+    /** @var MockObject */
     protected $registry;
 
     /** @var CustomerDataProvider */
     protected $dataProvider;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject */
+    /** @var MockObject */
     protected $aclHelper;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject */
+    /** @var MockObject */
     protected $configProvider;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject */
+    /** @var MockObject */
     protected $dateHelper;
 
     /**
@@ -76,7 +79,7 @@ class CustomerDataProviderTest extends \PHPUnit\Framework\TestCase
             ->will(
                 $this->returnCallback(
                     function ($entityName) use ($channelRepository, $customerRepository) {
-                        if ($entityName == 'OroChannelBundle:Channel') {
+                        if ($entityName == Channel::class) {
                             return $channelRepository;
                         }
                         return $customerRepository;

@@ -41,7 +41,7 @@ class CartController extends AbstractController
      *      id="oro_magento_cart_view",
      *      type="entity",
      *      permission="VIEW",
-     *      class="OroMagentoBundle:Cart"
+     *      class="Oro\Bundle\MagentoBundle\Entity\Cart"
      * )
      * @Template
      */
@@ -67,7 +67,7 @@ class CartController extends AbstractController
      *      requirements={"id"="\d+", "isRemoved"="\d+"}
      * )
      * @AclAncestor("oro_magento_cart_view")
-     * @ParamConverter("cart", class="OroMagentoBundle:Cart", options={"id" = "id"})
+     * @ParamConverter("cart", class="Oro\Bundle\MagentoBundle\Entity\Cart", options={"id" = "id"})
      * @Template
      */
     public function itemsAction(Cart $cart, $isRemoved = false)
@@ -82,8 +82,8 @@ class CartController extends AbstractController
      *         requirements={"customerId"="\d+", "channelId"="\d+"}
      * )
      * @AclAncestor("oro_magento_cart_view")
-     * @ParamConverter("customer", class="OroMagentoBundle:Customer", options={"id" = "customerId"})
-     * @ParamConverter("channel", class="OroIntegrationBundle:Channel", options={"id" = "channelId"})
+     * @ParamConverter("customer", class="Oro\Bundle\MagentoBundle\Entity\Customer", options={"id" = "customerId"})
+     * @ParamConverter("channel", class="Oro\Bundle\IntegrationBundle\Entity\Channel", options={"id" = "channelId"})
      * @Template
      */
     public function customerCartsAction(Customer $customer, Channel $channel)
@@ -98,8 +98,8 @@ class CartController extends AbstractController
      *         requirements={"customerId"="\d+", "channelId"="\d+"}
      * )
      * @AclAncestor("oro_magento_cart_view")
-     * @ParamConverter("customer", class="OroMagentoBundle:Customer", options={"id" = "customerId"})
-     * @ParamConverter("channel", class="OroIntegrationBundle:Channel", options={"id" = "channelId"})
+     * @ParamConverter("customer", class="Oro\Bundle\MagentoBundle\Entity\Customer", options={"id" = "customerId"})
+     * @ParamConverter("channel", class="Oro\Bundle\IntegrationBundle\Entity\Channel", options={"id" = "channelId"})
      * @Template
      */
     public function customerCartsWidgetAction(Customer $customer, Channel $channel)

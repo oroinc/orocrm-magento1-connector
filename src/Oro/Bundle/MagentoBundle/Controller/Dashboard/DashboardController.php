@@ -9,6 +9,7 @@ use Oro\Bundle\DashboardBundle\Provider\Converters\FilterDateRangeConverter;
 use Oro\Bundle\MagentoBundle\Dashboard\CustomerDataProvider;
 use Oro\Bundle\MagentoBundle\Dashboard\OrderDataProvider;
 use Oro\Bundle\MagentoBundle\Dashboard\PurchaseDataProvider;
+use Oro\Bundle\MagentoBundle\Entity\Cart;
 use Oro\Bundle\MagentoBundle\Entity\Repository\CartRepository;
 use Oro\Bundle\SecurityBundle\ORM\Walker\AclHelper;
 use Oro\Bundle\WorkflowBundle\Helper\WorkflowTranslationHelper;
@@ -70,7 +71,7 @@ class DashboardController extends AbstractController
         $workflow        = $workflowManager->getWorkflow();
 
         /** @var CartRepository $shoppingCartRepository */
-        $shoppingCartRepository = $this->getDoctrine()->getRepository('OroMagentoBundle:Cart');
+        $shoppingCartRepository = $this->getDoctrine()->getRepository(Cart::class);
 
         $data = $shoppingCartRepository->getFunnelChartData(
             $dateFrom,

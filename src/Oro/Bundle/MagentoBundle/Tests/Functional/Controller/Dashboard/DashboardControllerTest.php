@@ -5,6 +5,8 @@ namespace Oro\Bundle\MagentoBundle\Tests\Functional\Controller\Dashboard;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectRepository;
 use Oro\Bundle\ChannelBundle\Entity\Channel;
+use Oro\Bundle\DashboardBundle\Entity\Dashboard;
+use Oro\Bundle\DashboardBundle\Entity\Widget;
 use Oro\Bundle\MagentoBundle\Provider\MagentoChannelType;
 use Oro\Bundle\TestFrameworkBundle\Test\WebTestCase;
 
@@ -24,11 +26,11 @@ class DashboardControllerTest extends WebTestCase
         $this->doctrine = $this->getContainer()->get('doctrine');
 
         /** @var ObjectRepository $dashboardRepo */
-        $dashboardRepo = $this->doctrine->getRepository('OroDashboardBundle:Dashboard');
+        $dashboardRepo = $this->doctrine->getRepository(Dashboard::class);
         $dashboard     = $dashboardRepo->findOneBy(['name' => 'TestWidgets']);
 
         /** @var ObjectRepository $widgetRepo */
-        $widgetRepo = $this->doctrine->getRepository('OroDashboardBundle:Widget');
+        $widgetRepo = $this->doctrine->getRepository(Widget::class);
 
         $averageOrderAmountChart = $widgetRepo->findOneBy([
             'dashboard' => $dashboard,
@@ -62,7 +64,7 @@ class DashboardControllerTest extends WebTestCase
 
         /** @var Channel[] $channels */
         $channels = $this->doctrine
-            ->getRepository('OroChannelBundle:Channel')
+            ->getRepository(Channel::class)
             ->findBy(['channelType' => MagentoChannelType::TYPE]);
         foreach ($channels as $channel) {
             static::assertStringContainsString($channel->getName(), $result->getContent());
@@ -85,7 +87,7 @@ class DashboardControllerTest extends WebTestCase
         $aclHelper = $this->getContainer()->get('oro_security.acl_helper');
 
         /** @var array $channels */
-        $channels = $this->doctrine->getRepository('OroChannelBundle:Channel')
+        $channels = $this->doctrine->getRepository(Channel::class)
             ->getAvailableChannelNames($aclHelper, MagentoChannelType::TYPE);
         foreach ($channels as $channel) {
             static::assertStringContainsString($channel['name'], $result->getContent());

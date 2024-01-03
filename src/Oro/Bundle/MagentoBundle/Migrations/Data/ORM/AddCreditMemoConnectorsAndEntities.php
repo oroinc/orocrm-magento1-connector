@@ -4,6 +4,7 @@ namespace Oro\Bundle\MagentoBundle\Migrations\Data\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Persistence\ObjectManager;
+use Oro\Bundle\ChannelBundle\Entity\Channel;
 use Oro\Bundle\MagentoBundle\Entity\CreditMemo;
 use Oro\Bundle\MagentoBundle\Provider\MagentoChannelType;
 
@@ -24,7 +25,7 @@ class AddCreditMemoConnectorsAndEntities extends AbstractFixture
     protected function updateConnectors(ObjectManager $manager)
     {
         $channels = $manager
-            ->getRepository('OroIntegrationBundle:Channel')
+            ->getRepository(\Oro\Bundle\IntegrationBundle\Entity\Channel::class)
             ->findBy(['type' => MagentoChannelType::TYPE]);
 
         $newConnectors = ['credit_memo_initial', 'credit_memo'];
@@ -48,7 +49,7 @@ class AddCreditMemoConnectorsAndEntities extends AbstractFixture
     protected function updateSalesChannelEntities(ObjectManager $manager)
     {
         $salesChannels = $manager
-            ->getRepository('OroChannelBundle:Channel')
+            ->getRepository(Channel::class)
             ->findBy(['channelType' => MagentoChannelType::TYPE]);
 
         foreach ($salesChannels as $salesChannel) {

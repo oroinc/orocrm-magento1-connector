@@ -4,6 +4,9 @@ namespace Oro\Bundle\MagentoBundle\Migrations\Data\ORM;
 
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Oro\Bundle\MagentoBundle\Entity\Cart;
+use Oro\Bundle\MagentoBundle\Entity\Customer;
+use Oro\Bundle\MagentoBundle\Entity\Order;
 use Oro\Bundle\OrganizationBundle\Migrations\Data\ORM\UpdateWithOrganization;
 
 class UpdateMagentoEntitiesWithOrganization extends UpdateWithOrganization implements DependentFixtureInterface
@@ -21,8 +24,8 @@ class UpdateMagentoEntitiesWithOrganization extends UpdateWithOrganization imple
      */
     public function load(ObjectManager $manager)
     {
-        $this->update($manager, 'OroMagentoBundle:Customer');
-        $this->update($manager, 'OroMagentoBundle:Order');
-        $this->update($manager, 'OroMagentoBundle:Cart');
+        $this->update($manager, Customer::class);
+        $this->update($manager, Order::class);
+        $this->update($manager, Cart::class);
     }
 }

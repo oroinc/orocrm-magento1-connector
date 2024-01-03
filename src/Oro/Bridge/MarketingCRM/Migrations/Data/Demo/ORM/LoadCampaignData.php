@@ -62,8 +62,8 @@ class LoadCampaignData extends AbstractFixture implements ContainerAwareInterfac
     public function load(ObjectManager $manager)
     {
         $this->organization = $this->getReference('default_organization');
-        $this->users = $manager->getRepository('OroUserBundle:User')->findAll();
-        $this->leads = $manager->getRepository('OroSalesBundle:Lead')->findAll();
+        $this->users = $manager->getRepository(User::class)->findAll();
+        $this->leads = $manager->getRepository(Lead::class)->findAll();
 
         $dictionaryDir = $this->container
             ->get('kernel')

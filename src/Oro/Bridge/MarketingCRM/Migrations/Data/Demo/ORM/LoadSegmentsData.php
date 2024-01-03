@@ -5,7 +5,9 @@ namespace Oro\Bridge\MarketingCRM\Migrations\Data\Demo\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Oro\Bundle\OrganizationBundle\Entity\BusinessUnit;
 use Oro\Bundle\SegmentBundle\Entity\Segment;
+use Oro\Bundle\SegmentBundle\Entity\SegmentType;
 
 /**
  * Creates a segment of contacts.
@@ -38,8 +40,8 @@ class LoadSegmentsData extends AbstractFixture implements DependentFixtureInterf
             ->setDefinition(json_encode($definition))
             ->setEntity('Oro\Bundle\ContactBundle\Entity\Contact')
             ->setOrganization($this->getReference('default_organization'))
-            ->setOwner($manager->getRepository('OroOrganizationBundle:BusinessUnit')->getFirst())
-            ->setType($manager->getRepository('OroSegmentBundle:SegmentType')->findOneBy(['name' => 'dynamic']));
+            ->setOwner($manager->getRepository(BusinessUnit::class)->getFirst())
+            ->setType($manager->getRepository(SegmentType::class)->findOneBy(['name' => 'dynamic']));
         $manager->persist($segment);
 
         $manager->flush();

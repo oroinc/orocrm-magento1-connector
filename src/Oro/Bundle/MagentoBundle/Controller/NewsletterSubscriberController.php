@@ -42,7 +42,7 @@ class NewsletterSubscriberController extends AbstractController
      *      id="oro_magento_newsletter_subscriber_view",
      *      type="entity",
      *      permission="VIEW",
-     *      class="OroMagentoBundle:NewsletterSubscriber"
+     *      class="Oro\Bundle\MagentoBundle\Entity\NewsletterSubscriber"
      * )
      * @Template
      */
@@ -61,7 +61,7 @@ class NewsletterSubscriberController extends AbstractController
      *      id="oro_magento_newsletter_subscriber_view",
      *      type="entity",
      *      permission="VIEW",
-     *      class="OroMagentoBundle:NewsletterSubscriber"
+     *      class="Oro\Bundle\MagentoBundle\Entity\NewsletterSubscriber"
      * )
      * @Template("@OroMagento/NewsletterSubscriber/widget/info.html.twig")
      */
@@ -85,7 +85,7 @@ class NewsletterSubscriberController extends AbstractController
      *      id="oro_magento_newsletter_subscriber_subscribe",
      *      type="entity",
      *      permission="EDIT",
-     *      class="OroMagentoBundle:NewsletterSubscriber"
+     *      class="Oro\Bundle\MagentoBundle\Entity\NewsletterSubscriber"
      * )
      */
     public function subscribeAction(NewsletterSubscriber $newsletterSubscriber)
@@ -108,7 +108,7 @@ class NewsletterSubscriberController extends AbstractController
      *      id="oro_magento_newsletter_subscriber_unsubscribe",
      *      type="entity",
      *      permission="EDIT",
-     *      class="OroMagentoBundle:NewsletterSubscriber"
+     *      class="Oro\Bundle\MagentoBundle\Entity\NewsletterSubscriber"
      * )
      */
     public function unsubscribeAction(NewsletterSubscriber $newsletterSubscriber)
@@ -131,7 +131,7 @@ class NewsletterSubscriberController extends AbstractController
      *      id="oro_magento_newsletter_subscriber_subscribe_customer",
      *      type="entity",
      *      permission="EDIT",
-     *      class="OroMagentoBundle:NewsletterSubscriber"
+     *      class="Oro\Bundle\MagentoBundle\Entity\NewsletterSubscriber"
      * )
      */
     public function subscribeByCustomerAction(Customer $customer)
@@ -154,7 +154,7 @@ class NewsletterSubscriberController extends AbstractController
      *      id="oro_magento_newsletter_subscriber_unsubscribe_customer",
      *      type="entity",
      *      permission="EDIT",
-     *      class="OroMagentoBundle:NewsletterSubscriber"
+     *      class="Oro\Bundle\MagentoBundle\Entity\NewsletterSubscriber"
      * )
      */
     public function unsubscribeByCustomerAction(Customer $customer)

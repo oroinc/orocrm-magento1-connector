@@ -88,7 +88,7 @@ class OrderAddressController extends RestController implements ClassResourceInte
      *      id="oro_magento_order_address_create",
      *      type="entity",
      *      permission="CREATE",
-     *      class="OroMagentoBundle:OrderAddress"
+     *      class="Oro\Bundle\MagentoBundle\Entity\OrderAddress"
      * )
      * @param int $orderId
      *
@@ -159,7 +159,7 @@ class OrderAddressController extends RestController implements ClassResourceInte
      *      id="oro_magento_order_address_update",
      *      type="entity",
      *      permission="EDIT",
-     *      class="OroMagentoBundle:OrderAddress"
+     *      class="Oro\Bundle\MagentoBundle\Entity\OrderAddress"
      * )
      * @return Response
      */
@@ -197,7 +197,7 @@ class OrderAddressController extends RestController implements ClassResourceInte
      *      id="oro_magento_order_delete",
      *      type="entity",
      *      permission="DELETE",
-     *      class="OroMagentoBundle:OrderAddress"
+     *      class="Oro\Bundle\MagentoBundle\Entity\OrderAddress"
      * )
      * @return Response
      */

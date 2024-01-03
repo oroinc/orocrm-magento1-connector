@@ -5,9 +5,12 @@ namespace Oro\Bridge\MarketingCRM\Migrations\Data\Demo\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Oro\Bundle\CampaignBundle\Entity\Campaign;
 use Oro\Bundle\CampaignBundle\Entity\EmailCampaign;
 use Oro\Bundle\CampaignBundle\Entity\InternalTransportSettings;
 use Oro\Bundle\CampaignBundle\Transport\EmailTransport;
+use Oro\Bundle\MarketingListBundle\Entity\MarketingList;
+use Oro\Bundle\UserBundle\Entity\User;
 
 class LoadCampaignEmailData extends AbstractFixture implements DependentFixtureInterface
 {
@@ -29,13 +32,13 @@ class LoadCampaignEmailData extends AbstractFixture implements DependentFixtureI
     {
         $manager->getClassMetadata('Oro\Bundle\CampaignBundle\Entity\EmailCampaign')->setLifecycleCallbacks([]);
 
-        $marketingList = $manager->getRepository('OroMarketingListBundle:MarketingList')->findOneBy([
+        $marketingList = $manager->getRepository(MarketingList::class)->findOneBy([
             'entity' => 'Oro\Bundle\ContactBundle\Entity\Contact'
         ]);
-        $campaigns = $manager->getRepository('OroCampaignBundle:Campaign')->findAll();
+        $campaigns = $manager->getRepository(Campaign::class)->findAll();
         $campaignsMax = count($campaigns) - 1;
 
-        $defaultUser = $manager->getRepository('OroUserBundle:User')->findOneBy(['username' => 'admin']);
+        $defaultUser = $manager->getRepository(User::class)->findOneBy(['username' => 'admin']);
         $emailCampaign     = new EmailCampaign();
         $transportSettings = new InternalTransportSettings();
         $emailCampaign->setTransportSettings($transportSettings)

@@ -29,7 +29,7 @@ class LoadMagentoNewsletterSubscriberData extends AbstractFixture implements Dep
     {
         $newsletterSubscribers = [];
 
-        $customers = new ArrayCollection($manager->getRepository('OroMagentoBundle:Customer')->findAll());
+        $customers = new ArrayCollection($manager->getRepository(Customer::class)->findAll());
 
         $className = ExtendHelper::buildEnumValueClassName('mage_subscr_status');
         $statuses = new ArrayCollection($manager->getRepository($className)->findAll());

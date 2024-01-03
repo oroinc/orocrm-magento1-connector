@@ -5,6 +5,7 @@ namespace Oro\Bundle\MagentoBundle\Tests\Functional\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\ConfigBundle\Config\ConfigManager;
 use Oro\Bundle\MagentoBundle\Entity\Order;
+use Oro\Bundle\OrganizationBundle\Entity\Organization;
 use Oro\Bundle\UserBundle\Migrations\Data\ORM\LoadAdminUserData;
 
 class LoadOrderDataWithFixedDate extends LoadRFMOrderData
@@ -93,7 +94,7 @@ class LoadOrderDataWithFixedDate extends LoadRFMOrderData
         $configManager = $this->container->get('oro_config.user');
         $userManager = $this->container->get('oro_user.manager');
         $admin = $userManager->findUserByEmail(LoadAdminUserData::DEFAULT_ADMIN_EMAIL);
-        $organization = $manager->getRepository('OroOrganizationBundle:Organization')->getFirst();
+        $organization = $manager->getRepository(Organization::class)->getFirst();
         foreach ($this->orderData as $data) {
             $entity = new Order();
             $entity->setOwner($admin);

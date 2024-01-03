@@ -14,6 +14,7 @@ use Oro\Bundle\MagentoBundle\Entity\Customer;
 use Oro\Bundle\MagentoBundle\Provider\MagentoChannelType;
 use Oro\Bundle\MagentoBundle\Provider\TrackingVisitProviderInterface;
 use Oro\Bundle\SecurityBundle\ORM\Walker\AclHelper;
+use Oro\Bundle\TrackingBundle\Entity\TrackingVisit;
 
 /**
  * Calculates various tracking metrics.
@@ -186,6 +187,6 @@ class TrackingVisitProvider implements TrackingVisitProviderInterface, FeatureTo
      */
     protected function getTrackingVisitRepository()
     {
-        return $this->registry->getRepository('OroTrackingBundle:TrackingVisit');
+        return $this->registry->getRepository(TrackingVisit::class);
     }
 }

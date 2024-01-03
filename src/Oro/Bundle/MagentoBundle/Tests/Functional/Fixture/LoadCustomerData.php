@@ -40,8 +40,8 @@ class LoadCustomerData extends AbstractFixture implements ContainerAwareInterfac
     {
         $this->em = $manager;
 
-        $this->user         = $manager->getRepository('OroUserBundle:User')->findOneBy(['username' => 'admin']);
-        $this->organization = $manager->getRepository('OroOrganizationBundle:Organization')->getFirst();
+        $this->user         = $manager->getRepository(User::class)->findOneBy(['username' => 'admin']);
+        $this->organization = $manager->getRepository(Organization::class)->getFirst();
 
         $this->createCustomer('Richard', 'Bradley');
         $this->createCustomer('Brenda', 'Brock');

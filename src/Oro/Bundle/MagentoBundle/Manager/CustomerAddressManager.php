@@ -57,7 +57,7 @@ class CustomerAddressManager implements LoggerAwareInterface
     {
         $i = 0;
         $this->logger->info(sprintf('Start process'));
-        $repository = $this->em->getRepository('OroMagentoBundle:Customer');
+        $repository = $this->em->getRepository(Customer::class);
 
         $iterator = $repository->getIteratorByIdsAndIntegrationIds($customersIds, $integrationIds);
         $iterator->setBufferSize($batchSize);

@@ -7,9 +7,10 @@ use Oro\Bundle\AccountBundle\Event\CollectAccountWebsiteActivityCustomersEvent;
 use Oro\Bundle\MagentoBundle\Entity\Customer;
 use Oro\Bundle\MagentoBundle\Entity\Repository\CustomerRepository;
 use Oro\Bundle\MagentoBundle\EventListener\CollectAccountWebsiteActivityCustomersListener;
+use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
 
-class CollectAccountWebsiteActivityCustomersListenerTest extends \PHPUnit\Framework\TestCase
+class CollectAccountWebsiteActivityCustomersListenerTest extends TestCase
 {
     public function testOnAccountView()
     {
@@ -23,7 +24,7 @@ class CollectAccountWebsiteActivityCustomersListenerTest extends \PHPUnit\Framew
         $doctrine = $this->createMock(ManagerRegistry::class);
         $doctrine->expects(static::once())
             ->method('getRepository')
-            ->with('OroMagentoBundle:Customer')
+            ->with(Customer::class)
             ->willReturn($repository);
 
         $event = $this->createMock(CollectAccountWebsiteActivityCustomersEvent::class);

@@ -6,6 +6,7 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\IntegrationBundle\Manager\GenuineSyncScheduler;
+use Oro\Bundle\MagentoBundle\Entity\Address;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
@@ -19,7 +20,7 @@ class UpdateCustomerAddresses extends AbstractFixture implements ContainerAwareI
     public function load(ObjectManager $manager)
     {
         /** @var EntityRepository $repository */
-        $repository = $manager->getRepository('OroMagentoBundle:Address');
+        $repository = $manager->getRepository(Address::class);
 
         $qb = $repository->createQueryBuilder('a');
         $qb->leftJoin('a.owner', 'c');

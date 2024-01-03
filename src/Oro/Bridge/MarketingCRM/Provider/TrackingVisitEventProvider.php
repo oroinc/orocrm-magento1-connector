@@ -9,6 +9,7 @@ use Oro\Bundle\FeatureToggleBundle\Checker\FeatureCheckerHolderTrait;
 use Oro\Bundle\FeatureToggleBundle\Checker\FeatureToggleableInterface;
 use Oro\Bundle\MagentoBundle\Entity\Customer;
 use Oro\Bundle\MagentoBundle\Provider\TrackingVisitEventProviderInterface;
+use Oro\Bundle\TrackingBundle\Entity\TrackingVisitEvent;
 
 class TrackingVisitEventProvider implements TrackingVisitEventProviderInterface, FeatureToggleableInterface
 {
@@ -149,7 +150,7 @@ class TrackingVisitEventProvider implements TrackingVisitEventProviderInterface,
         $customerAssocName = ExtendHelper::buildAssociationName(Customer::class, 'association');
 
         return $this->registry
-            ->getRepository('OroTrackingBundle:TrackingVisitEvent')
+            ->getRepository(TrackingVisitEvent::class)
             ->createQueryBuilder('tve')
             ->leftJoin('tve.webEvent', 'we')
             ->andWhere(sprintf('tve.%s in (:customers)', $customerAssocName))

@@ -83,7 +83,7 @@ class OrderController extends RestController
      *      id="oro_magento_order_create",
      *      type="entity",
      *      permission="CREATE",
-     *      class="OroMagentoBundle:Order"
+     *      class="Oro\Bundle\MagentoBundle\Entity\Order"
      * )
      */
     public function postAction()
@@ -126,7 +126,7 @@ class OrderController extends RestController
      *      id="oro_magento_order_update",
      *      type="entity",
      *      permission="EDIT",
-     *      class="OroMagentoBundle:Order"
+     *      class="Oro\Bundle\MagentoBundle\Entity\Order"
      * )
      * @return Response
      */
@@ -150,7 +150,7 @@ class OrderController extends RestController
      *      id="oro_magento_order_delete",
      *      type="entity",
      *      permission="DELETE",
-     *      class="OroMagentoBundle:Order"
+     *      class="Oro\Bundle\MagentoBundle\Entity\Order"
      * )
      * @return Response
      */

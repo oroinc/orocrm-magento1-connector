@@ -9,6 +9,7 @@ use Oro\Bundle\AnalyticsBundle\Entity\RFMMetricCategory;
 use Oro\Bundle\AnalyticsBundle\Model\RFMAwareInterface;
 use Oro\Bundle\ChannelBundle\Entity\Channel;
 use Oro\Bundle\EntityExtendBundle\PropertyAccess;
+use Oro\Bundle\OrganizationBundle\Entity\Organization;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -131,7 +132,7 @@ class LoadRFMCategoryData extends AbstractFixture implements DependentFixtureInt
      */
     public function load(ObjectManager $manager)
     {
-        $organization = $manager->getRepository('OroOrganizationBundle:Organization')->getFirst();
+        $organization = $manager->getRepository(Organization::class)->getFirst();
         foreach ($this->data as $value) {
             $entity = new RFMMetricCategory();
             $entity->setOwner($organization);

@@ -58,7 +58,7 @@ class LoadMagentoRestChannel extends AbstractFixture implements ContainerAwareIn
     public function load(ObjectManager $manager)
     {
         $this->em = $manager;
-        $this->organization = $manager->getRepository('OroOrganizationBundle:Organization')->getFirst();
+        $this->organization = $manager->getRepository(Organization::class)->getFirst();
 
         $this->createTransport()
             ->createIntegration()

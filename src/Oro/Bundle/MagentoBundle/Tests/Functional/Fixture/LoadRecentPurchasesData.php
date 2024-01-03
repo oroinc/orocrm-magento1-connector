@@ -4,10 +4,13 @@ namespace Oro\Bundle\MagentoBundle\Tests\Functional\Fixture;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ObjectManager;
+use Oro\Bundle\AddressBundle\Entity\Country;
+use Oro\Bundle\AddressBundle\Entity\Region;
 use Oro\Bundle\MagentoBundle\Entity\Cart;
 use Oro\Bundle\MagentoBundle\Entity\Customer;
 use Oro\Bundle\MagentoBundle\Entity\Order;
 use Oro\Bundle\MagentoBundle\Entity\OrderItem;
+use Oro\Bundle\OrganizationBundle\Entity\Organization;
 
 class LoadRecentPurchasesData extends LoadMagentoChannel
 {
@@ -20,9 +23,9 @@ class LoadRecentPurchasesData extends LoadMagentoChannel
     public function load(ObjectManager $manager)
     {
         $this->em        = $manager;
-        $this->countries = $this->loadStructure('OroAddressBundle:Country', 'getIso2Code');
-        $this->regions   = $this->loadStructure('OroAddressBundle:Region', 'getCombinedCode');
-        $this->organization = $manager->getRepository('OroOrganizationBundle:Organization')->getFirst();
+        $this->countries = $this->loadStructure(Country::class, 'getIso2Code');
+        $this->regions   = $this->loadStructure(Region::class, 'getCombinedCode');
+        $this->organization = $manager->getRepository(Organization::class)->getFirst();
 
         $this
             ->createTransport()

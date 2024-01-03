@@ -4,11 +4,14 @@ namespace Oro\Bundle\MagentoBundle\Tests\Functional\Fixtures;
 
 use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\AccountBundle\Entity\Account;
+use Oro\Bundle\AddressBundle\Entity\Country;
+use Oro\Bundle\AddressBundle\Entity\Region;
 use Oro\Bundle\MagentoBundle\Entity\Address as MagentoAddress;
 use Oro\Bundle\MagentoBundle\Entity\Customer;
 use Oro\Bundle\MagentoBundle\Entity\MagentoSoapTransport;
 use Oro\Bundle\MagentoBundle\Provider\Transport\SoapTransport;
 use Oro\Bundle\MagentoBundle\Tests\Functional\Fixture\LoadMagentoChannel;
+use Oro\Bundle\OrganizationBundle\Entity\Organization;
 use Oro\Bundle\SalesBundle\Entity\Customer as CustomerAssociation;
 use Oro\Bundle\UserBundle\Model\Gender;
 
@@ -25,9 +28,9 @@ class LoadGuestCustomerStrategyData extends LoadMagentoChannel
     public function load(ObjectManager $manager)
     {
         $this->em        = $manager;
-        $this->countries = $this->loadStructure('OroAddressBundle:Country', 'getIso2Code');
-        $this->regions   = $this->loadStructure('OroAddressBundle:Region', 'getCombinedCode');
-        $this->organization = $manager->getRepository('OroOrganizationBundle:Organization')->getFirst();
+        $this->countries = $this->loadStructure(Country::class, 'getIso2Code');
+        $this->regions   = $this->loadStructure(Region::class, 'getCombinedCode');
+        $this->organization = $manager->getRepository(Organization::class)->getFirst();
 
         $this
             ->createTransport($this->getSharedEmailList())

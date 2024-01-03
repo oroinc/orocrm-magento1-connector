@@ -38,7 +38,7 @@ class AddressDiscoveryStrategyTest extends WebTestCase
         $entity = $this->getReference($reference);
 
         $em = $this->getContainer()->get('doctrine')->getManager();
-        $repo = $em->getRepository('OroMagentoBundle:Customer');
+        $repo = $em->getRepository(Customer::class);
 
         $qb = $repo->createQueryBuilder(AutomaticDiscovery::ROOT_ALIAS);
 

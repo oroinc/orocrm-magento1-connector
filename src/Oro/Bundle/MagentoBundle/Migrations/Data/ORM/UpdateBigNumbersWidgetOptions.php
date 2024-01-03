@@ -50,7 +50,7 @@ class UpdateBigNumbersWidgetOptions implements FixtureInterface
      */
     protected function findBigNumbersWidgets(ObjectManager $manager)
     {
-        return $manager->getRepository('OroDashboardBundle:Widget')
+        return $manager->getRepository(Widget::class)
             ->findByName('big_numbers_widget');
     }
 }

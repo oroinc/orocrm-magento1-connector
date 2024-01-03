@@ -7,6 +7,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\EntityExtendBundle\PropertyAccess;
 use Oro\Bundle\MagentoBundle\Entity\Order;
+use Oro\Bundle\OrganizationBundle\Entity\Organization;
 use Oro\Bundle\UserBundle\Entity\User;
 use Oro\Bundle\UserBundle\Migrations\Data\ORM\LoadAdminUserData;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -145,7 +146,7 @@ class LoadOrderData extends AbstractFixture implements DependentFixtureInterface
         $userManager = $this->container->get('oro_user.manager');
         /** @var User $admin */
         $admin = $userManager->findUserByEmail(LoadAdminUserData::DEFAULT_ADMIN_EMAIL);
-        $organization = $manager->getRepository('OroOrganizationBundle:Organization')->getFirst();
+        $organization = $manager->getRepository(Organization::class)->getFirst();
 
         foreach ($this->orderData as $data) {
             $entity = new Order();

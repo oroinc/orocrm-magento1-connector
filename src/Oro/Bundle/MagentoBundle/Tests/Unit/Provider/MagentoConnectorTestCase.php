@@ -20,26 +20,28 @@ use Oro\Bundle\MagentoBundle\Provider\Connector\AbstractMagentoConnector;
 use Oro\Bundle\MagentoBundle\Provider\Iterator\UpdatedLoaderInterface;
 use Oro\Bundle\MagentoBundle\Provider\Transport\MagentoTransportInterface;
 use Oro\Bundle\MagentoBundle\Tests\Unit\Fixtures\PredefinedFiltersAwareFixture;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use Psr\Log\NullLogger;
 
-abstract class MagentoConnectorTestCase extends \PHPUnit\Framework\TestCase
+abstract class MagentoConnectorTestCase extends TestCase
 {
-    /** @var MagentoTransportInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var MagentoTransportInterface|MockObject */
     protected $transportMock;
 
-    /** @var StepExecution|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var StepExecution|MockObject */
     protected $stepExecutionMock;
 
-    /** @var ManagerRegistry|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var ManagerRegistry|MockObject */
     protected $managerRegistryMock;
 
-    /** @var ChannelRepository|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var ChannelRepository|MockObject */
     protected $integrationRepositoryMock;
 
-    /** @var JobExecution|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var JobExecution|MockObject */
     protected $jobExecutionMock;
 
-    /** @var ExecutionContext|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var ExecutionContext|MockObject */
     protected $executionContextMock;
 
     /** @var array */
@@ -77,7 +79,7 @@ abstract class MagentoConnectorTestCase extends \PHPUnit\Framework\TestCase
 
         $this->managerRegistryMock->expects($this->any())
             ->method('getRepository')
-            ->with('OroIntegrationBundle:Channel')
+            ->with(Channel::class)
             ->will($this->returnValue($this->integrationRepositoryMock));
     }
 
@@ -289,15 +291,15 @@ abstract class MagentoConnectorTestCase extends \PHPUnit\Framework\TestCase
      */
     protected function getConnector($transport, $stepExecutionMock, $channel = null, $context = null)
     {
-        /** @var \PHPUnit\Framework\MockObject\MockObject|ContextRegistry $contextRegistryMock */
+        /** @var MockObject|ContextRegistry $contextRegistryMock */
         $contextRegistryMock = $this->createMock(ContextRegistry::class);
 
-        /** @var \PHPUnit\Framework\MockObject\MockObject|ConnectorContextMediator $contextMediatorMock */
+        /** @var MockObject|ConnectorContextMediator $contextMediatorMock */
         $contextMediatorMock = $this
             ->getMockBuilder(ConnectorContextMediator::class)
             ->disableOriginalConstructor()->getMock();
 
-        /** @var \PHPUnit\Framework\MockObject\MockObject|Transport $transportSettings */
+        /** @var MockObject|Transport $transportSettings */
         $transportSettings = $this->getMockForAbstractClass(Transport::class);
         $channel           = $channel ? : new Channel();
         $channel->setTransport($transportSettings);

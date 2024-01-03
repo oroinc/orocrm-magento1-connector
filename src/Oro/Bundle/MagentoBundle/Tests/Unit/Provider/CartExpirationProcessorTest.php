@@ -5,22 +5,26 @@ namespace Oro\Bundle\MagentoBundle\Tests\Unit\Provider;
 use Doctrine\ORM\EntityManager;
 use Oro\Bundle\IntegrationBundle\Entity\Channel;
 use Oro\Bundle\IntegrationBundle\Provider\ConnectorContextMediator;
+use Oro\Bundle\MagentoBundle\Entity\Cart;
+use Oro\Bundle\MagentoBundle\Exception\ExtensionRequiredException;
 use Oro\Bundle\MagentoBundle\Provider\CartExpirationProcessor;
 use Oro\Bundle\MagentoBundle\Provider\Transport\MagentoSoapTransportInterface;
 use Oro\Bundle\MagentoBundle\Provider\Transport\SoapTransport;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
-class CartExpirationProcessorTest extends \PHPUnit\Framework\TestCase
+class CartExpirationProcessorTest extends TestCase
 {
     const BATCH_SIZE = 2;
 
     /** @var CartExpirationProcessor */
     protected $processor;
 
-    /** @var EntityManager|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var EntityManager|MockObject */
     protected $em;
 
-    /** @var ConnectorContextMediator|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var ConnectorContextMediator|MockObject */
     protected $helper;
 
     protected function setUp(): void
@@ -41,7 +45,7 @@ class CartExpirationProcessorTest extends \PHPUnit\Framework\TestCase
 
     public function testProcessConfigurationExceptionScenario()
     {
-        $this->expectException(\Oro\Bundle\MagentoBundle\Exception\ExtensionRequiredException::class);
+        $this->expectException(ExtensionRequiredException::class);
         $settingBag = new ParameterBag();
 
         $transport = $this->getMockBuilder('Oro\Bundle\IntegrationBundle\Entity\Transport')
@@ -106,7 +110,7 @@ class CartExpirationProcessorTest extends \PHPUnit\Framework\TestCase
 
         $repo = $this->getMockBuilder('Oro\Bundle\MagentoBundle\Entity\Repository\CartRepository')
             ->disableOriginalConstructor()->getMock();
-        $this->em->expects($this->any())->method('getRepository')->with('OroMagentoBundle:Cart')
+        $this->em->expects($this->any())->method('getRepository')->with(Cart::class)
             ->will($this->returnValue($repo));
 
         $transport = $this->getMockBuilder('Oro\Bundle\IntegrationBundle\Entity\Transport')

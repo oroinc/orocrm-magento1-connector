@@ -28,7 +28,7 @@ class CreateSyncStatusForExistingConnectors extends AbstractFixture
      */
     public function load(ObjectManager $manager)
     {
-        $channelRepository = $manager->getRepository('OroIntegrationBundle:Channel');
+        $channelRepository = $manager->getRepository(Channel::class);
         $magentoIntegrations = $channelRepository->findBy(['type' => MagentoChannelType::TYPE]);
 
         /** @var Channel $magentoIntegration */

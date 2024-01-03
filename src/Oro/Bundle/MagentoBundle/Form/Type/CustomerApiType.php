@@ -5,7 +5,11 @@ namespace Oro\Bundle\MagentoBundle\Form\Type;
 use Oro\Bundle\AccountBundle\Form\Type\AccountSelectType;
 use Oro\Bundle\AddressBundle\Form\Type\AddressCollectionType;
 use Oro\Bundle\AddressBundle\Form\Type\TypedAddressType;
+use Oro\Bundle\ChannelBundle\Entity\Channel;
 use Oro\Bundle\FormBundle\Form\Type\OroDateType;
+use Oro\Bundle\MagentoBundle\Entity\CustomerGroup;
+use Oro\Bundle\MagentoBundle\Entity\Store;
+use Oro\Bundle\MagentoBundle\Entity\Website;
 use Oro\Bundle\MagentoBundle\Form\EventListener\CustomerTypeSubscriber;
 use Oro\Bundle\SoapBundle\Form\EventListener\PatchSubscriber;
 use Oro\Bundle\TranslationBundle\Form\Type\TranslatableEntityType;
@@ -39,7 +43,7 @@ class CustomerApiType extends AbstractType
             'website',
             TranslatableEntityType::class,
             [
-                'class' => 'OroMagentoBundle:Website',
+                'class' => Website::class,
                 'choice_label' => 'name'
             ]
         );
@@ -48,7 +52,7 @@ class CustomerApiType extends AbstractType
             'store',
             TranslatableEntityType::class,
             [
-                'class' => 'OroMagentoBundle:Store',
+                'class' => Store::class,
                 'choice_label' => 'name'
             ]
         );
@@ -57,7 +61,7 @@ class CustomerApiType extends AbstractType
             'group',
             TranslatableEntityType::class,
             [
-                'class' => 'OroMagentoBundle:CustomerGroup',
+                'class' => CustomerGroup::class,
                 'choice_label' => 'name',
                 'required' => false
             ]
@@ -67,7 +71,7 @@ class CustomerApiType extends AbstractType
             'dataChannel',
             TranslatableEntityType::class,
             [
-                'class' => 'OroChannelBundle:Channel',
+                'class' => Channel::class,
                 'choice_label' => 'name',
                 'required' => false
             ]

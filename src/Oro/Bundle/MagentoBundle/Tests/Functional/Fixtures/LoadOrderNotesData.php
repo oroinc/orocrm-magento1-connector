@@ -4,9 +4,12 @@ namespace Oro\Bundle\MagentoBundle\Tests\Functional\Fixtures;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ObjectManager;
+use Oro\Bundle\AddressBundle\Entity\Country;
+use Oro\Bundle\AddressBundle\Entity\Region;
 use Oro\Bundle\MagentoBundle\Entity\Order;
 use Oro\Bundle\MagentoBundle\Entity\OrderNote;
 use Oro\Bundle\MagentoBundle\Tests\Functional\Fixture\LoadMagentoChannel;
+use Oro\Bundle\OrganizationBundle\Entity\Organization;
 
 class LoadOrderNotesData extends LoadMagentoChannel
 {
@@ -22,9 +25,9 @@ class LoadOrderNotesData extends LoadMagentoChannel
     public function load(ObjectManager $manager)
     {
         $this->em = $manager;
-        $this->countries = $this->loadStructure('OroAddressBundle:Country', 'getIso2Code');
-        $this->regions   = $this->loadStructure('OroAddressBundle:Region', 'getCombinedCode');
-        $this->organization = $manager->getRepository('OroOrganizationBundle:Organization')->getFirst();
+        $this->countries = $this->loadStructure(Country::class, 'getIso2Code');
+        $this->regions   = $this->loadStructure(Region::class, 'getCombinedCode');
+        $this->organization = $manager->getRepository(Organization::class)->getFirst();
 
         $this
             ->createTransport()

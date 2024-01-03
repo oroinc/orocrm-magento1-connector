@@ -9,6 +9,7 @@ use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\BatchBundle\ORM\Query\BufferedIdentityQueryResultIterator;
 use Oro\Bundle\ChannelBundle\Entity\Channel;
 use Oro\Bundle\ChannelBundle\Migrations\Data\ORM\AbstractDefaultChannelDataFixture;
+use Oro\Bundle\MagentoBundle\Entity\Customer;
 use Oro\Bundle\MagentoBundle\Entity\Order;
 
 /**
@@ -24,7 +25,7 @@ class UpdateCustomerLifetimeForCanceledOrders extends AbstractDefaultChannelData
     public function load(ObjectManager $manager)
     {
         /** @var EntityManager $manager */
-        $this->customerRepository = $manager->getRepository('OroMagentoBundle:Customer');
+        $this->customerRepository = $manager->getRepository(Customer::class);
 
         // Calculate lifetime value for all customers
         $queryBuilder = $this->customerRepository->createQueryBuilder('customer');
@@ -66,7 +67,7 @@ class UpdateCustomerLifetimeForCanceledOrders extends AbstractDefaultChannelData
         }
         foreach ($channels as $channelId) {
             /** @var Channel $channel */
-            $channel = $manager->getReference('OroChannelBundle:Channel', $channelId);
+            $channel = $manager->getReference(Channel::class, $channelId);
             $this->updateLifetimeForAccounts($channel);
         }
     }
@@ -79,7 +80,7 @@ class UpdateCustomerLifetimeForCanceledOrders extends AbstractDefaultChannelData
     {
         $qb = $this->customerRepository
             ->createQueryBuilder('c')
-            ->update('OroMagentoBundle:Customer', 'c')
+            ->update(Customer::class, 'c')
             ->set('c.lifetime', $value)
             ->where('c.id = :id')
             ->setParameter('id', $customerId);

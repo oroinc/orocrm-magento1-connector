@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\BatchBundle\ORM\Query\BufferedIdentityQueryResultIterator;
+use Oro\Bundle\MagentoBundle\Entity\Customer;
 use Oro\Bundle\MagentoBundle\Entity\Order;
 
 class UpdateCustomerLifetime extends AbstractFixture
@@ -18,7 +19,7 @@ class UpdateCustomerLifetime extends AbstractFixture
     {
         /** @var EntityManager $manager */
         /** @var EntityRepository $repository */
-        $repository = $manager->getRepository('OroMagentoBundle:Customer');
+        $repository = $manager->getRepository(Customer::class);
         $queryBuilder = $repository->createQueryBuilder('customer');
 
         $queryBuilder

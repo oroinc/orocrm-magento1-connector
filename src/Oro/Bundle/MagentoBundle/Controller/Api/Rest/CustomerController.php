@@ -184,7 +184,7 @@ class CustomerController extends RestController implements ClassResourceInterfac
      *      id="oro_magento_customer_delete",
      *      type="entity",
      *      permission="DELETE",
-     *      class="OroMagentoBundle:Customer"
+     *      class="Oro\Bundle\MagentoBundle\Entity\Customer"
      * )
      * @return Response
      */

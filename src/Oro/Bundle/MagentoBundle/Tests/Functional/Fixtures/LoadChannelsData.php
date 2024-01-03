@@ -4,6 +4,7 @@ namespace Oro\Bundle\MagentoBundle\Tests\Functional\Fixtures;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Persistence\ObjectManager;
+use Extend\Entity\EX_OroOrganizationBundle_Organization;
 use Oro\Bundle\ChannelBundle\Entity\Channel;
 use Oro\Bundle\OrganizationBundle\Entity\Organization;
 
@@ -54,10 +55,10 @@ class LoadChannelsData extends AbstractFixture
 
     /**
      * @param ObjectManager $manager
-     * @return \Extend\Entity\EX_OroOrganizationBundle_Organization|null|Organization
+     * @return EX_OroOrganizationBundle_Organization|null|Organization
      */
     protected function loadOwner(ObjectManager $manager)
     {
-        return $manager->getRepository('OroOrganizationBundle:Organization')->getFirst();
+        return $manager->getRepository(Organization::class)->getFirst();
     }
 }

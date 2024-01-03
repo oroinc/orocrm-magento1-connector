@@ -17,7 +17,7 @@ class UpdateConnectors extends AbstractFixture
     {
         /** @var Channel[] $channels */
         $channels = $manager
-            ->getRepository('OroIntegrationBundle:Channel')
+            ->getRepository(Channel::class)
             ->findBy(['type' => MagentoChannelType::TYPE]);
 
         foreach ($channels as $channel) {

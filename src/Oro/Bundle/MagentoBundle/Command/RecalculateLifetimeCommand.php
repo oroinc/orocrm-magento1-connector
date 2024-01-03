@@ -35,7 +35,7 @@ class RecalculateLifetimeCommand extends AbstractRecalculateLifetimeCommand
     protected function calculateCustomerLifetime(EntityManager $em, $customer): float
     {
         /** @var CustomerRepository $customerRepo */
-        $customerRepo  = $em->getRepository('OroMagentoBundle:Customer');
+        $customerRepo  = $em->getRepository(Customer::class);
         $lifetimeValue = $customerRepo->calculateLifetimeValue($customer);
 
         return $lifetimeValue;

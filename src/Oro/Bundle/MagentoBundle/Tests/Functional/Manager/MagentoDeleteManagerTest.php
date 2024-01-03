@@ -3,6 +3,10 @@
 namespace Oro\Bundle\MagentoBundle\Tests\Functional\Manager;
 
 use Doctrine\ORM\EntityManager;
+use Oro\Bundle\ChannelBundle\Entity\Channel;
+use Oro\Bundle\MagentoBundle\Entity\Cart;
+use Oro\Bundle\MagentoBundle\Entity\Order;
+use Oro\Bundle\MagentoBundle\Entity\Website;
 use Oro\Bundle\TestFrameworkBundle\Test\WebTestCase;
 
 class MagentoDeleteManagerTest extends WebTestCase
@@ -36,21 +40,21 @@ class MagentoDeleteManagerTest extends WebTestCase
 
     public function testDeleteChannel()
     {
-        $channel   = $this->em->find('OroChannelBundle:Channel', self::$channelId);
+        $channel   = $this->em->find(Channel::class, self::$channelId);
 
         $integration = $channel->getDataSource();
 
         $integrationId = $integration->getId();
 
-        $this->assertGreaterThan(0, $this->getRecordsCount('OroMagentoBundle:Cart', $integration));
-        $this->assertGreaterThan(0, $this->getRecordsCount('OroMagentoBundle:Order', $integration));
-        $this->assertGreaterThan(0, $this->getRecordsCount('OroMagentoBundle:Website', $integration));
+        $this->assertGreaterThan(0, $this->getRecordsCount(Cart::class, $integration));
+        $this->assertGreaterThan(0, $this->getRecordsCount(Order::class, $integration));
+        $this->assertGreaterThan(0, $this->getRecordsCount(Website::class, $integration));
         $this->client->getKernel()->getContainer()->get('oro_integration.delete_manager')->delete(
             $integration
         );
-        $this->assertEquals(0, $this->getRecordsCount('OroMagentoBundle:Cart', $integrationId));
-        $this->assertEquals(0, $this->getRecordsCount('OroMagentoBundle:Order', $integrationId));
-        $this->assertEquals(0, $this->getRecordsCount('OroMagentoBundle:Website', $integrationId));
+        $this->assertEquals(0, $this->getRecordsCount(Cart::class, $integrationId));
+        $this->assertEquals(0, $this->getRecordsCount(Order::class, $integrationId));
+        $this->assertEquals(0, $this->getRecordsCount(Website::class, $integrationId));
     }
 
     /**

@@ -5,6 +5,7 @@ namespace Oro\Bundle\MagentoBundle\Migrations\Data\Demo\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Oro\Bundle\AccountBundle\Entity\Account;
 use Oro\Bundle\AddressBundle\Entity\Country;
 use Oro\Bundle\AddressBundle\Entity\Region;
 use Oro\Bundle\AnalyticsBundle\Entity\RFMMetricCategory;
@@ -73,7 +74,7 @@ class LoadMagentoData extends AbstractFixture implements ContainerAwareInterface
     public function load(ObjectManager $om)
     {
         $organization = $this->getReference('default_organization');
-        $this->users = $om->getRepository('OroUserBundle:User')->findAll();
+        $this->users = $om->getRepository(User::class)->findAll();
 
         $stores = $this->persistDemoStores($om, $organization);
         foreach ($stores as $store) {
@@ -263,7 +264,7 @@ class LoadMagentoData extends AbstractFixture implements ContainerAwareInterface
     protected function persistDemoCarts(ObjectManager $om, array $customers)
     {
         /** @var CartStatus $status */
-        $status = $om->getRepository('OroMagentoBundle:CartStatus')->findOneBy(['name' => 'open']);
+        $status = $om->getRepository(CartStatus::class)->findOneBy(['name' => 'open']);
 
         $carts = [];
         for ($i = 0; $i < 10; ++$i) {
@@ -640,10 +641,10 @@ class LoadMagentoData extends AbstractFixture implements ContainerAwareInterface
         $address->setFirstName('John');
         $address->setLastName('Doe');
         /** @var Country $country */
-        $country = $om->getRepository('OroAddressBundle:Country')->findOneBy(['iso2Code' => 'US']);
+        $country = $om->getRepository(Country::class)->findOneBy(['iso2Code' => 'US']);
         $address->setCountry($country);
         /** @var Region $region */
-        $region = $om->getRepository('OroAddressBundle:Region')->findOneBy(['combinedCode' => 'US-AK']);
+        $region = $om->getRepository(Region::class)->findOneBy(['combinedCode' => 'US-AK']);
         $address->setRegion($region);
         $om->persist($address);
 
@@ -666,8 +667,8 @@ class LoadMagentoData extends AbstractFixture implements ContainerAwareInterface
         Channel $channel,
         Organization $organization
     ) {
-        $accounts = $om->getRepository('OroAccountBundle:Account')->findAll();
-        $contacts = $om->getRepository('OroContactBundle:Contact')->findAll();
+        $accounts = $om->getRepository(Account::class)->findAll();
+        $contacts = $om->getRepository(Contact::class)->findAll();
         $customers = [];
 
         $buffer = range(0, count($accounts) - 1);

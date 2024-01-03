@@ -6,10 +6,13 @@ use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
 use Oro\Bundle\ChartBundle\Model\ConfigProvider;
 use Oro\Bundle\MagentoBundle\Dashboard\PurchaseDataProvider;
+use Oro\Bundle\MagentoBundle\Entity\Cart;
+use Oro\Bundle\MagentoBundle\Entity\Order;
 use Oro\Bundle\MagentoBundle\Provider\TrackingVisitProvider;
 use Oro\Bundle\SecurityBundle\ORM\Walker\AclHelper;
+use PHPUnit\Framework\TestCase;
 
-class PurchaseDataProviderTest extends \PHPUnit\Framework\TestCase
+class PurchaseDataProviderTest extends TestCase
 {
     /**
      * @var ManagerRegistry
@@ -137,7 +140,7 @@ class PurchaseDataProviderTest extends \PHPUnit\Framework\TestCase
             ->will($this->returnValue(30));
         $this->registry->expects($this->at(0))
             ->method('getRepository')
-            ->with('OroMagentoBundle:Cart')
+            ->with(Cart::class)
             ->will($this->returnValue($cartRepository));
         $orderRepository = $this->getMockBuilder('Oro\Bundle\MagentoBundle\Entity\Repository\OrderRepository')
             ->disableOriginalConstructor()
@@ -147,7 +150,7 @@ class PurchaseDataProviderTest extends \PHPUnit\Framework\TestCase
             ->will($this->returnValue(13));
         $this->registry->expects($this->at(1))
             ->method('getRepository')
-            ->with('OroMagentoBundle:Order')
+            ->with(Order::class)
             ->will($this->returnValue($orderRepository));
         $chartView = $this->getMockBuilder('Oro\Bundle\ChartBundle\Model\ChartView')
             ->disableOriginalConstructor()

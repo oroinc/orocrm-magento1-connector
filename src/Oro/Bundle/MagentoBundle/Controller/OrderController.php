@@ -11,6 +11,7 @@ use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -38,7 +39,7 @@ class OrderController extends AbstractController
      *      id="oro_magento_order_view",
      *      type="entity",
      *      permission="VIEW",
-     *      class="OroMagentoBundle:Order"
+     *      class="Oro\Bundle\MagentoBundle\Entity\Order"
      * )
      * @Template
      * @param Order $order
@@ -80,8 +81,8 @@ class OrderController extends AbstractController
      *        requirements={"customerId"="\d+", "channelId"="\d+"}
      * )
      * @AclAncestor("oro_magento_order_view")
-     * @ParamConverter("customer", class="OroMagentoBundle:Customer", options={"id"="customerId"})
-     * @ParamConverter("channel", class="OroIntegrationBundle:Channel", options={"id"="channelId"})
+     * @ParamConverter("customer", class="Oro\Bundle\MagentoBundle\Entity\Customer", options={"id"="customerId"})
+     * @ParamConverter("channel", class="Oro\Bundle\IntegrationBundle\Entity\Channel", options={"id"="channelId"})
      * @Template
      * @param Customer $customer
      * @param Channel $channel
@@ -99,8 +100,8 @@ class OrderController extends AbstractController
      *        requirements={"customerId"="\d+", "channelId"="\d+"}
      * )
      * @AclAncestor("oro_magento_order_view")
-     * @ParamConverter("customer", class="OroMagentoBundle:Customer", options={"id"="customerId"})
-     * @ParamConverter("channel", class="OroIntegrationBundle:Channel", options={"id"="channelId"})
+     * @ParamConverter("customer", class="Oro\Bundle\MagentoBundle\Entity\Customer", options={"id"="customerId"})
+     * @ParamConverter("channel", class="Oro\Bundle\IntegrationBundle\Entity\Channel", options={"id"="channelId"})
      * @Template
      * @param Customer $customer
      * @param Channel $channel
@@ -117,8 +118,8 @@ class OrderController extends AbstractController
      *        name="oro_magento_customer_orders_widget",
      *        requirements={"customerId"="\d+", "channelId"="\d+"}
      * )
-     * @ParamConverter("customer", class="OroMagentoBundle:Customer", options={"id"="customerId"})
-     * @ParamConverter("channel", class="OroIntegrationBundle:Channel", options={"id"="channelId"})
+     * @ParamConverter("customer", class="Oro\Bundle\MagentoBundle\Entity\Customer", options={"id"="customerId"})
+     * @ParamConverter("channel", class="Oro\Bundle\IntegrationBundle\Entity\Channel", options={"id"="channelId"})
      * @Template
      * @param Customer $customer
      * @param Channel $channel
@@ -135,8 +136,8 @@ class OrderController extends AbstractController
      *        name="oro_magento_customer_recent_purchases_widget",
      *        requirements={"customerId"="\d+", "channelId"="\d+"}
      * )
-     * @ParamConverter("customer", class="OroMagentoBundle:Customer", options={"id"="customerId"})
-     * @ParamConverter("channel", class="OroIntegrationBundle:Channel", options={"id"="channelId"})
+     * @ParamConverter("customer", class="Oro\Bundle\MagentoBundle\Entity\Customer", options={"id"="customerId"})
+     * @ParamConverter("channel", class="Oro\Bundle\IntegrationBundle\Entity\Channel", options={"id"="channelId"})
      * @Template
      * @param Customer $customer
      * @param Channel $channel
@@ -154,8 +155,8 @@ class OrderController extends AbstractController
      *        requirements={"customerId"="\d+", "channelId"="\d+"}
      * )
      * @AclAncestor("oro_magento_order_view")
-     * @ParamConverter("customer", class="OroMagentoBundle:Customer", options={"id"="customerId"})
-     * @ParamConverter("channel", class="OroIntegrationBundle:Channel", options={"id"="channelId"})
+     * @ParamConverter("customer", class="Oro\Bundle\MagentoBundle\Entity\Customer", options={"id"="customerId"})
+     * @ParamConverter("channel", class="Oro\Bundle\IntegrationBundle\Entity\Channel", options={"id"="channelId"})
      * @Template
      * @param Customer $customer
      * @param Channel $channel
@@ -173,8 +174,8 @@ class OrderController extends AbstractController
      *        requirements={"customerId"="\d+", "channelId"="\d+"}
      * )
      * @AclAncestor("oro_magento_order_view")
-     * @ParamConverter("customer", class="OroMagentoBundle:Customer", options={"id"="customerId"})
-     * @ParamConverter("channel", class="OroIntegrationBundle:Channel", options={"id"="channelId"})
+     * @ParamConverter("customer", class="Oro\Bundle\MagentoBundle\Entity\Customer", options={"id"="customerId"})
+     * @ParamConverter("channel", class="Oro\Bundle\IntegrationBundle\Entity\Channel", options={"id"="channelId"})
      * @Template
      * @param Customer $customer
      * @param Channel $channel
@@ -192,7 +193,7 @@ class OrderController extends AbstractController
      *         requirements={"orderId"="\d+"}
      * )
      * @AclAncestor("oro_magento_order_view")
-     * @ParamConverter("order", class="OroMagentoBundle:Order", options={"id" = "orderId"})
+     * @ParamConverter("order", class="Oro\Bundle\MagentoBundle\Entity\Order", options={"id" = "orderId"})
      * @Template
      * @param Order $order
      * @return array
@@ -206,7 +207,7 @@ class OrderController extends AbstractController
      * @Route("/actualize/{id}", name="oro_magento_order_actualize", requirements={"id"="\d+"}))
      * @AclAncestor("oro_magento_order_view")
      * @param Order $order
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     public function actualizeAction(Order $order)
     {

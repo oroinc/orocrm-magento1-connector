@@ -6,6 +6,10 @@ use Doctrine\Persistence\ManagerRegistry;
 use Oro\Bundle\ChannelBundle\Entity\Channel;
 use Oro\Bundle\ChannelBundle\Provider\SettingsProvider;
 use Oro\Bundle\EntityConfigBundle\Provider\ConfigProvider;
+use Oro\Bundle\MagentoBundle\Entity\Cart;
+use Oro\Bundle\MagentoBundle\Entity\Customer;
+use Oro\Bundle\MagentoBundle\Entity\Order;
+use Oro\Bundle\MagentoBundle\Entity\Product;
 use Oro\Bundle\MagentoBundle\Provider\MagentoChannelType;
 use Oro\Bundle\MagentoBundle\Provider\TrackingCustomerIdentificationEvents as TCI;
 use Oro\Bundle\TrackingBundle\Entity\TrackingVisit;
@@ -172,8 +176,8 @@ class TrackingCustomerIdentification implements TrackingEventIdentifierInterface
 
         switch ($eventName) {
             case TCI::EVENT_CART_ITEM_ADDED:
-                $targets[] = $this->registry->getManagerForClass('OroMagentoBundle:Product')
-                    ->getRepository('OroMagentoBundle:Product')
+                $targets[] = $this->registry->getManagerForClass(Product::class)
+                    ->getRepository(Product::class)
                     ->findOneBy(
                         [
                             'originId' => (int)$eventValue
@@ -181,8 +185,8 @@ class TrackingCustomerIdentification implements TrackingEventIdentifierInterface
                     );
                 break;
             case TCI::EVENT_ORDER_PLACE_SUCCESS:
-                $targets[] = $this->registry->getManagerForClass('OroMagentoBundle:Order')
-                    ->getRepository('OroMagentoBundle:Order')
+                $targets[] = $this->registry->getManagerForClass(Order::class)
+                    ->getRepository(Order::class)
                     ->findOneBy(
                         [
                             'subtotalAmount' => $eventValue,
@@ -191,8 +195,8 @@ class TrackingCustomerIdentification implements TrackingEventIdentifierInterface
                     );
                 break;
             case TCI::EVENT_ORDER_PLACED:
-                $targets[] = $this->registry->getManagerForClass('OroMagentoBundle:Order')
-                    ->getRepository('OroMagentoBundle:Order')
+                $targets[] = $this->registry->getManagerForClass(Order::class)
+                    ->getRepository(Order::class)
                     ->findOneBy(
                         [
                             'incrementId' => $eventValue,
@@ -201,8 +205,8 @@ class TrackingCustomerIdentification implements TrackingEventIdentifierInterface
                     );
                 break;
             case TCI::EVENT_CHECKOUT_STARTED:
-                $targets[] = $this->registry->getManagerForClass('OroMagentoBundle:Cart')
-                    ->getRepository('OroMagentoBundle:Cart')
+                $targets[] = $this->registry->getManagerForClass(Cart::class)
+                    ->getRepository(Cart::class)
                     ->findOneBy(
                         [
                             'subTotal'    => $eventValue,
@@ -211,8 +215,8 @@ class TrackingCustomerIdentification implements TrackingEventIdentifierInterface
                     );
                 break;
             case TCI::EVENT_CUSTOMER_LOGOUT:
-                $targets[] = $this->registry->getManagerForClass('OroMagentoBundle:Customer')
-                    ->getRepository('OroMagentoBundle:Customer')
+                $targets[] = $this->registry->getManagerForClass(Customer::class)
+                    ->getRepository(Customer::class)
                     ->findOneBy(
                         [
                             'originId'    => (int)$eventValue,

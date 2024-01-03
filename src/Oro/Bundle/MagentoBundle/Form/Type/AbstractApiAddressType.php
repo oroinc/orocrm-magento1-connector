@@ -2,6 +2,7 @@
 
 namespace Oro\Bundle\MagentoBundle\Form\Type;
 
+use Oro\Bundle\AddressBundle\Entity\AddressType;
 use Oro\Bundle\TranslationBundle\Form\Type\TranslatableEntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -54,7 +55,7 @@ abstract class AbstractApiAddressType extends AbstractType
             'types',
             TranslatableEntityType::class,
             [
-                'class' => 'OroAddressBundle:AddressType',
+                'class' => AddressType::class,
                 'choice_label' => 'label',
                 'required' => false,
                 'multiple' => true,
