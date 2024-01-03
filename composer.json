@@ -35,7 +35,7 @@
     "prefer-stable": true,
     "extra": {
         "symfony": {
-            "require": "5.4.*"
+            "require": "6.4.*"
         }
     }
 }

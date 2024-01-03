@@ -64,7 +64,7 @@ class OrderItemsApiType extends OrderItemType
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return self::NAME;
     }

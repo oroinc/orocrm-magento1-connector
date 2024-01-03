@@ -46,7 +46,7 @@ class CartItemCollectionType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'oro_cart_item_collection';
     }

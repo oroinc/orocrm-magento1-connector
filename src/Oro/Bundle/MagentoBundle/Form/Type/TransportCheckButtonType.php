@@ -20,7 +20,7 @@ class TransportCheckButtonType extends ButtonType
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return self::NAME;
     }
