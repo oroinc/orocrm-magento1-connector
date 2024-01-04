@@ -228,7 +228,7 @@ class OrderGridListener
                 'o.addresses',
                 'address',
                 'WITH',
-                'address.id IN (SELECT oa.id FROM OroMagentoBundle:OrderAddress oa '
+                'address.id IN (SELECT oa.id FROM Oro\Bundle\MagentoBundle\Entity\OrderAddress oa '
                 . 'LEFT JOIN oa.types type WHERE type.name = \'billing\' OR type.name IS NULL)'
             );
             $query->addLeftJoin('address.country', 'country');

@@ -116,7 +116,7 @@ datagrids:
                     data_name: dataChannel.id
                     options:
                         field_options:
-                            class: OroChannelBundle:Channel
+                            class: Oro\Bundle\ChannelBundle\Entity\Channel
                             choice_label: name
                             translatable_options: false
                 websiteName:
@@ -124,7 +124,7 @@ datagrids:
                     data_name: cw.id
                     options:
                         field_options:
-                            class: OroMagentoBundle:Website
+                            class: Oro\Bundle\MagentoBundle\Entity\Website
                             choice_label: name
                             translatable_options: false
                     enabled: false
@@ -142,7 +142,7 @@ datagrids:
                     data_name: address.country
                     options:
                         field_options:
-                            class: OroAddressBundle:Country
+                            class: Oro\Bundle\AddressBundle\Entity\Country
                             choice_label: name
                             query_builder:  "@oro_magento.country.datagrid_helper->getCountryFilterQueryBuilder"
                             translatable_options: false
@@ -321,7 +321,7 @@ datagrids:
                     data_name: channel.id
                     options:
                         field_options:
-                            class: OroChannelBundle:Channel
+                            class: Oro\Bundle\ChannelBundle\Entity\Channel
                             choice_label: name
                             translatable_options: false
                 websiteName:
@@ -329,7 +329,7 @@ datagrids:
                     data_name: cw.id
                     options:
                         field_options:
-                            class: OroMagentoBundle:Website
+                            class: Oro\Bundle\MagentoBundle\Entity\Website
                             choice_label: name
                     enabled:   false
                 originId:
@@ -353,7 +353,7 @@ datagrids:
                     enabled:          false
                     options:
                         field_options:
-                            class: OroAddressBundle:Country
+                            class: Oro\Bundle\AddressBundle\Entity\Country
                             choice_label: name
                             query_builder:  "@oro_magento.country.datagrid_helper->getCountryFilterQueryBuilder"
                             translatable_options: false
@@ -366,7 +366,7 @@ datagrids:
                     data_name: c.status
                     options:
                         field_options:
-                            class: OroMagentoBundle:CartStatus
+                            class: Oro\Bundle\MagentoBundle\Entity\CartStatus
                             choice_label: label
                             translatable_options: false
                 createdAt:
@@ -642,7 +642,7 @@ datagrids:
                     data_name: pw.id
                     options:
                         field_options:
-                            class: OroMagentoBundle:Website
+                            class: Oro\Bundle\MagentoBundle\Entity\Website
                             multiple: true
                             choice_label: name
                             translatable_options: false
@@ -690,13 +690,13 @@ datagrids:
                     - o.discountPercent
                     - o.couponCode
                     - >
-                        (SELECT country.name FROM OroMagentoBundle:OrderAddress address_c
+                        (SELECT country.name FROM Oro\Bundle\MagentoBundle\Entity\OrderAddress address_c
                         LEFT JOIN address_c.country country
                         LEFT JOIN address_c.types types_c
                         WHERE address_c.owner = o AND (types_c.name = 'billing' OR types_c.name IS NULL)) as countryName
                     - >
                         (SELECT CONCAT(CASE WHEN address_r.regionText IS NOT NULL THEN address_r.regionText ELSE region.name END, '')
-                        FROM OroMagentoBundle:OrderAddress address_r
+                        FROM Oro\Bundle\MagentoBundle\Entity\OrderAddress address_r
                         LEFT JOIN address_r.region region
                         LEFT JOIN address_r.types types_r
                         WHERE address_r.owner = o AND (types_r.name = 'billing' OR types_r.name IS NULL)) as regionName
@@ -784,7 +784,7 @@ datagrids:
                     data_name: channel.id
                     options:
                         field_options:
-                            class: OroChannelBundle:Channel
+                            class: Oro\Bundle\ChannelBundle\Entity\Channel
                             choice_label: name
                             translatable_options: false
                 websiteName:
@@ -792,7 +792,7 @@ datagrids:
                     data_name: cw.id
                     options:
                         field_options:
-                            class: OroMagentoBundle:Website
+                            class: Oro\Bundle\MagentoBundle\Entity\Website
                             choice_label: name
                             translatable_options: false
                     enabled:   false
@@ -1319,7 +1319,7 @@ datagrids:
                     data_name:        c.status
                     options:
                         field_options:
-                            class: OroMagentoBundle:CartStatus
+                            class: Oro\Bundle\MagentoBundle\Entity\CartStatus
                             choice_label: label
         actions:
             view:
@@ -1481,7 +1481,7 @@ datagrids:
                     data_name: dataChannel.id
                     options:
                         field_options:
-                            class: OroChannelBundle:Channel
+                            class: Oro\Bundle\ChannelBundle\Entity\Channel
                             choice_label: name
                             translatable_options: false
                 websiteName:
@@ -1615,7 +1615,7 @@ datagrids:
                     data_name: dataChannel.id
                     options:
                         field_options:
-                            class: OroChannelBundle:Channel
+                            class: Oro\Bundle\ChannelBundle\Entity\Channel
                             choice_label: name
                             translatable_options: false
                 websiteName:
@@ -1623,7 +1623,7 @@ datagrids:
                     data_name: cw.id
                     options:
                         field_options:
-                            class: OroMagentoBundle:Website
+                            class: Oro\Bundle\MagentoBundle\Entity\Website
                             choice_label: name
                             translatable_options: false
                     enabled: false
@@ -1676,7 +1676,7 @@ datagrids:
                             join: o.addresses
                             alias: address
                             conditionType: WITH
-                            condition: "address.id IN (SELECT oa.id FROM OroMagentoBundle:OrderAddress oa LEFT JOIN oa.types type WHERE type.name = 'billing')"
+                            condition: "address.id IN (SELECT oa.id FROM Oro\\Bundle\\MagentoBundle\\Entity\\OrderAddress oa LEFT JOIN oa.types type WHERE type.name = 'billing')"
                         - { join: address.country, alias: country }
                         - { join: address.region, alias: region }
                         - { join: o.dataChannel, alias: channel }
@@ -1739,7 +1739,7 @@ datagrids:
                     data_name: channel.id
                     options:
                         field_options:
-                            class: OroChannelBundle:Channel
+                            class: Oro\Bundle\ChannelBundle\Entity\Channel
                             choice_label: name
                             translatable_options: false
                 websiteName:
@@ -1747,7 +1747,7 @@ datagrids:
                     data_name: cw.id
                     options:
                         field_options:
-                            class: OroMagentoBundle:Website
+                            class: Oro\Bundle\MagentoBundle\Entity\Website
                             choice_label: name
                             translatable_options: false
                     enabled:   false
@@ -1769,7 +1769,7 @@ datagrids:
                     enabled:   false
                     options:
                         field_options:
-                            class: OroAddressBundle:Country
+                            class: Oro\Bundle\AddressBundle\Entity\Country
                             choice_label: name
                             query_builder:  "@oro_magento.country.datagrid_helper->getCountryFilterQueryBuilder"
                             translatable_options: false
@@ -1879,7 +1879,7 @@ datagrids:
                     data_name: channel.id
                     options:
                         field_options:
-                            class: OroChannelBundle:Channel
+                            class: Oro\Bundle\ChannelBundle\Entity\Channel
                             choice_label: name
                             translatable_options: false
                 websiteName:
@@ -1887,7 +1887,7 @@ datagrids:
                     data_name: cw.id
                     options:
                         field_options:
-                            class: OroMagentoBundle:Website
+                            class: Oro\Bundle\MagentoBundle\Entity\Website
                             choice_label: name
                     enabled:   false
                 firstName:
@@ -1907,7 +1907,7 @@ datagrids:
                     data_name: c.status
                     options:
                         field_options:
-                            class: OroMagentoBundle:CartStatus
+                            class: Oro\Bundle\MagentoBundle\Entity\CartStatus
                             choice_label: label
                             translatable_options: false
                 createdAt:
@@ -2061,7 +2061,7 @@ datagrids:
                     data_name: channel.id
                     options:
                         field_options:
-                            class: OroChannelBundle:Channel
+                            class: Oro\Bundle\ChannelBundle\Entity\Channel
                             choice_label: name
                             translatable_options: false
                 websiteName:
@@ -2069,7 +2069,7 @@ datagrids:
                     data_name: cw.id
                     options:
                         field_options:
-                            class: OroMagentoBundle:Website
+                            class: Oro\Bundle\MagentoBundle\Entity\Website
                             choice_label: name
                             translatable_options: false
                     enabled:   false

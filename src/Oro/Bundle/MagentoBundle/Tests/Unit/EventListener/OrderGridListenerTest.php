@@ -149,7 +149,7 @@ class OrderGridListenerTest extends TestCase
                                         'alias'         => 'address',
                                         'conditionType' => 'WITH',
                                         'condition'     => 'address.id IN (SELECT oa.id '.
-                                            'FROM OroMagentoBundle:OrderAddress oa LEFT JOIN '.
+                                            'FROM Oro\Bundle\MagentoBundle\Entity\OrderAddress oa LEFT JOIN '.
                                             'oa.types type WHERE type.name = \'billing\' OR type.name IS NULL)'
                                     ],
                                     [

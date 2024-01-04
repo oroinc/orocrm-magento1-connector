@@ -29,7 +29,7 @@ class RegionImportTest extends BaseIntegrationTest
     {
         $doctrine = $this->getContainer()->get('doctrine');
         $manager = $doctrine->getManagerForClass(Region::class);
-        $manager->createQuery('DELETE FROM OroMagentoBundle:Region')->execute();
+        $manager->createQuery('DELETE FROM Oro\Bundle\MagentoBundle\Entity\Region')->execute();
         $expectedRegions = [
             [
                 "combinedCode" => "FR-1",

@@ -3,4 +3,4 @@ services:
         class: Doctrine\Persistence\ObjectRepository
         factory: ['@doctrine', getRepository]
         arguments:
-            - OroMagentoBundle:Region
+            - Oro\Bundle\MagentoBundle\Entity\Region

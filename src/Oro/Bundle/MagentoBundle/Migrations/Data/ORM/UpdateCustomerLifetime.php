@@ -35,7 +35,7 @@ class UpdateCustomerLifetime extends AbstractFixture
             ->setParameter('status', Order::STATUS_CANCELED);
 
         $updateQuery =
-            'UPDATE OroMagentoBundle:Customer customer SET customer.lifetime = :lifetime WHERE customer.id = :id';
+            'UPDATE Oro\Bundle\MagentoBundle\Entity\Customer customer SET customer.lifetime = :lifetime WHERE customer.id = :id';
 
         // update lifetime for all customers
         $iterator = new BufferedIdentityQueryResultIterator($queryBuilder);
