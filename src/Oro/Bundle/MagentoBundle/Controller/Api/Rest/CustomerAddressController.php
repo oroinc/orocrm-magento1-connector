@@ -204,7 +204,7 @@ class CustomerAddressController extends RestController implements ClassResourceI
      */
     public function getManager()
     {
-        return $this->get('oro_magento.customer_address.manager.api');
+        return $this->container->get('oro_magento.customer_address.manager.api');
     }
 
     /**
@@ -212,7 +212,7 @@ class CustomerAddressController extends RestController implements ClassResourceI
      */
     public function getForm()
     {
-        return $this->get('oro_magento.form.customer_address.api');
+        return $this->container->get('oro_magento.form.customer_address.api');
     }
 
     /**
@@ -220,7 +220,7 @@ class CustomerAddressController extends RestController implements ClassResourceI
      */
     public function getFormHandler()
     {
-        return $this->get('oro_magento.form.api.handler.customer_address');
+        return $this->container->get('oro_magento.form.api.handler.customer_address');
     }
 
     /**
@@ -228,7 +228,7 @@ class CustomerAddressController extends RestController implements ClassResourceI
      */
     protected function getCustomerManager()
     {
-        return $this->get('oro_magento.customer.manager.api');
+        return $this->container->get('oro_magento.customer.manager.api');
     }
 
     /**

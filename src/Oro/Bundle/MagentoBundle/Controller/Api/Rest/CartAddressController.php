@@ -32,7 +32,7 @@ class CartAddressController extends RestController implements ClassResourceInter
      */
     public function getManager()
     {
-        return $this->get('oro_magento.cart_address.manager.api');
+        return $this->container->get('oro_magento.cart_address.manager.api');
     }
 
     /**
@@ -40,7 +40,7 @@ class CartAddressController extends RestController implements ClassResourceInter
      */
     public function getForm()
     {
-        return $this->get('oro_magento.form.cart_address.api');
+        return $this->container->get('oro_magento.form.cart_address.api');
     }
 
     /**
@@ -48,7 +48,7 @@ class CartAddressController extends RestController implements ClassResourceInter
      */
     public function getFormHandler()
     {
-        return $this->get('oro_magento.form.handler.cart_address');
+        return $this->container->get('oro_magento.form.handler.cart_address');
     }
 
     /**
@@ -313,7 +313,7 @@ class CartAddressController extends RestController implements ClassResourceInter
      */
     protected function getCartManager()
     {
-        return $this->get('oro_magento.cart.manager.api');
+        return $this->container->get('oro_magento.cart.manager.api');
     }
 
     /**

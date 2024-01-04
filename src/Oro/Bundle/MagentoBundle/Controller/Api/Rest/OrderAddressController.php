@@ -32,7 +32,7 @@ class OrderAddressController extends RestController implements ClassResourceInte
      */
     public function getManager()
     {
-        return $this->get('oro_magento.order_address.manager.api');
+        return $this->container->get('oro_magento.order_address.manager.api');
     }
 
     /**
@@ -40,7 +40,7 @@ class OrderAddressController extends RestController implements ClassResourceInte
      */
     public function getForm()
     {
-        return $this->get('oro_magento.form.order_address.api');
+        return $this->container->get('oro_magento.form.order_address.api');
     }
 
     /**
@@ -48,7 +48,7 @@ class OrderAddressController extends RestController implements ClassResourceInte
      */
     public function getFormHandler()
     {
-        return $this->get('oro_magento.form.handler.order_address.api');
+        return $this->container->get('oro_magento.form.handler.order_address.api');
     }
 
     /**
@@ -230,6 +230,6 @@ class OrderAddressController extends RestController implements ClassResourceInte
      */
     protected function getOrderManager()
     {
-        return $this->get('oro_magento.order.manager.api');
+        return $this->container->get('oro_magento.order.manager.api');
     }
 }

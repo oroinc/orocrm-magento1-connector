@@ -170,7 +170,7 @@ class NewsletterSubscriberController extends AbstractController
      */
     protected function doJob(NewsletterSubscriber $newsletterSubscriber, $statusIdentifier)
     {
-        $jobResult = $this->get(JobExecutor::class)->executeJob(
+        $jobResult = $this->container->get(JobExecutor::class)->executeJob(
             'export',
             'magento_newsletter_subscriber_export',
             [
@@ -196,7 +196,7 @@ class NewsletterSubscriberController extends AbstractController
      */
     protected function processCustomerSubscription(Customer $customer, $status)
     {
-        $newsletterSubscribers = $this->get(NewsletterSubscriberManager::class)
+        $newsletterSubscribers = $this->container->get(NewsletterSubscriberManager::class)
             ->getOrCreateFromCustomer($customer);
 
         $jobResult = ['successful' => false];

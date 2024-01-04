@@ -30,7 +30,7 @@ class CustomerController extends RestController implements ClassResourceInterfac
      */
     public function getManager()
     {
-        return $this->get('oro_magento.customer.manager.api');
+        return $this->container->get('oro_magento.customer.manager.api');
     }
 
     /**
@@ -38,7 +38,7 @@ class CustomerController extends RestController implements ClassResourceInterfac
      */
     public function getForm()
     {
-        return $this->get('oro_magento.form.customer.api');
+        return $this->container->get('oro_magento.form.customer.api');
     }
 
     /**
@@ -46,7 +46,7 @@ class CustomerController extends RestController implements ClassResourceInterfac
      */
     public function getFormHandler()
     {
-        return $this->get('oro_magento.form.handler.customer.api');
+        return $this->container->get('oro_magento.form.handler.customer.api');
     }
 
     /**

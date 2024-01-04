@@ -13,6 +13,7 @@ use Oro\Bundle\SecurityBundle\Annotation\CsrfProtection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -43,7 +44,7 @@ class OrderPlaceController extends AbstractController
                 'oro_magento_orderplace_error'
             );
 
-        $translator = $this->get('translator');
+        $translator = $this->container->get('translator');
 
         return [
             'error'     => $urlGenerator->isError() ? $translator->trans($urlGenerator->getError()) : false,
@@ -67,7 +68,7 @@ class OrderPlaceController extends AbstractController
     public function syncAction(Cart $cart)
     {
         /** @var EntityManager $em */
-        $em = $this->get('doctrine.orm.entity_manager');
+        $em = $this->container->get('doctrine.orm.entity_manager');
 
         try {
             $isOrderLoaded = $this->loadOrderInformation(
@@ -96,13 +97,13 @@ class OrderPlaceController extends AbstractController
             }
 
             $redirectUrl = $this->generateUrl('oro_magento_order_view', ['id' => $order->getId()]);
-            $message = $this->get('translator')->trans('oro.magento.controller.synchronization_success');
+            $message = $this->container->get('translator')->trans('oro.magento.controller.synchronization_success');
             $status = self::SYNC_SUCCESS;
         } catch (\Exception $e) {
             $cart->setStatusMessage('oro.magento.controller.synchronization_failed_status');
             $em->flush($cart);
             $redirectUrl = $this->generateUrl('oro_magento_cart_view', ['id' => $cart->getId()]);
-            $message = $this->get('translator')->trans('oro.magento.controller.sync_error_with_magento');
+            $message = $this->container->get('translator')->trans('oro.magento.controller.sync_error_with_magento');
             $status = self::SYNC_ERROR;
         }
 
@@ -134,7 +135,7 @@ class OrderPlaceController extends AbstractController
                 'oro_magento_orderplace_error'
             );
 
-        $translator = $this->get('translator');
+        $translator = $this->container->get('translator');
 
         return [
             'error'       => $urlGenerator->isError() ? $translator->trans($urlGenerator->getError()) : false,
@@ -157,7 +158,7 @@ class OrderPlaceController extends AbstractController
      */
     public function customerSyncAction(Customer $customer)
     {
-        $em = $this->get('doctrine.orm.entity_manager');
+        $em = $this->container->get('doctrine.orm.entity_manager');
         try {
             $isOrderLoaded = $this->loadOrderInformation(
                 $customer->getChannel(),
@@ -172,11 +173,11 @@ class OrderPlaceController extends AbstractController
             }
 
             $redirectUrl = $this->generateUrl('oro_magento_order_view', ['id' => $order->getId()]);
-            $message = $this->get('translator')->trans('oro.magento.controller.synchronization_success');
+            $message = $this->container->get('translator')->trans('oro.magento.controller.synchronization_success');
             $status = self::SYNC_SUCCESS;
         } catch (\Exception $e) {
             $redirectUrl = $this->generateUrl('oro_magento_customer_view', ['id' => $customer->getId()]);
-            $message = $this->get('translator')->trans('oro.magento.controller.sync_error_with_magento');
+            $message = $this->container->get('translator')->trans('oro.magento.controller.sync_error_with_magento');
             $status = self::SYNC_ERROR;
         }
         return new JsonResponse(
@@ -212,9 +213,9 @@ class OrderPlaceController extends AbstractController
      * @param string $message
      * @param string $type
      */
-    protected function addMessage($message, $type = 'success')
+    protected function addMessage($message, $type = 'success', Request $request)
     {
-        $this->get('session')->getFlashBag()->add($type, $this->get('translator')->trans($message));
+        $request->getSession()->getFlashBag()->add($type, $this->container->get('translator')->trans($message));
     }
 
     /**
@@ -224,7 +225,7 @@ class OrderPlaceController extends AbstractController
      */
     protected function loadOrderInformation(Channel $channel, array $configuration = [])
     {
-        $orderInformationLoader = $this->get('oro_magento.service.order.information_loader');
+        $orderInformationLoader = $this->container->get('oro_magento.service.order.information_loader');
 
         return $orderInformationLoader->load($channel, $configuration);
     }
@@ -236,7 +237,7 @@ class OrderPlaceController extends AbstractController
      */
     protected function loadCartInformation(Channel $channel, array $configuration = [])
     {
-        $cartInformationLoader = $this->get('oro_magento.service.cart.information_loader');
+        $cartInformationLoader = $this->container->get('oro_magento.service.cart.information_loader');
 
         return $cartInformationLoader->load($channel, $configuration);
     }

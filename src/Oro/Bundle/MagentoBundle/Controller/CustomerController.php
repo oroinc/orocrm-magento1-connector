@@ -105,7 +105,7 @@ class CustomerController extends AbstractController
     public function registerAction(Customer $customer)
     {
         return new JsonResponse([
-            'successful' => $this->get(CustomerHandler::class)->handleRegister($customer),
+            'successful' => $this->container->get(CustomerHandler::class)->handleRegister($customer),
         ]);
     }
 
@@ -115,7 +115,7 @@ class CustomerController extends AbstractController
      */
     protected function update(Customer $customer)
     {
-        return $this->get(CustomerHandler::class)->handleUpdate(
+        return $this->container->get(CustomerHandler::class)->handleUpdate(
             $customer,
             $this->createForm(CustomerType::class, $customer),
             function (Customer $customer) {
@@ -130,7 +130,7 @@ class CustomerController extends AbstractController
                     'parameters' => ['id' => $customer->getId()]
                 ];
             },
-            $this->get(TranslatorInterface::class)->trans('oro.magento.customer.saved.message')
+            $this->container->get(TranslatorInterface::class)->trans('oro.magento.customer.saved.message')
         );
     }
 

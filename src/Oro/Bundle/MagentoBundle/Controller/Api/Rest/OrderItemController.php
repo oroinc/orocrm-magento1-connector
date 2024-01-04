@@ -32,7 +32,7 @@ class OrderItemController extends RestController implements ClassResourceInterfa
      */
     public function getManager()
     {
-        return $this->get('oro_magento.order_item.manager.api');
+        return $this->container->get('oro_magento.order_item.manager.api');
     }
 
     /**
@@ -40,7 +40,7 @@ class OrderItemController extends RestController implements ClassResourceInterfa
      */
     public function getForm()
     {
-        return $this->get('oro_magento.form.order_item.api');
+        return $this->container->get('oro_magento.form.order_item.api');
     }
 
     /**
@@ -48,7 +48,7 @@ class OrderItemController extends RestController implements ClassResourceInterfa
      */
     public function getFormHandler()
     {
-        return $this->get('oro_magento.form.handler.order_item');
+        return $this->container->get('oro_magento.form.handler.order_item');
     }
 
     /**
@@ -230,6 +230,6 @@ class OrderItemController extends RestController implements ClassResourceInterfa
      */
     protected function getOrderManager()
     {
-        return $this->get('oro_magento.order.manager.api');
+        return $this->container->get('oro_magento.order.manager.api');
     }
 }

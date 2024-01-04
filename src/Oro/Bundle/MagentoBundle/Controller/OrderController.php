@@ -12,6 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -209,7 +210,7 @@ class OrderController extends AbstractController
      * @param Order $order
      * @return RedirectResponse
      */
-    public function actualizeAction(Order $order)
+    public function actualizeAction(Order $order, Request $request)
     {
         $result = false;
 
@@ -229,18 +230,18 @@ class OrderController extends AbstractController
                 ]
             );
         } catch (\LogicException $e) {
-            $this->get('logger')->addCritical($e->getMessage(), ['exception' => $e]);
+            $this->container->get('logger')->addCritical($e->getMessage(), ['exception' => $e]);
         }
 
         if ($result === true) {
-            $this->get('session')->getFlashBag()->add(
+            $request->getSession()->getFlashBag()->add(
                 'success',
-                $this->get('translator')->trans('oro.magento.controller.synchronization_success')
+                $this->container->get('translator')->trans('oro.magento.controller.synchronization_success')
             );
         } else {
-            $this->get('session')->getFlashBag()->add(
+            $request->getSession()->getFlashBag()->add(
                 'error',
-                $this->get('translator')->trans('oro.magento.controller.synchronization_error')
+                $this->container->get('translator')->trans('oro.magento.controller.synchronization_error')
             );
         }
 
@@ -254,7 +255,7 @@ class OrderController extends AbstractController
      */
     protected function loadOrderInformation(Channel $channel, array $configuration = [])
     {
-        $orderInformationLoader = $this->get('oro_magento.service.order.information_loader');
+        $orderInformationLoader = $this->container->get('oro_magento.service.order.information_loader');
 
         return $orderInformationLoader->load($channel, $configuration);
     }

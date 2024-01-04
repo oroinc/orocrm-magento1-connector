@@ -126,7 +126,7 @@ class DeleteChannelTest extends WebTestCase
 
         $tokenData =$container->get('oro_action.operation.execution.form_provider')
             ->createTokenData($operation, $actionData);
-        $container->get('session')->save();
+        $container->get('request_stack')->getSession()->save();
 
         return $tokenData;
     }

@@ -58,7 +58,7 @@ class DashboardController extends AbstractController
      */
     public function mySalesFlowB2CAction(Request $request, $widget)
     {
-        $widgetConfigs = $this->get(WidgetConfigs::class);
+        $widgetConfigs = $this->container->get(WidgetConfigs::class);
         $dateRange = $widgetConfigs
             ->getWidgetOptions($request->query->get('_widgetId', null))
             ->get('dateRange');
@@ -67,7 +67,7 @@ class DashboardController extends AbstractController
         $dateFrom = $dateRange['start'];
 
         /** @var WorkflowAwareManager $workflowManager */
-        $workflowManager = $this->get(WorkflowAwareManager::class);
+        $workflowManager = $this->container->get(WorkflowAwareManager::class);
         $workflow        = $workflowManager->getWorkflow();
 
         /** @var CartRepository $shoppingCartRepository */
@@ -77,9 +77,9 @@ class DashboardController extends AbstractController
             $dateFrom,
             $dateTo,
             $workflow,
-            $this->get(AclHelper::class)
+            $this->container->get(AclHelper::class)
         );
-        $translator = $this->get(TranslatorInterface::class);
+        $translator = $this->container->get(TranslatorInterface::class);
 
         foreach ($data as &$item) {
             $item['label'] = $translator->trans($item['label'], [], WorkflowTranslationHelper::TRANSLATION_DOMAIN);
@@ -89,7 +89,7 @@ class DashboardController extends AbstractController
         if (!$dateFrom) {
             $dateFrom = new \DateTime(FilterDateRangeConverter::MIN_DATE, new \DateTimeZone('UTC'));
         }
-        $widgetAttr['chartView'] = $this->get(ChartViewBuilder::class)
+        $widgetAttr['chartView'] = $this->container->get(ChartViewBuilder::class)
             ->setArrayData($data)
             ->setOptions(
                 [
@@ -121,9 +121,9 @@ class DashboardController extends AbstractController
      */
     public function averageOrderAmountAction(Request $request)
     {
-        $widgetAttributes  = $this->get(WidgetConfigs::class);
-        $orderDataProvider = $this->get(OrderDataProvider::class);
-        $chartViewBuilder  = $this->get(ChartViewBuilder::class);
+        $widgetAttributes  = $this->container->get(WidgetConfigs::class);
+        $orderDataProvider = $this->container->get(OrderDataProvider::class);
+        $chartViewBuilder  = $this->container->get(ChartViewBuilder::class);
 
         $data              = $widgetAttributes->getWidgetAttributesForTwig('average_order_amount_chart');
         $data['chartView'] = $orderDataProvider->getAverageOrderAmountChartView(
@@ -131,7 +131,7 @@ class DashboardController extends AbstractController
             $widgetAttributes
                 ->getWidgetOptions($request->query->get('_widgetId', null))
                 ->get('dateRange'),
-            $this->get(DateHelper::class)
+            $this->container->get(DateHelper::class)
         );
 
         return $data;
@@ -151,9 +151,9 @@ class DashboardController extends AbstractController
      */
     public function newCustomersAction(Request $request)
     {
-        $widgetAttributes     = $this->get(WidgetConfigs::class);
-        $customerDataProvider = $this->get(CustomerDataProvider::class);
-        $chartViewBuilder     = $this->get(ChartViewBuilder::class);
+        $widgetAttributes     = $this->container->get(WidgetConfigs::class);
+        $customerDataProvider = $this->container->get(CustomerDataProvider::class);
+        $chartViewBuilder     = $this->container->get(ChartViewBuilder::class);
 
         $data              = $widgetAttributes->getWidgetAttributesForTwig('new_magento_customers_chart');
         $data['chartView'] = $customerDataProvider->getNewCustomerChartView(
@@ -176,9 +176,9 @@ class DashboardController extends AbstractController
      */
     public function purchaseAction()
     {
-        $widgetAttributes     = $this->get(WidgetConfigs::class);
-        $purchaseDataProvider = $this->get(PurchaseDataProvider::class);
-        $chartViewBuilder     = $this->get(ChartViewBuilder::class);
+        $widgetAttributes     = $this->container->get(WidgetConfigs::class);
+        $purchaseDataProvider = $this->container->get(PurchaseDataProvider::class);
+        $chartViewBuilder     = $this->container->get(ChartViewBuilder::class);
 
         $dateRange = $widgetAttributes->getWidgetOptions()->get('dateRange');
         $from      = $dateRange['start'];
@@ -200,9 +200,9 @@ class DashboardController extends AbstractController
      */
     public function revenueOverTimeAction()
     {
-        $widgetAttributes  = $this->get(WidgetConfigs::class);
-        $orderDataProvider = $this->get(OrderDataProvider::class);
-        $chartViewBuilder  = $this->get(ChartViewBuilder::class);
+        $widgetAttributes  = $this->container->get(WidgetConfigs::class);
+        $orderDataProvider = $this->container->get(OrderDataProvider::class);
+        $chartViewBuilder  = $this->container->get(ChartViewBuilder::class);
 
         $data              = $widgetAttributes->getWidgetAttributesForTwig('revenue_over_time_chart');
         $data['chartView'] = $orderDataProvider->getRevenueOverTimeChartView(
@@ -225,9 +225,9 @@ class DashboardController extends AbstractController
      */
     public function ordersOverTimeAction()
     {
-        $widgetAttributes  = $this->get(WidgetConfigs::class);
-        $orderDataProvider = $this->get(OrderDataProvider::class);
-        $chartViewBuilder  = $this->get(ChartViewBuilder::class);
+        $widgetAttributes  = $this->container->get(WidgetConfigs::class);
+        $orderDataProvider = $this->container->get(OrderDataProvider::class);
+        $chartViewBuilder  = $this->container->get(ChartViewBuilder::class);
 
         $data              = $widgetAttributes->getWidgetAttributesForTwig('orders_over_time_chart');
         $data['chartView'] = $orderDataProvider->getOrdersOverTimeChartView(

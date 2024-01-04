@@ -32,7 +32,7 @@ class CartItemController extends RestController implements ClassResourceInterfac
      */
     public function getManager()
     {
-        return $this->get('oro_magento.cart_item.manager.api');
+        return $this->container->get('oro_magento.cart_item.manager.api');
     }
 
     /**
@@ -40,7 +40,7 @@ class CartItemController extends RestController implements ClassResourceInterfac
      */
     public function getForm()
     {
-        return $this->get('oro_magento.form.cart_item.api');
+        return $this->container->get('oro_magento.form.cart_item.api');
     }
 
     /**
@@ -48,7 +48,7 @@ class CartItemController extends RestController implements ClassResourceInterfac
      */
     public function getFormHandler()
     {
-        return $this->get('oro_magento.form.handler.cart_item');
+        return $this->container->get('oro_magento.form.handler.cart_item');
     }
 
     /**
@@ -230,6 +230,6 @@ class CartItemController extends RestController implements ClassResourceInterfac
      */
     protected function getCartManager()
     {
-        return $this->get('oro_magento.cart.manager.api');
+        return $this->container->get('oro_magento.cart.manager.api');
     }
 }

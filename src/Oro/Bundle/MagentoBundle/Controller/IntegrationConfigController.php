@@ -27,7 +27,7 @@ class IntegrationConfigController extends AbstractController
      */
     public function checkAction()
     {
-        $handler = $this->get('oro_magento.handler.transport');
+        $handler = $this->container->get('oro_magento.handler.transport');
 
         try {
             $response = $handler->getCheckResponse();
@@ -50,7 +50,7 @@ class IntegrationConfigController extends AbstractController
             $this->logDebugException($e);
 
             return $this->createFailResponse(
-                $this->get('translator')->trans('oro.magento.controller.not_valid_parameters')
+                $this->container->get('translator')->trans('oro.magento.controller.not_valid_parameters')
             );
         }
 
@@ -58,7 +58,7 @@ class IntegrationConfigController extends AbstractController
             $this->logDebugException($e);
 
             return $this->createFailResponse(
-                $this->get('translator')->trans('oro.magento.controller.extension_required')
+                $this->container->get('translator')->trans('oro.magento.controller.extension_required')
             );
         }
 
@@ -66,14 +66,14 @@ class IntegrationConfigController extends AbstractController
             $this->logCriticalException($e);
 
             return $this->createFailResponse(
-                $this->get('translator')->trans('oro.magento.controller.transport_error')
+                $this->container->get('translator')->trans('oro.magento.controller.transport_error')
             );
         }
 
         $this->logCriticalException($e);
 
         return $this->createFailResponse(
-            $this->get('translator')->trans('oro.magento.controller.not_valid_parameters')
+            $this->container->get('translator')->trans('oro.magento.controller.not_valid_parameters')
         );
     }
 
@@ -83,7 +83,7 @@ class IntegrationConfigController extends AbstractController
     protected function logDebugException(\Exception $exception)
     {
         $message = ValidationUtils::sanitizeSecureInfo($exception->getMessage());
-        $this->get('logger')->debug(sprintf('MageCheck error: %s: %s', $exception->getCode(), $message));
+        $this->container->get('logger')->debug(sprintf('MageCheck error: %s: %s', $exception->getCode(), $message));
     }
 
     /**
@@ -92,7 +92,7 @@ class IntegrationConfigController extends AbstractController
     protected function logCriticalException(\Exception $exception)
     {
         $message = ValidationUtils::sanitizeSecureInfo($exception->getMessage());
-        $this->get('logger')->critical(sprintf('MageCheck error: %s: %s', $exception->getCode(), $message));
+        $this->container->get('logger')->critical(sprintf('MageCheck error: %s: %s', $exception->getCode(), $message));
     }
 
     /**

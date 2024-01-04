@@ -28,7 +28,7 @@ class OrderController extends RestController
      */
     public function getManager()
     {
-        return $this->get('oro_magento.order.manager.api');
+        return $this->container->get('oro_magento.order.manager.api');
     }
 
     /**
@@ -36,7 +36,7 @@ class OrderController extends RestController
      */
     public function getForm()
     {
-        return $this->get('oro_magento.form.order.api');
+        return $this->container->get('oro_magento.form.order.api');
     }
 
     /**
@@ -44,7 +44,7 @@ class OrderController extends RestController
      */
     public function getFormHandler()
     {
-        return $this->get('oro_magento.form.handler.order.api');
+        return $this->container->get('oro_magento.form.handler.order.api');
     }
 
     /**

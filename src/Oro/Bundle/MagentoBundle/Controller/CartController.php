@@ -114,28 +114,28 @@ class CartController extends AbstractController
     public function actualizeAction(Cart $cart, Request $request)
     {
         $result = false;
-        $connector = $this->get(CartConnector::class);
+        $connector = $this->container->get(CartConnector::class);
 
         try {
-            $processor = $this->get(SyncProcessor::class);
+            $processor = $this->container->get(SyncProcessor::class);
             $result = $processor->process(
                 $cart->getChannel(),
                 $connector->getType(),
                 ['filters' => ['entity_id' => $cart->getOriginId()]]
             );
         } catch (\LogicException $e) {
-            $this->get(LoggerInterface::class)->addCritical($e->getMessage(), ['exception' => $e]);
+            $this->container->get(LoggerInterface::class)->addCritical($e->getMessage(), ['exception' => $e]);
         }
 
         if ($result === true) {
             $request->getSession()->getFlashBag()->add(
                 'success',
-                $this->get(TranslatorInterface::class)->trans('oro.magento.controller.synchronization_success')
+                $this->container->get(TranslatorInterface::class)->trans('oro.magento.controller.synchronization_success')
             );
         } else {
             $request->getSession()->getFlashBag()->add(
                 'error',
-                $this->get(TranslatorInterface::class)->trans('oro.magento.controller.synchronization_error')
+                $this->container->get(TranslatorInterface::class)->trans('oro.magento.controller.synchronization_error')
             );
         }
 
