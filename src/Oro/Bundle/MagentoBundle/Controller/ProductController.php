@@ -3,47 +3,30 @@
 namespace Oro\Bundle\MagentoBundle\Controller;
 
 use Oro\Bundle\MagentoBundle\Entity\Product;
-use Oro\Bundle\SecurityBundle\Annotation\Acl;
-use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
+use Oro\Bundle\SecurityBundle\Attribute\Acl;
+use Oro\Bundle\SecurityBundle\Attribute\AclAncestor;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/product")
- */
+#[Route(path: '/product')]
 class ProductController extends AbstractController
 {
-    /**
-     * @Route("/", name="oro_magento_product_index")
-     * @AclAncestor("oro_magento_product_view")
-     * @Template
-     */
+    #[Route(path: '/', name: 'oro_magento_product_index')]
+    #[AclAncestor('oro_magento_product_view')]
+    #[Template]
     public function indexAction()
     {
         return [];
     }
 
-    /**
-     * @Route("/view/{id}", name="oro_magento_product_view", requirements={"id"="\d+"}))
-     * @Acl(
-     *      id="oro_magento_product_view",
-     *      type="entity",
-     *      permission="VIEW",
-     *      class="Oro\Bundle\MagentoBundle\Entity\Product"
-     * )
-     * @Template
-     */
+    #[Route(path: '/view/{id}', name: 'oro_magento_product_view', requirements: ['id' => '\d+'])]
     public function viewAction(Product $customer)
     {
         return ['entity' => $customer];
     }
 
-    /**
-     * @Route("/info/{id}", name="oro_magento_product_info", requirements={"id"="\d+"}))
-     * @AclAncestor("oro_magento_product_view")
-     * @Template
-     */
+    #[Route(path: '/info/{id}', name: 'oro_magento_product_info', requirements: ['id' => '\d+'])]
     public function infoAction(Product $customer)
     {
         return ['entity' => $customer];

@@ -4,8 +4,8 @@ namespace Oro\Bundle\MagentoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Oro\Bundle\ChannelBundle\Model\ChannelAwareInterface;
-use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
-use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
+use Oro\Bundle\EntityConfigBundle\Metadata\Attribute\Config;
+use Oro\Bundle\EntityConfigBundle\Metadata\Attribute\ConfigField;
 use Oro\Bundle\EntityExtendBundle\Entity\AbstractEnumValue;
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
@@ -13,34 +13,13 @@ use Oro\Bundle\OrganizationBundle\Entity\Organization;
 use Oro\Bundle\UserBundle\Entity\User;
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="orocrm_magento_newsl_subscr")
- * @Config(
- *      defaultValues={
- *          "entity"={
- *              "icon"="fa-envelope-o"
- *          },
- *          "security"={
- *              "type"="ACL",
- *              "group_name"="",
- *              "category"="sales_data"
- *          },
- *          "ownership"={
- *              "owner_type"="USER",
- *              "owner_field_name"="owner",
- *              "owner_column_name"="owner_id",
- *              "organization_field_name"="organization",
- *              "organization_column_name"="organization_id"
- *          },
- *          "grid"={
- *              "default"="magento-newsletter-subscriber-grid"
- *          }
- *      }
- * )
  *
  * @method AbstractEnumValue getStatus()
  * @method NewsletterSubscriber setStatus(AbstractEnumValue $enumId)
  */
+#[ORM\Entity]
+#[Config(defaultValues: ['entity' => ['icon' => 'fa-envelope-o'], 'security' => ['type' => 'ACL', 'group_name' => '', 'category' => 'sales_data'], 'ownership' => ['owner_type' => 'USER', 'owner_field_name' => 'owner', 'owner_column_name' => 'owner_id', 'organization_field_name' => 'organization', 'organization_column_name' => 'organization_id'], 'grid' => ['default' => 'magento-newsletter-subscriber-grid']])]
+#[ORM\Table(name: 'orocrm_magento_newsl_subscr')]
 class NewsletterSubscriber implements
     ChannelAwareInterface,
     OriginAwareInterface,
@@ -56,125 +35,74 @@ class NewsletterSubscriber implements
 
     /**
      * @var int
-     *
-     * @ORM\Id
-     * @ORM\Column(type="integer", name="id")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @ConfigField(
-     *      defaultValues={
-     *          "importexport"={
-     *              "excluded"=true
-     *          }
-     *      }
-     * )
      */
+    #[ORM\Id]
+    #[ORM\Column(type: 'integer', name: 'id')]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    #[ConfigField(defaultValues: ['importexport' => ['excluded' => true]])]
     protected $id;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255, nullable=true)
-     * @ConfigField(
-     *      defaultValues={
-     *          "entity"={
-     *              "contact_information"="email"
-     *          }
-     *      }
-     * )
      */
+    #[ORM\Column(name: 'email', type: 'string', length: 255, nullable: true)]
+    #[ConfigField(defaultValues: ['entity' => ['contact_information' => 'email']])]
     protected $email;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="confirm_code", type="string", length=32, nullable=true)
      */
+    #[ORM\Column(name: 'confirm_code', type: 'string', length: 32, nullable: true)]
     protected $confirmCode;
 
     /**
      * @var Customer
-     *
-     * @ORM\ManyToOne(targetEntity="Oro\Bundle\MagentoBundle\Entity\Customer", inversedBy="newsletterSubscribers")
-     * @ORM\JoinColumn(name="customer_id", referencedColumnName="id", onDelete="SET NULL", nullable=true)
      */
+    #[ORM\ManyToOne(targetEntity: 'Oro\Bundle\MagentoBundle\Entity\Customer', inversedBy: 'newsletterSubscribers')]
+    #[ORM\JoinColumn(name: 'customer_id', referencedColumnName: 'id', onDelete: 'SET NULL', nullable: true)]
     protected $customer;
 
     /**
      * @var Store
-     *
-     * @ORM\ManyToOne(targetEntity="Oro\Bundle\MagentoBundle\Entity\Store")
-     * @ORM\JoinColumn(name="store_id", referencedColumnName="id", onDelete="SET NULL")
      */
+    #[ORM\ManyToOne(targetEntity: 'Oro\Bundle\MagentoBundle\Entity\Store')]
+    #[ORM\JoinColumn(name: 'store_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
     protected $store;
 
     /**
      * @var User
-     * @ORM\ManyToOne(targetEntity="Oro\Bundle\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id", onDelete="SET NULL")
-     * @ConfigField(
-     *      defaultValues={
-     *          "importexport"={
-     *              "excluded"=true
-     *          }
-     *      }
-     * )
      */
+    #[ORM\ManyToOne(targetEntity: 'Oro\Bundle\UserBundle\Entity\User')]
+    #[ORM\JoinColumn(name: 'owner_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
+    #[ConfigField(defaultValues: ['importexport' => ['excluded' => true]])]
     protected $owner;
 
     /**
      * @var Organization
-     *
-     * @ORM\ManyToOne(targetEntity="Oro\Bundle\OrganizationBundle\Entity\Organization")
-     * @ORM\JoinColumn(name="organization_id", referencedColumnName="id", onDelete="SET NULL")
-     * @ConfigField(
-     *      defaultValues={
-     *          "importexport"={
-     *              "excluded"=true
-     *          }
-     *      }
-     * )
      */
+    #[ORM\ManyToOne(targetEntity: 'Oro\Bundle\OrganizationBundle\Entity\Organization')]
+    #[ORM\JoinColumn(name: 'organization_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
+    #[ConfigField(defaultValues: ['importexport' => ['excluded' => true]])]
     protected $organization;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", name="change_status_at", nullable=true)
      */
+    #[ORM\Column(type: 'datetime', name: 'change_status_at', nullable: true)]
     protected $changeStatusAt;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", name="created_at")
-     * @ConfigField(
-     *      defaultValues={
-     *          "entity"={
-     *              "label"="oro.ui.created_at"
-     *          },
-     *          "importexport"={
-     *              "excluded"=true
-     *          }
-     *      }
-     * )
      */
+    #[ORM\Column(type: 'datetime', name: 'created_at')]
+    #[ConfigField(defaultValues: ['entity' => ['label' => 'oro.ui.created_at'], 'importexport' => ['excluded' => true]])]
     protected $createdAt;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", name="updated_at")
-     * @ConfigField(
-     *      defaultValues={
-     *          "entity"={
-     *              "label"="oro.ui.updated_at"
-     *          },
-     *          "importexport"={
-     *              "excluded"=true
-     *          }
-     *      }
-     * )
      */
+    #[ORM\Column(type: 'datetime', name: 'updated_at')]
+    #[ConfigField(defaultValues: ['entity' => ['label' => 'oro.ui.updated_at'], 'importexport' => ['excluded' => true]])]
     protected $updatedAt;
 
     /**

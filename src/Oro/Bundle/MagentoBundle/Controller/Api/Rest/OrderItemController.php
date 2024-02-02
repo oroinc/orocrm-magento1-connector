@@ -13,8 +13,8 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Oro\Bundle\MagentoBundle\Entity\Manager\OrderApiEntityManager;
 use Oro\Bundle\MagentoBundle\Entity\Order;
 use Oro\Bundle\MagentoBundle\Entity\OrderItem;
-use Oro\Bundle\SecurityBundle\Annotation\Acl;
-use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
+use Oro\Bundle\SecurityBundle\Attribute\Acl;
+use Oro\Bundle\SecurityBundle\Attribute\AclAncestor;
 use Oro\Bundle\SoapBundle\Controller\Api\Rest\RestController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,9 +22,8 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * API CRUD controller for OrderItem entity.
- *
- * @NamePrefix("oro_api_")
  */
+#[NamePrefix(['value' => 'oro_api_'])]
 class OrderItemController extends RestController implements ClassResourceInterface
 {
     /**
@@ -60,16 +59,10 @@ class OrderItemController extends RestController implements ClassResourceInterfa
      *      description="Add item to the order",
      *      resource=true
      * )
-     * @Acl(
-     *      id="oro_magento_order_item_create",
-     *      type="entity",
-     *      permission="CREATE",
-     *      class="Oro\Bundle\MagentoBundle\Entity\OrderItem"
-     * )
      * @param int $orderId
-     *
      * @return Response
      */
+    #[Acl(id: 'oro_magento_order_item_create', type: 'entity', permission: 'CREATE', class: 'Oro\Bundle\MagentoBundle\Entity\OrderItem')]
     public function postAction(int $orderId)
     {
         /** @var Order $order */
@@ -105,10 +98,10 @@ class OrderItemController extends RestController implements ClassResourceInterfa
      *      description="Get order item",
      *      resource=true
      * )
-     * @AclAncestor("oro_magento_order_view")
      *
      * @return Response
      */
+    #[AclAncestor('oro_magento_order_view')]
     public function getAction(int $orderId, int $itemId)
     {
         $orderItem = $this->getManager()->getSpecificSerializedItem($orderId, $itemId);
@@ -128,12 +121,11 @@ class OrderItemController extends RestController implements ClassResourceInterfa
      *      description="Get all order items",
      *      resource=true
      * )
-     * @AclAncestor("oro_magento_order_view")
      *
      * @param int $orderId
-     *
      * @return JsonResponse
      */
+    #[AclAncestor('oro_magento_order_view')]
     public function cgetAction(int $orderId)
     {
         $orderItems = $this->getManager()->getAllSerializedItems($orderId);
@@ -156,14 +148,9 @@ class OrderItemController extends RestController implements ClassResourceInterfa
      *      description="Update order item",
      *      resource=true
      * )
-     * @Acl(
-     *      id="oro_magento_order_item_update",
-     *      type="entity",
-     *      permission="EDIT",
-     *      class="Oro\Bundle\MagentoBundle\Entity\OrderItem"
-     * )
      * @return Response
      */
+    #[Acl(id: 'oro_magento_order_item_update', type: 'entity', permission: 'EDIT', class: 'Oro\Bundle\MagentoBundle\Entity\OrderItem')]
     public function putAction(int $orderId, int $itemId)
     {
         $orderItem = $this->getManager()->findOneBy(['order' => $orderId, 'id' => $itemId]);
@@ -193,14 +180,9 @@ class OrderItemController extends RestController implements ClassResourceInterfa
      *      description="Delete order item",
      *      resource=true
      * )
-     * @Acl(
-     *      id="oro_magento_order_item_delete",
-     *      type="entity",
-     *      permission="DELETE",
-     *      class="Oro\Bundle\MagentoBundle\Entity\OrderItem"
-     * )
      * @return Response
      */
+    #[Acl(id: 'oro_magento_order_item_delete', type: 'entity', permission: 'DELETE', class: 'Oro\Bundle\MagentoBundle\Entity\OrderItem')]
     public function deleteAction(int $orderId, int $itemId)
     {
         $isProcessed = false;

@@ -3,42 +3,24 @@
 namespace Oro\Bundle\MagentoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
-use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
+use Oro\Bundle\EntityConfigBundle\Metadata\Attribute\Config;
+use Oro\Bundle\EntityConfigBundle\Metadata\Attribute\ConfigField;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="orocrm_magento_cart_status")
- * @Config(
- *      defaultValues={
- *          "grouping"={
- *              "groups"={"dictionary"}
- *          }
- *      }
- * )
- */
+#[ORM\Entity]
+#[Config(defaultValues: ['grouping' => ['groups' => ['dictionary']]])]
+#[ORM\Table(name: 'orocrm_magento_cart_status')]
 class CartStatus
 {
     const STATUS_OPEN = 'open';
     const STATUS_EXPIRED = 'expired';
     const STATUS_PURCHASED = 'purchased';
 
-    /**
-     * @ORM\Column(name="name", type="string", length=32)
-     * @ORM\Id
-     * @ConfigField(
-     *      defaultValues={
-     *          "importexport"={
-     *              "identity"=true
-     *          }
-     *      }
-     * )
-     */
+    #[ORM\Column(name: 'name', type: 'string', length: 32)]
+    #[ORM\Id]
+    #[ConfigField(defaultValues: ['importexport' => ['identity' => true]])]
     protected $name;
 
-    /**
-     * @ORM\Column(name="label", type="string", length=255, unique=true)
-     */
+    #[ORM\Column(name: 'label', type: 'string', length: 255, unique: true)]
     protected $label;
 
     /**

@@ -3,7 +3,7 @@
 namespace Oro\Bundle\MagentoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
+use Oro\Bundle\EntityConfigBundle\Metadata\Attribute\Config;
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
 
@@ -11,25 +11,12 @@ use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
  * Class Website
  *
  * @package Oro\Bundle\OroMagentoBundle\Entity
- * @ORM\Entity
- * @ORM\Table(
- *  name="orocrm_magento_website",
- *  uniqueConstraints={@ORM\UniqueConstraint(name="unq_site_idx", columns={"website_code", "origin_id", "channel_id"})},
- *  indexes={
- *       @ORM\Index(name="orocrm_magento_website_name_idx",columns={"website_name"})
- *  }
- * )
- * @Config(
- *      defaultValues={
- *          "activity"={
- *              "immutable"=true
- *          },
- *          "attachment"={
- *              "immutable"=true
- *          }
- *      }
- * )
  */
+#[ORM\Entity]
+#[Config(defaultValues: ['activity' => ['immutable' => true], 'attachment' => ['immutable' => true]])]
+#[ORM\Table(name: 'orocrm_magento_website')]
+#[ORM\Index(name: 'orocrm_magento_website_name_idx', columns: ['website_name'])]
+#[ORM\UniqueConstraint(name: 'unq_site_idx', columns: ['website_code', 'origin_id', 'channel_id'])]
 class Website implements OriginAwareInterface, IntegrationAwareInterface, ExtendEntityInterface
 {
     use IntegrationEntityTrait, OriginTrait, ExtendEntityTrait;
@@ -39,48 +26,42 @@ class Website implements OriginAwareInterface, IntegrationAwareInterface, Extend
 
     /**
      * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     protected $id;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="website_code", type="string", length=32, nullable=false)
      */
+    #[ORM\Column(name: 'website_code', type: 'string', length: 32, nullable: false)]
     protected $code;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="website_name", type="string", length=255, nullable=false)
      */
+    #[ORM\Column(name: 'website_name', type: 'string', length: 255, nullable: false)]
     protected $name;
 
     /**
      * @var int
-     *
-     * @ORM\Column(name="sort_order", type="integer", nullable=true)
      */
+    #[ORM\Column(name: 'sort_order', type: 'integer', nullable: true)]
     protected $sortOrder;
 
     /**
      * @var bool
-     *
-     * @ORM\Column(name="is_default", type="boolean", nullable=true)
      */
+    #[ORM\Column(name: 'is_default', type: 'boolean', nullable: true)]
     protected $default = false;
 
     /**
      * Default product group id.
      *
      * @var int
-     *
-     * @ORM\Column(name="default_group_id", type="integer", nullable=true)
      */
+    #[ORM\Column(name: 'default_group_id', type: 'integer', nullable: true)]
     protected $defaultGroupId;
 
     /**

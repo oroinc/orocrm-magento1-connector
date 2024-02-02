@@ -9,8 +9,8 @@ use Oro\Bundle\AddressBundle\Entity\AbstractTypedAddress;
 use Oro\Bundle\AddressBundle\Entity\AddressType;
 use Oro\Bundle\BusinessEntitiesBundle\Entity\BaseOrder;
 use Oro\Bundle\ChannelBundle\Model\ChannelAwareInterface;
-use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
-use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
+use Oro\Bundle\EntityConfigBundle\Metadata\Attribute\Config;
+use Oro\Bundle\EntityConfigBundle\Metadata\Attribute\ConfigField;
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
 use Oro\Bundle\LocaleBundle\Model\FirstNameInterface;
@@ -22,49 +22,18 @@ use Oro\Bundle\UserBundle\Entity\User;
  * Class Order
  *
  * @package Oro\Bundle\OroMagentoBundle\Entity
- * @ORM\Entity(repositoryClass="Oro\Bundle\MagentoBundle\Entity\Repository\OrderRepository")
- * @ORM\HasLifecycleCallbacks
- * @ORM\Table(name="orocrm_magento_order",
- *     indexes={
- *          @ORM\Index(name="mageorder_created_idx",columns={"created_at", "id"})
- *     },
- *     uniqueConstraints={
- *          @ORM\UniqueConstraint(name="unq_increment_id_channel_id", columns={"increment_id", "channel_id"}),
- *          @ORM\UniqueConstraint(name="unq_origin_id_channel_id", columns={"origin_id", "channel_id"})
- *     }
- * )
- * @Config(
- *      routeView="oro_magento_order_view",
- *      defaultValues={
- *          "entity"={
- *              "icon"="fa-list-alt"
- *          },
- *          "ownership"={
- *              "owner_type"="USER",
- *              "owner_field_name"="owner",
- *              "owner_column_name"="user_owner_id",
- *              "organization_field_name"="organization",
- *              "organization_column_name"="organization_id"
- *          },
- *          "security"={
- *              "type"="ACL",
- *              "group_name"="",
- *              "category"="sales_data"
- *          },
- *          "grid"={
- *              "default"="magento-order-grid",
- *              "context"="magento-order-for-context-grid"
- *          },
- *          "tag"={
- *              "enabled"=true
- *          }
- *      }
- * )
  * @SuppressWarnings(PHPMD.ExcessivePublicCount)
  * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  * @SuppressWarnings(PHPMD.TooManyFields)
  * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  */
+#[ORM\Entity(repositoryClass: 'Oro\Bundle\MagentoBundle\Entity\Repository\OrderRepository')]
+#[ORM\HasLifecycleCallbacks]
+#[Config(routeView: 'oro_magento_order_view', defaultValues: ['entity' => ['icon' => 'fa-list-alt'], 'ownership' => ['owner_type' => 'USER', 'owner_field_name' => 'owner', 'owner_column_name' => 'user_owner_id', 'organization_field_name' => 'organization', 'organization_column_name' => 'organization_id'], 'security' => ['type' => 'ACL', 'group_name' => '', 'category' => 'sales_data'], 'grid' => ['default' => 'magento-order-grid', 'context' => 'magento-order-for-context-grid'], 'tag' => ['enabled' => true]])]
+#[ORM\Table(name: 'orocrm_magento_order')]
+#[ORM\Index(name: 'mageorder_created_idx', columns: ['created_at', 'id'])]
+#[ORM\UniqueConstraint(name: 'unq_increment_id_channel_id', columns: ['increment_id', 'channel_id'])]
+#[ORM\UniqueConstraint(name: 'unq_origin_id_channel_id', columns: ['origin_id', 'channel_id'])]
 class Order extends BaseOrder implements
     ChannelAwareInterface,
     FirstNameInterface,
@@ -83,232 +52,166 @@ class Order extends BaseOrder implements
      * Should not be used as identity because incrementId is already used
      *
      * @var integer
-     *
-     * @ORM\Column(name="origin_id", type="integer", options={"unsigned"=true}, nullable=true)
      */
+    #[ORM\Column(name: 'origin_id', type: 'integer', options: ['unsigned' => true], nullable: true)]
     protected $originId;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="increment_id", type="string", length=60, nullable=false)
-     * @ConfigField(
-     *      defaultValues={
-     *          "importexport"={
-     *              "identity"=true
-     *          }
-     *      }
-     * )
      */
+    #[ORM\Column(name: 'increment_id', type: 'string', length: 60, nullable: false)]
+    #[ConfigField(defaultValues: ['importexport' => ['identity' => true]])]
     protected $incrementId;
 
     /**
      * @var Customer
-     *
-     * @ORM\ManyToOne(targetEntity="Customer", inversedBy="orders")
-     * @ORM\JoinColumn(name="customer_id", referencedColumnName="id", onDelete="SET NULL", nullable=true)
      */
+    #[ORM\ManyToOne(targetEntity: 'Customer', inversedBy: 'orders')]
+    #[ORM\JoinColumn(name: 'customer_id', referencedColumnName: 'id', onDelete: 'SET NULL', nullable: true)]
     protected $customer;
 
     /**
      * @var ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="OrderAddress",
-     *     mappedBy="owner", cascade={"all"}, orphanRemoval=true
-     * )
-     * @ConfigField(
-     *      defaultValues={
-     *          "importexport"={
-     *              "full"=true
-     *          }
-     *      }
-     * )
      */
+    #[ORM\OneToMany(targetEntity: 'OrderAddress', mappedBy: 'owner', cascade: ['all'], orphanRemoval: true)]
+    #[ConfigField(defaultValues: ['importexport' => ['full' => true]])]
     protected $addresses;
 
     /**
      * @var ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="CreditMemo",
-     *     mappedBy="order", cascade={"all"}
-     * )
-     * @ConfigField(
-     *      defaultValues={
-     *          "importexport"={
-     *              "full"=false
-     *          }
-     *      }
-     * )
      */
+    #[ORM\OneToMany(targetEntity: 'CreditMemo', mappedBy: 'order', cascade: ['all'])]
+    #[ConfigField(defaultValues: ['importexport' => ['full' => false]])]
     protected $creditMemos;
 
     /**
      * @var Store
-     *
-     * @ORM\ManyToOne(targetEntity="Oro\Bundle\MagentoBundle\Entity\Store")
-     * @ORM\JoinColumn(name="store_id", referencedColumnName="id", onDelete="SET NULL")
-     * @ConfigField(
-     *      defaultValues={
-     *          "importexport"={
-     *              "full"=false
-     *          }
-     *      }
-     * )
      */
+    #[ORM\ManyToOne(targetEntity: 'Oro\Bundle\MagentoBundle\Entity\Store')]
+    #[ORM\JoinColumn(name: 'store_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
+    #[ConfigField(defaultValues: ['importexport' => ['full' => false]])]
     protected $store;
 
     /**
      * @var boolean
-     *
-     * @ORM\Column(name="is_virtual", type="boolean", nullable=true)
      */
+    #[ORM\Column(name: 'is_virtual', type: 'boolean', nullable: true)]
     protected $isVirtual = false;
 
     /**
      * @var boolean
-     *
-     * @ORM\Column(name="is_guest", type="boolean", nullable=true)
      */
+    #[ORM\Column(name: 'is_guest', type: 'boolean', nullable: true)]
     protected $isGuest = false;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="gift_message", type="string", length=255, nullable=true)
      */
+    #[ORM\Column(name: 'gift_message', type: 'string', length: 255, nullable: true)]
     protected $giftMessage;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="remote_ip", type="string", length=255, nullable=true)
      */
+    #[ORM\Column(name: 'remote_ip', type: 'string', length: 255, nullable: true)]
     protected $remoteIp;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="store_name", type="string", length=255, nullable=true)
      */
+    #[ORM\Column(name: 'store_name', type: 'string', length: 255, nullable: true)]
     protected $storeName;
 
     /**
      * @var float
-     *
-     * @ORM\Column(name="total_paid_amount", type="float", nullable=true)
      */
+    #[ORM\Column(name: 'total_paid_amount', type: 'float', nullable: true)]
     protected $totalPaidAmount = 0;
 
     /**
      * @var double
-     *
-     * @ORM\Column(name="total_invoiced_amount", type="money", nullable=true)
      */
+    #[ORM\Column(name: 'total_invoiced_amount', type: 'money', nullable: true)]
     protected $totalInvoicedAmount = 0;
 
     /**
      * @var double
-     *
-     * @ORM\Column(name="total_refunded_amount", type="money", nullable=true)
      */
+    #[ORM\Column(name: 'total_refunded_amount', type: 'money', nullable: true)]
     protected $totalRefundedAmount = 0;
 
     /**
      * @var double
-     *
-     * @ORM\Column(name="total_canceled_amount", type="money", nullable=true)
      */
+    #[ORM\Column(name: 'total_canceled_amount', type: 'money', nullable: true)]
     protected $totalCanceledAmount = 0;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Cart")
-     * @ORM\JoinColumn(onDelete="CASCADE")
-     */
+    #[ORM\ManyToOne(targetEntity: 'Cart')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     protected $cart;
 
     /**
      * @var OrderItem[]|Collection
-     *
-     * @ORM\OneToMany(targetEntity="OrderItem", mappedBy="order",cascade={"all"})
-     * @ConfigField(
-     *      defaultValues={
-     *          "importexport"={
-     *              "full"=true
-     *          }
-     *      }
-     * )
      */
+    #[ORM\OneToMany(targetEntity: 'OrderItem', mappedBy: 'order', cascade: ['all'])]
+    #[ConfigField(defaultValues: ['importexport' => ['full' => true]])]
     protected $items;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="notes", type="text", nullable=true)
      */
+    #[ORM\Column(name: 'notes', type: 'text', nullable: true)]
     protected $notes;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="feedback", type="text", nullable=true)
      */
+    #[ORM\Column(name: 'feedback', type: 'text', nullable: true)]
     protected $feedback;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="customer_email", type="string", length=255, nullable=true)
      */
+    #[ORM\Column(name: 'customer_email', type: 'string', length: 255, nullable: true)]
     protected $customerEmail;
 
     /**
      * @var User
-     * @ORM\ManyToOne(targetEntity="Oro\Bundle\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="user_owner_id", referencedColumnName="id", onDelete="SET NULL")
      */
+    #[ORM\ManyToOne(targetEntity: 'Oro\Bundle\UserBundle\Entity\User')]
+    #[ORM\JoinColumn(name: 'user_owner_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
     protected $owner;
 
     /**
      * @var Organization
-     *
-     * @ORM\ManyToOne(targetEntity="Oro\Bundle\OrganizationBundle\Entity\Organization")
-     * @ORM\JoinColumn(name="organization_id", referencedColumnName="id", onDelete="SET NULL")
      */
+    #[ORM\ManyToOne(targetEntity: 'Oro\Bundle\OrganizationBundle\Entity\Organization')]
+    #[ORM\JoinColumn(name: 'organization_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
     protected $organization;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="coupon_code", type="string", length=255, nullable=true)
      */
+    #[ORM\Column(name: 'coupon_code', type: 'string', length: 255, nullable: true)]
     protected $couponCode;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", name="imported_at", nullable=true)
      */
+    #[ORM\Column(type: 'datetime', name: 'imported_at', nullable: true)]
     protected $importedAt;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", name="synced_at", nullable=true)
      */
+    #[ORM\Column(type: 'datetime', name: 'synced_at', nullable: true)]
     protected $syncedAt;
 
     /**
      * @var OrderNote[]|ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="OrderNote", mappedBy="order", cascade={"all"})
-     * @ConfigField(
-     *      defaultValues={
-     *          "importexport"={
-     *              "full"=true
-     *          }
-     *      }
-     * )
      */
+    #[ORM\OneToMany(targetEntity: 'OrderNote', mappedBy: 'order', cascade: ['all'])]
+    #[ConfigField(defaultValues: ['importexport' => ['full' => true]])]
     protected $orderNotes;
 
     /**
@@ -603,9 +506,8 @@ class Order extends BaseOrder implements
 
     /**
      * Pre persist event listener
-     *
-     * @ORM\PrePersist
      */
+    #[ORM\PrePersist]
     public function beforeSave()
     {
         $this->updateNames();
@@ -613,9 +515,8 @@ class Order extends BaseOrder implements
 
     /**
      * Pre update event handler
-     *
-     * @ORM\PreUpdate
      */
+    #[ORM\PreUpdate]
     public function doPreUpdate()
     {
         $this->updateNames();

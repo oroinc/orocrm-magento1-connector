@@ -7,8 +7,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Oro\Bundle\BusinessEntitiesBundle\Entity\BaseCart;
 use Oro\Bundle\ChannelBundle\Model\ChannelAwareInterface;
-use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
-use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
+use Oro\Bundle\EntityConfigBundle\Metadata\Attribute\Config;
+use Oro\Bundle\EntityConfigBundle\Metadata\Attribute\ConfigField;
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
 use Oro\Bundle\LocaleBundle\Model\FirstNameInterface;
@@ -23,50 +23,16 @@ use Oro\Bundle\UserBundle\Entity\User;
  * @SuppressWarnings(PHPMD.TooManyFields)
  *
  * @package Oro\Bundle\OroMagentoBundle\Entity
- * @ORM\Entity(repositoryClass="Oro\Bundle\MagentoBundle\Entity\Repository\CartRepository")
- * @ORM\HasLifecycleCallbacks
- * @ORM\Table(name="orocrm_magento_cart",
- *  indexes={
- *      @ORM\Index(name="magecart_origin_idx", columns={"origin_id"}),
- *      @ORM\Index(name="magecart_updated_idx",columns={"updatedAt", "id"}),
- *      @ORM\Index(name="magecart_payment_details_idx", columns={"payment_details"}),
- *      @ORM\Index(name="status_name_items_qty_idx", columns={"status_name", "items_qty"})
- *  },
- *  uniqueConstraints={
- *      @ORM\UniqueConstraint(name="unq_cart_origin_id_channel_id", columns={"origin_id", "channel_id"})
- *  }
- * )
- * @Config(
- *      routeView="oro_magento_cart_view",
- *      defaultValues={
- *          "entity"={
- *              "icon"="fa-shopping-cart"
- *          },
- *          "ownership"={
- *              "owner_type"="USER",
- *              "owner_field_name"="owner",
- *              "owner_column_name"="user_owner_id",
- *              "organization_field_name"="organization",
- *              "organization_column_name"="organization_id"
- *          },
- *          "security"={
- *              "type"="ACL",
- *              "group_name"="",
- *              "category"="sales_data"
- *          },
- *          "form"={
- *              "grid_name"="magento-cart-grid",
- *          },
- *          "grid"={
- *              "default"="magento-cart-grid",
- *              "context"="magento-cart-for-context-grid"
- *          },
- *          "tag"={
- *              "enabled"=true
- *          }
- *      }
- * )
  */
+#[ORM\Entity(repositoryClass: 'Oro\Bundle\MagentoBundle\Entity\Repository\CartRepository')]
+#[ORM\HasLifecycleCallbacks]
+#[Config(routeView: 'oro_magento_cart_view', defaultValues: ['entity' => ['icon' => 'fa-shopping-cart'], 'ownership' => ['owner_type' => 'USER', 'owner_field_name' => 'owner', 'owner_column_name' => 'user_owner_id', 'organization_field_name' => 'organization', 'organization_column_name' => 'organization_id'], 'security' => ['type' => 'ACL', 'group_name' => '', 'category' => 'sales_data'], 'form' => ['grid_name' => 'magento-cart-grid'], 'grid' => ['default' => 'magento-cart-grid', 'context' => 'magento-cart-for-context-grid'], 'tag' => ['enabled' => true]])]
+#[ORM\Table(name: 'orocrm_magento_cart')]
+#[ORM\Index(name: 'magecart_origin_idx', columns: ['origin_id'])]
+#[ORM\Index(name: 'magecart_updated_idx', columns: ['updatedAt', 'id'])]
+#[ORM\Index(name: 'magecart_payment_details_idx', columns: ['payment_details'])]
+#[ORM\Index(name: 'status_name_items_qty_idx', columns: ['status_name', 'items_qty'])]
+#[ORM\UniqueConstraint(name: 'unq_cart_origin_id_channel_id', columns: ['origin_id', 'channel_id'])]
 class Cart extends BaseCart implements
     ChannelAwareInterface,
     FirstNameInterface,
@@ -79,224 +45,162 @@ class Cart extends BaseCart implements
 
     /**
      * @var CartItem[]|Collection
-     *
-     * @ORM\OneToMany(targetEntity="Oro\Bundle\MagentoBundle\Entity\CartItem",
-     *     mappedBy="cart", cascade={"all"}, orphanRemoval=true
-     * )
-     * @ORM\OrderBy({"originId" = "DESC"})
-     * @ConfigField(
-     *      defaultValues={
-     *          "importexport"={
-     *              "full"=true
-     *          }
-     *      }
-     * )
      */
+    #[ORM\OneToMany(targetEntity: 'Oro\Bundle\MagentoBundle\Entity\CartItem', mappedBy: 'cart', cascade: ['all'], orphanRemoval: true)]
+    #[ORM\OrderBy(['originId' => 'DESC'])]
+    #[ConfigField(defaultValues: ['importexport' => ['full' => true]])]
     protected $cartItems;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Customer", inversedBy="carts")
-     * @ORM\JoinColumn(name="customer_id", referencedColumnName="id", onDelete="CASCADE")
-     */
+    #[ORM\ManyToOne(targetEntity: 'Customer', inversedBy: 'carts')]
+    #[ORM\JoinColumn(name: 'customer_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
     protected $customer;
 
     /**
      * @var Store
-     *
-     * @ORM\ManyToOne(targetEntity="Oro\Bundle\MagentoBundle\Entity\Store")
-     * @ORM\JoinColumn(name="store_id", referencedColumnName="id", onDelete="SET NULL")
-     * @ConfigField(
-     *      defaultValues={
-     *          "importexport"={
-     *              "full"=false
-     *          }
-     *      }
-     * )
      */
+    #[ORM\ManyToOne(targetEntity: 'Oro\Bundle\MagentoBundle\Entity\Store')]
+    #[ORM\JoinColumn(name: 'store_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
+    #[ConfigField(defaultValues: ['importexport' => ['full' => false]])]
     protected $store;
 
     /**
      * Total items qty
      *
      * @var float
-     *
-     * @ORM\Column(name="items_qty", type="float")
      */
+    #[ORM\Column(name: 'items_qty', type: 'float')]
     protected $itemsQty;
 
     /**
      * Items count
      *
      * @var integer
-     *
-     * @ORM\Column(name="items_count", type="integer", options={"unsigned"=true})
      */
+    #[ORM\Column(name: 'items_count', type: 'integer', options: ['unsigned' => true])]
     protected $itemsCount;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="base_currency_code", type="string", length=32, nullable=false)
      */
+    #[ORM\Column(name: 'base_currency_code', type: 'string', length: 32, nullable: false)]
     protected $baseCurrencyCode;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="store_currency_code", type="string", length=32, nullable=false)
      */
+    #[ORM\Column(name: 'store_currency_code', type: 'string', length: 32, nullable: false)]
     protected $storeCurrencyCode;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="quote_currency_code", type="string", length=32, nullable=false)
      */
+    #[ORM\Column(name: 'quote_currency_code', type: 'string', length: 32, nullable: false)]
     protected $quoteCurrencyCode;
 
     /**
      * @var float
-     *
-     * @ORM\Column(name="store_to_base_rate", type="float", nullable=false)
      */
+    #[ORM\Column(name: 'store_to_base_rate', type: 'float', nullable: false)]
     protected $storeToBaseRate;
 
     /**
      * @var float
-     *
-     * @ORM\Column(name="store_to_quote_rate", type="float", nullable=true)
      */
+    #[ORM\Column(name: 'store_to_quote_rate', type: 'float', nullable: true)]
     protected $storeToQuoteRate;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255, nullable=true)
-     * @ConfigField(
-     *      defaultValues={
-     *          "entity"={
-     *              "contact_information"="email"
-     *          }
-     *      }
-     * )
      */
+    #[ORM\Column(name: 'email', type: 'string', length: 255, nullable: true)]
+    #[ConfigField(defaultValues: ['entity' => ['contact_information' => 'email']])]
     protected $email;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="gift_message", type="string", length=255, nullable=true)
      */
+    #[ORM\Column(name: 'gift_message', type: 'string', length: 255, nullable: true)]
     protected $giftMessage;
 
     /**
      * @var float
-     *
-     * @ORM\Column(name="is_guest", type="boolean")
      */
+    #[ORM\Column(name: 'is_guest', type: 'boolean')]
     protected $isGuest;
 
     /**
      * @var CartAddress $shippingAddress
-     *
-     * @ORM\ManyToOne(targetEntity="Oro\Bundle\MagentoBundle\Entity\CartAddress", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="shipping_address_id", referencedColumnName="id", onDelete="SET NULL")
-     * @ConfigField(
-     *      defaultValues={
-     *          "importexport"={
-     *              "full"=true
-     *          }
-     *      }
-     * )
      */
+    #[ORM\ManyToOne(targetEntity: 'Oro\Bundle\MagentoBundle\Entity\CartAddress', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(name: 'shipping_address_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
+    #[ConfigField(defaultValues: ['importexport' => ['full' => true]])]
     protected $shippingAddress;
 
     /**
      * @var CartAddress $billingAddress
-     *
-     * @ORM\ManyToOne(targetEntity="Oro\Bundle\MagentoBundle\Entity\CartAddress", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="billing_address_id", referencedColumnName="id", onDelete="SET NULL")
-     * @ConfigField(
-     *      defaultValues={
-     *          "importexport"={
-     *              "full"=true
-     *          }
-     *      }
-     * )
      */
+    #[ORM\ManyToOne(targetEntity: 'Oro\Bundle\MagentoBundle\Entity\CartAddress', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(name: 'billing_address_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
+    #[ConfigField(defaultValues: ['importexport' => ['full' => true]])]
     protected $billingAddress;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="payment_details", type="string", length=255, nullable=true)
      */
+    #[ORM\Column(name: 'payment_details', type: 'string', length: 255, nullable: true)]
     protected $paymentDetails;
 
     /**
      * @var CartStatus
-     *
-     * @ORM\ManyToOne(targetEntity="Oro\Bundle\MagentoBundle\Entity\CartStatus")
-     * @ORM\JoinColumn(name="status_name", referencedColumnName="name", onDelete="SET NULL")
-     * @ConfigField(
-     *      defaultValues={
-     *          "importexport"={
-     *              "full"=false
-     *          }
-     *      }
-     * )
      */
+    #[ORM\ManyToOne(targetEntity: 'Oro\Bundle\MagentoBundle\Entity\CartStatus')]
+    #[ORM\JoinColumn(name: 'status_name', referencedColumnName: 'name', onDelete: 'SET NULL')]
+    #[ConfigField(defaultValues: ['importexport' => ['full' => false]])]
     protected $status;
 
     /**
      * @var Opportunity
-     *
-     * @ORM\ManyToOne(targetEntity="Oro\Bundle\SalesBundle\Entity\Opportunity")
-     * @ORM\JoinColumn(name="opportunity_id", referencedColumnName="id", onDelete="SET NULL")
      */
+    #[ORM\ManyToOne(targetEntity: 'Oro\Bundle\SalesBundle\Entity\Opportunity')]
+    #[ORM\JoinColumn(name: 'opportunity_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
     protected $opportunity;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="notes", type="text", nullable=true)
      */
+    #[ORM\Column(name: 'notes', type: 'text', nullable: true)]
     protected $notes;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="status_message", type="string", length=255, nullable=true)
      */
+    #[ORM\Column(name: 'status_message', type: 'string', length: 255, nullable: true)]
     protected $statusMessage;
 
     /**
      * @var User
-     * @ORM\ManyToOne(targetEntity="Oro\Bundle\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="user_owner_id", referencedColumnName="id", onDelete="SET NULL")
      */
+    #[ORM\ManyToOne(targetEntity: 'Oro\Bundle\UserBundle\Entity\User')]
+    #[ORM\JoinColumn(name: 'user_owner_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
     protected $owner;
 
     /**
      * @var Organization
-     *
-     * @ORM\ManyToOne(targetEntity="Oro\Bundle\OrganizationBundle\Entity\Organization")
-     * @ORM\JoinColumn(name="organization_id", referencedColumnName="id", onDelete="SET NULL")
      */
+    #[ORM\ManyToOne(targetEntity: 'Oro\Bundle\OrganizationBundle\Entity\Organization')]
+    #[ORM\JoinColumn(name: 'organization_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
     protected $organization;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", name="imported_at", nullable=true)
      */
+    #[ORM\Column(type: 'datetime', name: 'imported_at', nullable: true)]
     protected $importedAt;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", name="synced_at", nullable=true)
      */
+    #[ORM\Column(type: 'datetime', name: 'synced_at', nullable: true)]
     protected $syncedAt;
 
     public function __construct()
@@ -711,9 +615,8 @@ class Cart extends BaseCart implements
 
     /**
      * Pre persist event listener
-     *
-     * @ORM\PrePersist
      */
+    #[ORM\PrePersist]
     public function beforeSave()
     {
         $this->updateNames();
@@ -721,9 +624,8 @@ class Cart extends BaseCart implements
 
     /**
      * Pre update event handler
-     *
-     * @ORM\PreUpdate
      */
+    #[ORM\PreUpdate]
     public function doPreUpdate()
     {
         $this->updateNames();

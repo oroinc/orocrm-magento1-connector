@@ -5,74 +5,54 @@ namespace Oro\Bundle\MagentoBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Oro\Bundle\AddressBundle\Entity\AbstractAddress;
 use Oro\Bundle\AddressBundle\Entity\Country;
-use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
+use Oro\Bundle\EntityConfigBundle\Metadata\Attribute\Config;
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
 
-/**
- * @ORM\Table("orocrm_magento_cart_address")
- * @ORM\HasLifecycleCallbacks()
- * @Config(
- *       defaultValues={
- *          "entity"={
- *              "icon"="fa-map-marker"
- *          },
- *          "activity"={
- *              "immutable"=true
- *          },
- *          "attachment"={
- *              "immutable"=true
- *          }
- *      }
- * )
- * @ORM\Entity
- */
+#[ORM\HasLifecycleCallbacks]
+#[Config(defaultValues: ['entity' => ['icon' => 'fa-map-marker'], 'activity' => ['immutable' => true], 'attachment' => ['immutable' => true]])]
+#[ORM\Entity]
+#[ORM\Table('orocrm_magento_cart_address')]
 class CartAddress extends AbstractAddress implements OriginAwareInterface, ExtendEntityInterface
 {
     use IntegrationEntityTrait, OriginTrait, CountryTextTrait, ExtendEntityTrait;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="phone", type="string", length=255, nullable=true)
      */
+    #[ORM\Column(name: 'phone', type: 'string', length: 255, nullable: true)]
     protected $phone;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="street", type="string", length=500, nullable=true)
      */
+    #[ORM\Column(name: 'street', type: 'string', length: 500, nullable: true)]
     protected $street;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="city", type="string", length=255, nullable=true)
      */
+    #[ORM\Column(name: 'city', type: 'string', length: 255, nullable: true)]
     protected $city;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="postal_code", type="string", length=255, nullable=true)
      */
+    #[ORM\Column(name: 'postal_code', type: 'string', length: 255, nullable: true)]
     protected $postalCode;
 
     /**
      * @var Country
-     *
-     * @ORM\ManyToOne(targetEntity="Oro\Bundle\AddressBundle\Entity\Country")
-     * @ORM\JoinColumn(name="country_code", referencedColumnName="iso2_code")
      */
+    #[ORM\ManyToOne(targetEntity: 'Oro\Bundle\AddressBundle\Entity\Country')]
+    #[ORM\JoinColumn(name: 'country_code', referencedColumnName: 'iso2_code')]
     protected $country;
 
     /**
      * @var Region
-     *
-     * @ORM\ManyToOne(targetEntity="Oro\Bundle\AddressBundle\Entity\Region")
-     * @ORM\JoinColumn(name="region_code", referencedColumnName="combined_code")
      */
+    #[ORM\ManyToOne(targetEntity: 'Oro\Bundle\AddressBundle\Entity\Region')]
+    #[ORM\JoinColumn(name: 'region_code', referencedColumnName: 'combined_code')]
     protected $region;
 
     /**

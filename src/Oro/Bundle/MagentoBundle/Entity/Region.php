@@ -8,59 +8,49 @@ use Doctrine\ORM\Mapping as ORM;
  * Class Region
  *
  * @package Oro\Bundle\OroMagentoBundle\Entity
- * @ORM\Entity(repositoryClass="Oro\Bundle\MagentoBundle\Entity\Repository\RegionRepository")
- * @ORM\Table(
- *  name="orocrm_magento_region",
- *  indexes={
- *      @ORM\Index(name="idx_region", columns={"region_id"})
- *  },
- *  uniqueConstraints={@ORM\UniqueConstraint(name="unq_code", columns={"combined_code"})}
- * )
  */
+#[ORM\Entity(repositoryClass: 'Oro\Bundle\MagentoBundle\Entity\Repository\RegionRepository')]
+#[ORM\Table(name: 'orocrm_magento_region')]
+#[ORM\Index(name: 'idx_region', columns: ['region_id'])]
+#[ORM\UniqueConstraint(name: 'unq_code', columns: ['combined_code'])]
 class Region
 {
     /**
      * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     protected $id;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="combined_code", type="string", length=60, nullable=false)
      */
+    #[ORM\Column(name: 'combined_code', type: 'string', length: 60, nullable: false)]
     protected $combinedCode;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="code", type="string", length=32, nullable=false)
      */
+    #[ORM\Column(name: 'code', type: 'string', length: 32, nullable: false)]
     protected $code;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="country_code", type="string", length=255, nullable=false)
      */
+    #[ORM\Column(name: 'country_code', type: 'string', length: 255, nullable: false)]
     protected $countryCode;
 
     /**
      * @var integer
-     *
-     * @ORM\Column(name="region_id", type="integer")
      */
+    #[ORM\Column(name: 'region_id', type: 'integer')]
     protected $regionId;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255, nullable=true)
      */
+    #[ORM\Column(name: 'name', type: 'string', length: 255, nullable: true)]
     protected $name;
 
     /**

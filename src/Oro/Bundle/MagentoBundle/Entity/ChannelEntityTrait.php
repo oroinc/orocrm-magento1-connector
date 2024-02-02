@@ -2,24 +2,18 @@
 
 namespace Oro\Bundle\MagentoBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Oro\Bundle\ChannelBundle\Entity\Channel;
-use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
+use Oro\Bundle\EntityConfigBundle\Metadata\Attribute\ConfigField;
 
 trait ChannelEntityTrait
 {
     /**
      * @var Channel
-     *
-     * @ORM\ManyToOne(targetEntity="Oro\Bundle\ChannelBundle\Entity\Channel")
-     * @ORM\JoinColumn(name="data_channel_id", referencedColumnName="id", onDelete="SET NULL")
-     * @ConfigField(
-     *  defaultValues={
-     *      "importexport"={
-     *          "excluded"=true
-     *      }
-     *  }
-     * )
      */
+    #[ConfigField(defaultValues: ['importexport' => ['excluded' => true]])]
+    #[ORM\ManyToOne(targetEntity: 'Oro\Bundle\ChannelBundle\Entity\Channel')]
+    #[ORM\JoinColumn(name: 'data_channel_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
     protected $dataChannel;
 
     /**

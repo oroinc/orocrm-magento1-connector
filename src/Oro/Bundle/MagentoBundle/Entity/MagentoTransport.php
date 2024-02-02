@@ -15,114 +15,98 @@ abstract class MagentoTransport extends Transport
 {
     /**
      * @var string
-     *
-     * @ORM\Column(name="api_url", type="string", length=255, nullable=false)
      */
+    #[ORM\Column(name: 'api_url', type: 'string', length: 255, nullable: false)]
     protected $apiUrl;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="api_user", type="string", length=255, nullable=false)
      */
+    #[ORM\Column(name: 'api_user', type: 'string', length: 255, nullable: false)]
     protected $apiUser;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="api_key", type="string", length=255, nullable=false)
      */
+    #[ORM\Column(name: 'api_key', type: 'string', length: 255, nullable: false)]
     protected $apiKey;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(name="sync_start_date", type="date")
      */
+    #[ORM\Column(name: 'sync_start_date', type: 'date')]
     protected $syncStartDate;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(name="initial_sync_start_date", type="datetime", nullable=true)
      */
+    #[ORM\Column(name: 'initial_sync_start_date', type: 'datetime', nullable: true)]
     protected $initialSyncStartDate;
 
     /**
      * @var \DateInterval
-     *
-     * @ORM\Column(name="sync_range", type="string", length=50)
      */
+    #[ORM\Column(name: 'sync_range', type: 'string', length: 50)]
     protected $syncRange;
 
     /**
      * @var int
-     *
-     * @ORM\Column(name="website_id", type="integer", nullable=true)
      */
+    #[ORM\Column(name: 'website_id', type: 'integer', nullable: true)]
     protected $websiteId = null;
 
     /**
      * @var array
-     *
-     * @ORM\Column(name="websites", type="array")
      */
+    #[ORM\Column(name: 'websites', type: 'array')]
     protected $websites = [];
 
     /**
      * @var boolean
-     *
-     * @ORM\Column(name="is_extension_installed", type="boolean")
      */
+    #[ORM\Column(name: 'is_extension_installed', type: 'boolean')]
     protected $isExtensionInstalled = false;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="extension_version", type="string", length=255, nullable=true)
      */
+    #[ORM\Column(name: 'extension_version', type: 'string', length: 255, nullable: true)]
     protected $extensionVersion;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="magento_version", type="string", length=255, nullable=true)
      */
+    #[ORM\Column(name: 'magento_version', type: 'string', length: 255, nullable: true)]
     protected $magentoVersion;
 
     /**
      * @var boolean
-     *
-     * @ORM\Column(name="guest_customer_sync", type="boolean")
      */
+    #[ORM\Column(name: 'guest_customer_sync', type: 'boolean')]
     protected $guestCustomerSync = true;
 
     /**
      * @var boolean
-     *
-     * @ORM\Column(name="is_display_order_notes", type="boolean", nullable=true, options={"default"=true})
      */
+    #[ORM\Column(name: 'is_display_order_notes', type: 'boolean', nullable: true, options: ['default' => true])]
     protected $isDisplayOrderNotes;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="admin_url", type="string", length=255, nullable=true)
      */
+    #[ORM\Column(name: 'admin_url', type: 'string', length: 255, nullable: true)]
     protected $adminUrl;
 
     /**
      * @var int
-     *
-     * @ORM\Column(name="mage_newsl_subscr_synced_to_id", type="integer", nullable=true)
      */
+    #[ORM\Column(name: 'mage_newsl_subscr_synced_to_id', type: 'integer', nullable: true)]
     protected $newsletterSubscriberSyncedToId;
 
     /**
      * @var array
-     *
-     * @ORM\Column(name="shared_guest_email_list", type="simple_array", nullable=true)
      */
+    #[ORM\Column(name: 'shared_guest_email_list', type: 'simple_array', nullable: true)]
     protected $sharedGuestEmailList;
 
     /**

@@ -9,7 +9,7 @@ use Oro\Bundle\IntegrationBundle\Entity\Channel;
 use Oro\Bundle\MagentoBundle\Entity\Cart;
 use Oro\Bundle\MagentoBundle\Entity\Customer;
 use Oro\Bundle\MagentoBundle\Entity\Order;
-use Oro\Bundle\SecurityBundle\Annotation\CsrfProtection;
+use Oro\Bundle\SecurityBundle\Attribute\CsrfProtection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -18,19 +18,18 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Magento Order Place Controller
- * @Route("/order/place")
  */
+#[Route(path: '/order/place')]
 class OrderPlaceController extends AbstractController
 {
     const SYNC_SUCCESS    = 'success';
     const SYNC_ERROR      = 'error';
 
     /**
-     * @Route("/cart/{id}", name="oro_magento_orderplace_cart", requirements={"id"="\d+"}))
-     * @Template("@OroMagento/OrderPlace/widget/place.html.twig")
      * @param Cart $cart
      * @return array
      */
+    #[Route(path: '/cart/{id}', name: 'oro_magento_orderplace_cart', requirements: ['id' => '\d+'])]
     public function cartAction(Cart $cart)
     {
         $urlGenerator = $this
@@ -54,17 +53,11 @@ class OrderPlaceController extends AbstractController
     }
 
     /**
-     * @Route(
-     *     "/sync/{id}",
-     *     name="oro_magento_orderplace_new_cart_order_sync",
-     *     requirements={"id"="\d+"},
-     *     methods={"POST"}
-     * )
-     * @CsrfProtection()
-     *
      * @param Cart $cart
      * @return JsonResponse
      */
+    #[Route(path: '/sync/{id}', name: 'oro_magento_orderplace_new_cart_order_sync', requirements: ['id' => '\d+'], methods: ['POST'])]
+    #[CsrfProtection]
     public function syncAction(Cart $cart)
     {
         /** @var EntityManager $em */
@@ -117,11 +110,10 @@ class OrderPlaceController extends AbstractController
     }
 
     /**
-     * @Route("/customer/{id}", name="oro_magento_widget_customer_orderplace", requirements={"id"="\d+"}))
-     * @Template("@OroMagento/OrderPlace/widget/place.html.twig")
      * @param Customer $customer
      * @return array
      */
+    #[Route(path: '/customer/{id}', name: 'oro_magento_widget_customer_orderplace', requirements: ['id' => '\d+'])]
     public function customerAction(Customer $customer)
     {
         $urlGenerator = $this
@@ -145,17 +137,11 @@ class OrderPlaceController extends AbstractController
     }
 
     /**
-     * @Route(
-     *     "/customer_sync/{id}",
-     *     name="oro_magento_orderplace_new_customer_order_sync",
-     *     requirements={"id"="\d+"},
-     *     methods={"POST"}
-     * )
-     * @CsrfProtection()
-     *
      * @param Customer $customer
      * @return JsonResponse
      */
+    #[Route(path: '/customer_sync/{id}', name: 'oro_magento_orderplace_new_customer_order_sync', requirements: ['id' => '\d+'], methods: ['POST'])]
+    #[CsrfProtection]
     public function customerSyncAction(Customer $customer)
     {
         $em = $this->container->get('doctrine.orm.entity_manager');
@@ -189,19 +175,14 @@ class OrderPlaceController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/success", name="oro_magento_orderplace_success")
-     * @Template
-     */
+    #[Route(path: '/success', name: 'oro_magento_orderplace_success')]
+    #[Template]
     public function successAction()
     {
         return [];
     }
 
-    /**
-     * @Route("/error", name="oro_magento_orderplace_error"))
-     * @Template
-     */
+    #[Route(path: '/error', name: 'oro_magento_orderplace_error')]
     public function errorAction()
     {
         return [];

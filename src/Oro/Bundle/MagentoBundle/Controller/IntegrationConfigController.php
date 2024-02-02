@@ -7,8 +7,8 @@ use Oro\Bundle\IntegrationBundle\Exception\TransportException;
 use Oro\Bundle\MagentoBundle\Exception\ExtensionRequiredException;
 use Oro\Bundle\MagentoBundle\Exception\RuntimeException;
 use Oro\Bundle\MagentoBundle\Utils\ValidationUtils;
-use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
-use Oro\Bundle\SecurityBundle\Annotation\CsrfProtection;
+use Oro\Bundle\SecurityBundle\Attribute\AclAncestor;
+use Oro\Bundle\SecurityBundle\Attribute\CsrfProtection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,11 +20,10 @@ class IntegrationConfigController extends AbstractController
 {
     /**
      * @return JsonResponse
-     *
-     * @Route("/check", name="oro_magento_integration_check", methods={"POST"})
-     * @AclAncestor("oro_integration_update")
-     * @CsrfProtection()
      */
+    #[Route(path: '/check', name: 'oro_magento_integration_check', methods: ['POST'])]
+    #[AclAncestor('oro_integration_update')]
+    #[CsrfProtection]
     public function checkAction()
     {
         $handler = $this->container->get('oro_magento.handler.transport');

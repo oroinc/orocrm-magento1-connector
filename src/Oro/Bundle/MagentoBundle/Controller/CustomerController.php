@@ -10,9 +10,9 @@ use Oro\Bundle\MagentoBundle\Entity\Customer;
 use Oro\Bundle\MagentoBundle\Entity\Order;
 use Oro\Bundle\MagentoBundle\Form\Handler\CustomerHandler;
 use Oro\Bundle\MagentoBundle\Form\Type\CustomerType;
-use Oro\Bundle\SecurityBundle\Annotation\Acl;
-use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
-use Oro\Bundle\SecurityBundle\Annotation\CsrfProtection;
+use Oro\Bundle\SecurityBundle\Attribute\Acl;
+use Oro\Bundle\SecurityBundle\Attribute\AclAncestor;
+use Oro\Bundle\SecurityBundle\Attribute\CsrfProtection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,15 +23,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Magento Customer Controller
- * @Route("/customer")
  */
+#[Route(path: '/customer')]
 class CustomerController extends AbstractController
 {
-    /**
-     * @Route("/", name="oro_magento_customer_index")
-     * @AclAncestor("oro_magento_customer_view")
-     * @Template
-     */
+    #[Route(path: '/', name: 'oro_magento_customer_index')]
+    #[AclAncestor('oro_magento_customer_view')]
+    #[Template]
     public function indexAction()
     {
         return [
@@ -42,16 +40,8 @@ class CustomerController extends AbstractController
     /**
      * @param Customer $customer
      * @return array
-     *
-     * @Route("/view/{id}", name="oro_magento_customer_view", requirements={"id"="\d+"}))
-     * @Acl(
-     *      id="oro_magento_customer_view",
-     *      type="entity",
-     *      permission="VIEW",
-     *      class="Oro\Bundle\MagentoBundle\Entity\Customer"
-     * )
-     * @Template
      */
+    #[Route(path: '/view/{id}', name: 'oro_magento_customer_view', requirements: ['id' => '\d+'])]
     public function viewAction(Customer $customer)
     {
         return ['entity' => $customer];
@@ -60,31 +50,14 @@ class CustomerController extends AbstractController
     /**
      * @param Customer $customer
      * @return array
-     *
-     * @Route("/update/{id}", name="oro_magento_customer_update", requirements={"id"="\d+"}))
-     * @Acl(
-     *      id="oro_magento_customer_update",
-     *      type="entity",
-     *      permission="EDIT",
-     *      class="Oro\Bundle\MagentoBundle\Entity\Customer"
-     * )
-     * @Template("@OroMagento/Customer/update.html.twig")
      */
+    #[Route(path: '/update/{id}', name: 'oro_magento_customer_update', requirements: ['id' => '\d+'])]
     public function updateAction(Customer $customer)
     {
         return $this->update($customer);
     }
 
-    /**
-     * @Route("/create", name="oro_magento_customer_create"))
-     * @Acl(
-     *      id="oro_magento_customer_create",
-     *      type="entity",
-     *      permission="CREATE",
-     *      class="Oro\Bundle\MagentoBundle\Entity\Customer"
-     * )
-     * @Template("@OroMagento/Customer/update.html.twig")
-     */
+    #[Route(path: '/create', name: 'oro_magento_customer_create')]
     public function createAction()
     {
         if (!$this->isGranted('oro_integration_assign')) {
@@ -97,11 +70,10 @@ class CustomerController extends AbstractController
     /**
      * @param Customer $customer
      * @return JsonResponse
-     *
-     * @Route("/register/{id}", name="oro_magento_customer_register", requirements={"id"="\d+"}, methods={"POST"})
-     * @AclAncestor("oro_magento_customer_update")
-     * @CsrfProtection()
      */
+    #[Route(path: '/register/{id}', name: 'oro_magento_customer_register', requirements: ['id' => '\d+'], methods: ['POST'])]
+    #[AclAncestor('oro_magento_customer_update')]
+    #[CsrfProtection]
     public function registerAction(Customer $customer)
     {
         return new JsonResponse([
@@ -137,11 +109,8 @@ class CustomerController extends AbstractController
     /**
      * @param Customer $customer
      * @return array
-     *
-     * @Route("/info/{id}", name="oro_magento_customer_info", requirements={"id"="\d+"}))
-     * @AclAncestor("oro_magento_customer_view")
-     * @Template
      */
+    #[Route(path: '/info/{id}', name: 'oro_magento_customer_info', requirements: ['id' => '\d+'])]
     public function infoAction(Customer $customer)
     {
         return ['entity' => $customer];
@@ -151,17 +120,12 @@ class CustomerController extends AbstractController
      * @param Account $account
      * @param Channel $channel
      * @return array
-     *
-     * @Route(
-     *         "/widget/customers-info/{accountId}/{channelId}",
-     *          name="oro_magento_widget_account_customers_info",
-     *          requirements={"accountId"="\d+", "channelId"="\d+"}
-     * )
-     * @ParamConverter("account", class="Oro\Bundle\AccountBundle\Entity\Account", options={"id" = "accountId"})
-     * @ParamConverter("channel", class="Oro\Bundle\ChannelBundle\Entity\Channel", options={"id" = "channelId"})
-     * @AclAncestor("oro_magento_customer_view")
-     * @Template
      */
+    #[Route(path: '/widget/customers-info/{accountId}/{channelId}', name: 'oro_magento_widget_account_customers_info', requirements: ['accountId' => '\d+', 'channelId' => '\d+'])]
+    #[ParamConverter('account', class: 'Oro\Bundle\AccountBundle\Entity\Account', options: ['id' => 'accountId'])]
+    #[ParamConverter('channel', class: 'Oro\Bundle\ChannelBundle\Entity\Channel', options: ['id' => 'channelId'])]
+    #[AclAncestor('oro_magento_customer_view')]
+    #[Template]
     public function accountCustomersInfoAction(Account $account, Channel $channel)
     {
         $customers = $this->getDoctrine()
@@ -181,16 +145,11 @@ class CustomerController extends AbstractController
      * @param Customer $customer
      * @param Channel $channel
      * @return array
-     *
-     * @Route(
-     *        "/widget/customer-info/{id}/{channelId}",
-     *        name="oro_magento_widget_customer_info",
-     *        requirements={"id"="\d+", "channelId"="\d+"}
-     * )
-     * @ParamConverter("channel", class="Oro\Bundle\ChannelBundle\Entity\Channel", options={"id" = "channelId"})
-     * @AclAncestor("oro_magento_customer_view")
-     * @Template
      */
+    #[Route(path: '/widget/customer-info/{id}/{channelId}', name: 'oro_magento_widget_customer_info', requirements: ['id' => '\d+', 'channelId' => '\d+'])]
+    #[ParamConverter('channel', class: 'Oro\Bundle\ChannelBundle\Entity\Channel', options: ['id' => 'channelId'])]
+    #[AclAncestor('oro_magento_customer_view')]
+    #[Template]
     public function customerInfoAction(Customer $customer, Channel $channel)
     {
         return [
@@ -205,11 +164,8 @@ class CustomerController extends AbstractController
     /**
      * @param Customer $customer
      * @return array
-     *
-     * @Route("/order/{id}", name="oro_magento_customer_orderplace", requirements={"id"="\d+"}))
-     * @AclAncestor("oro_magento_customer_view")
-     * @Template
      */
+    #[Route(path: '/order/{id}', name: 'oro_magento_customer_orderplace', requirements: ['id' => '\d+'])]
     public function placeOrderAction(Customer $customer)
     {
         return ['entity' => $customer];
@@ -218,11 +174,8 @@ class CustomerController extends AbstractController
     /**
      * @param Customer $customer
      * @return array
-     *
-     * @Route("/addressBook/{id}", name="oro_magento_customer_address_book", requirements={"id"="\d+"}))
-     * @AclAncestor("oro_magento_customer_view")
-     * @Template
      */
+    #[Route(path: '/addressBook/{id}', name: 'oro_magento_customer_address_book', requirements: ['id' => '\d+'])]
     public function addressBookAction(Customer $customer)
     {
         return ['entity' => $customer];

@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Oro\Bundle\AddressBundle\Entity\AbstractTypedAddress;
 use Oro\Bundle\AddressBundle\Entity\Country;
-use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
+use Oro\Bundle\EntityConfigBundle\Metadata\Attribute\Config;
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
 
@@ -14,24 +14,12 @@ use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
  * Refers to the address information that was used by customer users
  * as the billing or shipping address in their orders.
  *
- * @ORM\Table("orocrm_magento_order_address")
- * @ORM\HasLifecycleCallbacks()
- * @ORM\Entity
- * @Config(
- *       defaultValues={
- *          "entity"={
- *              "icon"="fa-map-marker"
- *          },
- *          "activity"={
- *              "immutable"=true
- *          },
- *          "attachment"={
- *              "immutable"=true
- *          }
- *      }
- * )
  * @SuppressWarnings(PHPMD.TooManyFields)
  */
+#[ORM\HasLifecycleCallbacks]
+#[ORM\Entity]
+#[Config(defaultValues: ['entity' => ['icon' => 'fa-map-marker'], 'activity' => ['immutable' => true], 'attachment' => ['immutable' => true]])]
+#[ORM\Table('orocrm_magento_order_address')]
 class OrderAddress extends AbstractTypedAddress implements
     IntegrationAwareInterface,
     OriginAwareInterface,
@@ -41,73 +29,60 @@ class OrderAddress extends AbstractTypedAddress implements
 
     /**
      * @var ArrayCollection
-     *
-     * @ORM\ManyToMany(targetEntity="Oro\Bundle\AddressBundle\Entity\AddressType")
-     * @ORM\JoinTable(
-     *     name="orocrm_magento_order_addr_type",
-     *     joinColumns={@ORM\JoinColumn(name="order_address_id", referencedColumnName="id", onDelete="CASCADE")},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="type_name", referencedColumnName="name")}
-     * )
      **/
+    #[ORM\ManyToMany(targetEntity: 'Oro\Bundle\AddressBundle\Entity\AddressType')]
+    #[ORM\JoinTable(name: 'orocrm_magento_order_addr_type', joinColumns: [new ORM\JoinColumn(name: 'order_address_id', referencedColumnName: 'id', onDelete: 'CASCADE')], inverseJoinColumns: [new ORM\JoinColumn(name: 'type_name', referencedColumnName: 'name')])]
     protected $types;
 
     /**
      * @var Order
-     *
-     * @ORM\ManyToOne(targetEntity="Order", inversedBy="addresses",cascade={"persist"})
-     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id", onDelete="CASCADE")
      */
+    #[ORM\ManyToOne(targetEntity: 'Order', inversedBy: 'addresses', cascade: ['persist'])]
+    #[ORM\JoinColumn(name: 'owner_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
     protected $owner;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="fax", type="string", length=255, nullable=true)
      */
+    #[ORM\Column(name: 'fax', type: 'string', length: 255, nullable: true)]
     protected $fax;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="phone", type="string", length=255, nullable=true)
      */
+    #[ORM\Column(name: 'phone', type: 'string', length: 255, nullable: true)]
     protected $phone;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="street", type="string", length=500, nullable=true)
      */
+    #[ORM\Column(name: 'street', type: 'string', length: 500, nullable: true)]
     protected $street;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="city", type="string", length=255, nullable=true)
      */
+    #[ORM\Column(name: 'city', type: 'string', length: 255, nullable: true)]
     protected $city;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="postal_code", type="string", length=255, nullable=true)
      */
+    #[ORM\Column(name: 'postal_code', type: 'string', length: 255, nullable: true)]
     protected $postalCode;
 
     /**
      * @var Country
-     *
-     * @ORM\ManyToOne(targetEntity="Oro\Bundle\AddressBundle\Entity\Country")
-     * @ORM\JoinColumn(name="country_code", referencedColumnName="iso2_code")
      */
+    #[ORM\ManyToOne(targetEntity: 'Oro\Bundle\AddressBundle\Entity\Country')]
+    #[ORM\JoinColumn(name: 'country_code', referencedColumnName: 'iso2_code')]
     protected $country;
 
     /**
      * @var Region
-     *
-     * @ORM\ManyToOne(targetEntity="Oro\Bundle\AddressBundle\Entity\Region")
-     * @ORM\JoinColumn(name="region_code", referencedColumnName="combined_code")
      */
+    #[ORM\ManyToOne(targetEntity: 'Oro\Bundle\AddressBundle\Entity\Region')]
+    #[ORM\JoinColumn(name: 'region_code', referencedColumnName: 'combined_code')]
     protected $region;
 
     /**

@@ -4,7 +4,7 @@ namespace Oro\Bundle\MagentoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Oro\Bundle\BusinessEntitiesBundle\Entity\BaseCartItem;
-use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
+use Oro\Bundle\EntityConfigBundle\Metadata\Attribute\Config;
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
 use Oro\Bundle\OrganizationBundle\Entity\Organization;
@@ -13,159 +13,118 @@ use Oro\Bundle\OrganizationBundle\Entity\Organization;
  * Represents a single cart item.
  *
  * @package Oro\Bundle\OroMagentoBundle\Entity
- * @ORM\Entity
- * @ORM\Table(name="orocrm_magento_cart_item", indexes={
- *      @ORM\Index(name="magecartitem_origin_idx", columns={"origin_id"}),
- *      @ORM\Index(name="magecartitem_sku_idx", columns={"sku"}),*
- * })
- * @Config(
- *      defaultValues={
- *          "entity"={
- *              "icon"="fa-shopping-cart"
- *          },
- *          "ownership"={
- *              "owner_type"="ORGANIZATION",
- *              "owner_field_name"="owner",
- *              "owner_column_name"="owner_id"
- *          },
- *          "security"={
- *              "type"="ACL",
- *              "group_name"="",
- *              "category"="sales_data"
- *          },
- *          "activity"={
- *              "immutable"=true
- *          },
- *          "attachment"={
- *              "immutable"=true
- *          }
- *      }
- * )
  * @SuppressWarnings(PHPMD.TooManyFields)
  */
+#[ORM\Entity]
+#[Config(defaultValues: ['entity' => ['icon' => 'fa-shopping-cart'], 'ownership' => ['owner_type' => 'ORGANIZATION', 'owner_field_name' => 'owner', 'owner_column_name' => 'owner_id'], 'security' => ['type' => 'ACL', 'group_name' => '', 'category' => 'sales_data'], 'activity' => ['immutable' => true], 'attachment' => ['immutable' => true]])]
+#[ORM\Table(name: 'orocrm_magento_cart_item')]
+#[ORM\Index(name: 'magecartitem_origin_idx', columns: ['origin_id'])]
+#[ORM\Index(name: 'magecartitem_sku_idx', columns: ['sku'])]
 class CartItem extends BaseCartItem implements OriginAwareInterface, IntegrationAwareInterface, ExtendEntityInterface
 {
     use IntegrationEntityTrait, OriginTrait, ExtendEntityTrait;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Cart", inversedBy="cartItems",cascade={"persist"})
-     * @ORM\JoinColumn(name="cart_id", referencedColumnName="id", onDelete="CASCADE")
-     */
+    #[ORM\ManyToOne(targetEntity: 'Cart', inversedBy: 'cartItems', cascade: ['persist'])]
+    #[ORM\JoinColumn(name: 'cart_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
     protected $cart;
 
     /**
      * Mage product id
      * @var integer
-     *
-     * @ORM\Column(name="product_id", type="integer", options={"unsigned"=true})
      */
+    #[ORM\Column(name: 'product_id', type: 'integer', options: ['unsigned' => true])]
     protected $productId;
 
     /**
      * Mage cart parent item id
      * @var integer
-     *
-     * @ORM\Column(name="parent_item_id", type="integer", options={"unsigned"=true}, nullable=true)
      */
+    #[ORM\Column(name: 'parent_item_id', type: 'integer', options: ['unsigned' => true], nullable: true)]
     protected $parentItemId;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="free_shipping", type="string", length=255)
      */
+    #[ORM\Column(name: 'free_shipping', type: 'string', length: 255)]
     protected $freeShipping;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="gift_message", type="string", length=255, nullable=true)
      */
+    #[ORM\Column(name: 'gift_message', type: 'string', length: 255, nullable: true)]
     protected $giftMessage;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="tax_class_id", type="string", length=255, nullable=true)
      */
+    #[ORM\Column(name: 'tax_class_id', type: 'string', length: 255, nullable: true)]
     protected $taxClassId;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="description", type="text", nullable=true)
      */
+    #[ORM\Column(name: 'description', type: 'text', nullable: true)]
     protected $description;
 
     /**
      * @var float
-     *
-     * @ORM\Column(name="is_virtual", type="boolean")
      */
+    #[ORM\Column(name: 'is_virtual', type: 'boolean')]
     protected $isVirtual;
 
     /**
      * @var double
-     *
-     * @ORM\Column(name="custom_price", type="money", nullable=true)
      */
+    #[ORM\Column(name: 'custom_price', type: 'money', nullable: true)]
     protected $customPrice;
 
     /**
      * @var double
-     *
-     * @ORM\Column(name="price_incl_tax", type="money", nullable=true)
      */
+    #[ORM\Column(name: 'price_incl_tax', type: 'money', nullable: true)]
     protected $priceInclTax;
 
     /**
      * @var double
-     *
-     * @ORM\Column(name="row_total", type="money")
      */
+    #[ORM\Column(name: 'row_total', type: 'money')]
     protected $rowTotal;
 
     /**
      * @var double
-     *
-     * @ORM\Column(name="tax_amount", type="money")
      */
+    #[ORM\Column(name: 'tax_amount', type: 'money')]
     protected $taxAmount;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="product_type", type="string", length=255)
      */
+    #[ORM\Column(name: 'product_type', type: 'string', length: 255)]
     protected $productType;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="product_image_url", type="text", nullable=true)
      */
+    #[ORM\Column(name: 'product_image_url', type: 'text', nullable: true)]
     protected $productImageUrl;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="product_url", type="text", nullable=true)
      */
+    #[ORM\Column(name: 'product_url', type: 'text', nullable: true)]
     protected $productUrl;
 
     /**
      * @var bool
-     *
-     * @ORM\Column(name="is_removed", type="boolean", options={"default"=false})
      */
+    #[ORM\Column(name: 'is_removed', type: 'boolean', options: ['default' => false])]
     protected $removed = false;
 
     /**
      * @var Organization
-     *
-     * @ORM\ManyToOne(targetEntity="Oro\Bundle\OrganizationBundle\Entity\Organization")
-     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id", onDelete="SET NULL")
      */
+    #[ORM\ManyToOne(targetEntity: 'Oro\Bundle\OrganizationBundle\Entity\Organization')]
+    #[ORM\JoinColumn(name: 'owner_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
     protected $owner;
 
     /**

@@ -5,8 +5,8 @@ namespace Oro\Bundle\MagentoBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Oro\Bundle\BusinessEntitiesBundle\Entity\BaseProduct;
-use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
-use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
+use Oro\Bundle\EntityConfigBundle\Metadata\Attribute\Config;
+use Oro\Bundle\EntityConfigBundle\Metadata\Attribute\ConfigField;
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
 
@@ -14,24 +14,10 @@ use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
  * Class Product
  *
  * @package Oro\Bundle\OroMagentoBundle\Entity
- * @ORM\Entity
- * @ORM\Table(name="orocrm_magento_product")
- * @Config(
- *      defaultValues={
- *          "security"={
- *              "type"="ACL",
- *              "group_name"="",
- *              "category"="sales_data"
- *          },
- *          "activity"={
- *              "immutable"=true
- *          },
- *          "attachment"={
- *              "immutable"=true
- *          }
- *      }
- * )
  */
+#[ORM\Entity]
+#[Config(defaultValues: ['security' => ['type' => 'ACL', 'group_name' => '', 'category' => 'sales_data'], 'activity' => ['immutable' => true], 'attachment' => ['immutable' => true]])]
+#[ORM\Table(name: 'orocrm_magento_product')]
 class Product extends BaseProduct implements IntegrationAwareInterface, ExtendEntityInterface
 {
     use IntegrationEntityTrait, ExtendEntityTrait;
@@ -41,83 +27,59 @@ class Product extends BaseProduct implements IntegrationAwareInterface, ExtendEn
      */
     /**
      * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
+    #[ORM\Column(name: 'name', type: 'string', length: 255, nullable: false)]
     protected $name;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="sku", type="string", length=255, nullable=true)
      */
+    #[ORM\Column(name: 'sku', type: 'string', length: 255, nullable: true)]
     protected $sku;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="type", type="string", length=255, nullable=false)
      */
+    #[ORM\Column(name: 'type', type: 'string', length: 255, nullable: false)]
     protected $type;
 
     /**
      * @var double
-     *
-     * @ORM\Column(name="special_price", type="money", nullable=true)
      */
+    #[ORM\Column(name: 'special_price', type: 'money', nullable: true)]
     protected $specialPrice;
 
     /**
      * @var double
-     *
-     * @ORM\Column(name="price", type="money", nullable=true)
      */
+    #[ORM\Column(name: 'price', type: 'money', nullable: true)]
     protected $price;
 
     /**
      * @var \DateTime $createdAt
-     *
-     * @ORM\Column(type="datetime", name="created_at")
-     * @ConfigField(
-     *      defaultValues={
-     *          "entity"={
-     *              "label"="oro.ui.created_at"
-     *          }
-     *      }
-     * )
      */
+    #[ORM\Column(type: 'datetime', name: 'created_at')]
+    #[ConfigField(defaultValues: ['entity' => ['label' => 'oro.ui.created_at']])]
     protected $createdAt;
 
     /**
      * @var \DateTime $updatedAt
-     *
-     * @ORM\Column(type="datetime", name="updated_at")
-     * @ConfigField(
-     *      defaultValues={
-     *          "entity"={
-     *              "label"="oro.ui.updated_at"
-     *          }
-     *      }
-     * )
      */
+    #[ORM\Column(type: 'datetime', name: 'updated_at')]
+    #[ConfigField(defaultValues: ['entity' => ['label' => 'oro.ui.updated_at']])]
     protected $updatedAt;
 
     /**
      * @var Website[]|ArrayCollection
-     *
-     * @ORM\ManyToMany(targetEntity="Oro\Bundle\MagentoBundle\Entity\Website")
-     * @ORM\JoinTable(name="orocrm_magento_prod_to_website",
-     *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id", onDelete="CASCADE")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="website_id", referencedColumnName="id", onDelete="CASCADE")}
-     * )
      */
+    #[ORM\ManyToMany(targetEntity: 'Oro\Bundle\MagentoBundle\Entity\Website')]
+    #[ORM\JoinTable(name: 'orocrm_magento_prod_to_website', joinColumns: [new ORM\JoinColumn(name: 'product_id', referencedColumnName: 'id', onDelete: 'CASCADE')], inverseJoinColumns: [new ORM\JoinColumn(name: 'website_id', referencedColumnName: 'id', onDelete: 'CASCADE')])]
     protected $websites;
 
     /**
      * @var integer
-     *
-     * @ORM\Column(type="integer", options={"unsigned"=true}, name="origin_id")
      */
+    #[ORM\Column(type: 'integer', options: ['unsigned' => true], name: 'origin_id')]
     protected $originId;
 
     public function __construct()

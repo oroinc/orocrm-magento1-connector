@@ -7,16 +7,14 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 
 /**
  * Class MagentoSoapTransport
- *
- * @ORM\Entity(repositoryClass="Oro\Bundle\MagentoBundle\Entity\Repository\MagentoTransportRepository")
  */
+#[ORM\Entity(repositoryClass: 'Oro\Bundle\MagentoBundle\Entity\Repository\MagentoTransportRepository')]
 class MagentoSoapTransport extends MagentoTransport
 {
     /**
      * @var boolean
-     *
-     * @ORM\Column(name="is_wsi_mode", type="boolean")
      */
+    #[ORM\Column(name: 'is_wsi_mode', type: 'boolean')]
     protected $isWsiMode = false;
 
     /**

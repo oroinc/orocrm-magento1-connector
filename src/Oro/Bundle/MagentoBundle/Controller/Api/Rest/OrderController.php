@@ -9,18 +9,17 @@ use FOS\RestBundle\Controller\Annotations\Put;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Oro\Bundle\SecurityBundle\Annotation\Acl;
-use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
+use Oro\Bundle\SecurityBundle\Attribute\Acl;
+use Oro\Bundle\SecurityBundle\Attribute\AclAncestor;
 use Oro\Bundle\SoapBundle\Controller\Api\Rest\RestController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * API CRUD controller for Order entity.
- *
- * @RouteResource("order")
- * @NamePrefix("oro_api_")
  */
+#[RouteResource('order')]
+#[NamePrefix(['value' => 'oro_api_'])]
 class OrderController extends RestController
 {
     /**
@@ -60,10 +59,10 @@ class OrderController extends RestController
      *      description="Get all orders",
      *      resource=true
      * )
-     * @AclAncestor("oro_magento_order_view")
      * @param Request $request
      * @return Response
      */
+    #[AclAncestor('oro_magento_order_view')]
     public function cgetAction(Request $request)
     {
         $page  = (int)$request->get('page', 1);
@@ -79,13 +78,8 @@ class OrderController extends RestController
      *      description="Create new order",
      *      resource=true
      * )
-     * @Acl(
-     *      id="oro_magento_order_create",
-     *      type="entity",
-     *      permission="CREATE",
-     *      class="Oro\Bundle\MagentoBundle\Entity\Order"
-     * )
      */
+    #[Acl(id: 'oro_magento_order_create', type: 'entity', permission: 'CREATE', class: 'Oro\Bundle\MagentoBundle\Entity\Order')]
     public function postAction()
     {
         return $this->handleCreateRequest();
@@ -102,10 +96,10 @@ class OrderController extends RestController
      *      description="Get order",
      *      resource=true
      * )
-     * @AclAncestor("oro_magento_order_view")
      *
      * @return Response
      */
+    #[AclAncestor('oro_magento_order_view')]
     public function getAction(int $id)
     {
         return $this->handleGetRequest($id);
@@ -122,14 +116,9 @@ class OrderController extends RestController
      *      description="Update order",
      *      resource=true
      * )
-     * @Acl(
-     *      id="oro_magento_order_update",
-     *      type="entity",
-     *      permission="EDIT",
-     *      class="Oro\Bundle\MagentoBundle\Entity\Order"
-     * )
      * @return Response
      */
+    #[Acl(id: 'oro_magento_order_update', type: 'entity', permission: 'EDIT', class: 'Oro\Bundle\MagentoBundle\Entity\Order')]
     public function putAction(int $id)
     {
         return $this->handleUpdateRequest($id);
@@ -146,14 +135,9 @@ class OrderController extends RestController
      *      description="Delete order",
      *      resource=true
      * )
-     * @Acl(
-     *      id="oro_magento_order_delete",
-     *      type="entity",
-     *      permission="DELETE",
-     *      class="Oro\Bundle\MagentoBundle\Entity\Order"
-     * )
      * @return Response
      */
+    #[Acl(id: 'oro_magento_order_delete', type: 'entity', permission: 'DELETE', class: 'Oro\Bundle\MagentoBundle\Entity\Order')]
     public function deleteAction(int $id)
     {
         return $this->handleDeleteRequest($id);

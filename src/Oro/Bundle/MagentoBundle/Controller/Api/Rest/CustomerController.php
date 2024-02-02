@@ -10,8 +10,8 @@ use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Oro\Bundle\SecurityBundle\Annotation\Acl;
-use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
+use Oro\Bundle\SecurityBundle\Attribute\Acl;
+use Oro\Bundle\SecurityBundle\Attribute\AclAncestor;
 use Oro\Bundle\SoapBundle\Controller\Api\Rest\RestController;
 use Oro\Bundle\SoapBundle\Request\Parameters\Filter\HttpDateTimeParameterFilter;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,10 +19,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * API CRUD controller for Customer entity.
- *
- * @RouteResource("magentocustomer")
- * @NamePrefix("oro_api_")
  */
+#[RouteResource('magentocustomer')]
+#[NamePrefix(['value' => 'oro_api_'])]
 class CustomerController extends RestController implements ClassResourceInterface
 {
     /**
@@ -90,10 +89,10 @@ class CustomerController extends RestController implements ClassResourceInterfac
      *      description="Get all magento customers",
      *      resource=true
      * )
-     * @AclAncestor("oro_magento_customer_view")
      * @param Request $request
      * @return Response
      */
+    #[AclAncestor('oro_magento_customer_view')]
     public function cgetAction(Request $request)
     {
         $page  = (int)$request->get('page', 1);
@@ -125,10 +124,10 @@ class CustomerController extends RestController implements ClassResourceInterfac
      *      description="Get magento customer",
      *      resource=true
      * )
-     * @AclAncestor("oro_magento_customer_view")
      *
      * @return Response
      */
+    #[AclAncestor('oro_magento_customer_view')]
     public function getAction(int $id)
     {
         return $this->handleGetRequest($id);
@@ -141,9 +140,9 @@ class CustomerController extends RestController implements ClassResourceInterfac
      *      description="Create new magento customer",
      *      resource=true
      * )
-     * @AclAncestor("oro_magento_customer_create")
      *
      */
+    #[AclAncestor('oro_magento_customer_create')]
     public function postAction()
     {
         return $this->handleCreateRequest();
@@ -160,10 +159,10 @@ class CustomerController extends RestController implements ClassResourceInterfac
      *      description="Update magento customer",
      *      resource=true
      * )
-     * @AclAncestor("oro_magento_customer_update")
      *
      * @return Response
      */
+    #[AclAncestor('oro_magento_customer_update')]
     public function putAction(int $id)
     {
         return $this->handleUpdateRequest($id);
@@ -180,14 +179,9 @@ class CustomerController extends RestController implements ClassResourceInterfac
      *      description="Delete magento customer",
      *      resource=true
      * )
-     * @Acl(
-     *      id="oro_magento_customer_delete",
-     *      type="entity",
-     *      permission="DELETE",
-     *      class="Oro\Bundle\MagentoBundle\Entity\Customer"
-     * )
      * @return Response
      */
+    #[Acl(id: 'oro_magento_customer_delete', type: 'entity', permission: 'DELETE', class: 'Oro\Bundle\MagentoBundle\Entity\Customer')]
     public function deleteAction(int $id)
     {
         return $this->handleDeleteRequest($id);

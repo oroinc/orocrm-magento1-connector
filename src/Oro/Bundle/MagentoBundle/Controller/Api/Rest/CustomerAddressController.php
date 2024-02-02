@@ -14,8 +14,8 @@ use Oro\Bundle\AddressBundle\Entity\AbstractTypedAddress;
 use Oro\Bundle\MagentoBundle\Entity\Address;
 use Oro\Bundle\MagentoBundle\Entity\Customer;
 use Oro\Bundle\MagentoBundle\Entity\Manager\CustomerApiEntityManager;
-use Oro\Bundle\SecurityBundle\Annotation\Acl;
-use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
+use Oro\Bundle\SecurityBundle\Attribute\Acl;
+use Oro\Bundle\SecurityBundle\Attribute\AclAncestor;
 use Oro\Bundle\SoapBundle\Controller\Api\Rest\RestController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,9 +23,8 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * API CRUD controller for customer Address entity.
- *
- * @NamePrefix("oro_api_")
  */
+#[NamePrefix(['value' => 'oro_api_'])]
 class CustomerAddressController extends RestController implements ClassResourceInterface
 {
     /**
@@ -37,11 +36,10 @@ class CustomerAddressController extends RestController implements ClassResourceI
      *      description="Get all addresses items",
      *      resource=true
      * )
-     * @AclAncestor("oro_magento_customer_view")
      * @param int $customerId
-     *
      * @return JsonResponse
      */
+    #[AclAncestor('oro_magento_customer_view')]
     public function cgetAction(int $customerId)
     {
         /** @var Customer $customer */
@@ -71,11 +69,10 @@ class CustomerAddressController extends RestController implements ClassResourceI
      *      description="Add address to the customer",
      *      resource=true
      * )
-     * @AclAncestor("oro_magento_customer_create")
      * @param int $customerId
-     *
      * @return JsonResponse
      */
+    #[AclAncestor('oro_magento_customer_create')]
     public function postAction(int $customerId)
     {
         /** @var Customer $customer */
@@ -110,10 +107,10 @@ class CustomerAddressController extends RestController implements ClassResourceI
      *      description="Get customer address",
      *      resource=true
      * )
-     * @AclAncestor("oro_magento_customer_view")
      *
      * @return Response
      */
+    #[AclAncestor('oro_magento_customer_view')]
     public function getAction(int $customerId, int $addressId)
     {
         $address = $this->getManager()->serializeElement($customerId, $addressId);
@@ -136,9 +133,9 @@ class CustomerAddressController extends RestController implements ClassResourceI
      *      description="Update customer address",
      *      resource=true
      * )
-     * @AclAncestor("oro_magento_customer_update")
      * @return Response
      */
+    #[AclAncestor('oro_magento_customer_update')]
     public function putAction(int $customerId, int $addressId)
     {
         $address = $this->getManager()->findOneBy(['owner' => $customerId, 'id' => $addressId]);
@@ -168,14 +165,9 @@ class CustomerAddressController extends RestController implements ClassResourceI
      *      description="Delete customer address",
      *      resource=true
      * )
-     * @Acl(
-     *      id="oro_magento_customer_delete",
-     *      type="entity",
-     *      permission="DELETE",
-     *      class="Oro\Bundle\MagentoBundle\Entity\Address"
-     * )
      * @return Response
      */
+    #[Acl(id: 'oro_magento_customer_delete', type: 'entity', permission: 'DELETE', class: 'Oro\Bundle\MagentoBundle\Entity\Address')]
     public function deleteAction(int $customerId, int $addressId)
     {
         $isProcessed = false;

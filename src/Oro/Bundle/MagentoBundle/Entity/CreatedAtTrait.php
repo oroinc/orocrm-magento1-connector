@@ -3,7 +3,7 @@
 namespace Oro\Bundle\MagentoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
+use Oro\Bundle\EntityConfigBundle\Metadata\Attribute\ConfigField;
 
 trait CreatedAtTrait
 {
@@ -11,16 +11,9 @@ trait CreatedAtTrait
      * Date of creation
      *
      * @var \DateTime
-     *
-     * @ORM\Column(name="created_at", type="datetime")
-     * @ConfigField(
-     *      defaultValues={
-     *          "entity"={
-     *              "label"="oro.ui.created_at"
-     *          }
-     *      }
-     * )
      */
+    #[ORM\Column(name: 'created_at', type: 'datetime')]
+    #[ConfigField(defaultValues: ['entity' => ['label' => 'oro.ui.created_at']])]
     protected $createdAt;
 
     /**

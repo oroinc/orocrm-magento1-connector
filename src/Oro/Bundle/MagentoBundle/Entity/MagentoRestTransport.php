@@ -7,16 +7,14 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 
 /**
  * Class MagentoRestTransport
- *
- * @ORM\Entity(repositoryClass="Oro\Bundle\MagentoBundle\Entity\Repository\MagentoTransportRepository")
  */
+#[ORM\Entity(repositoryClass: 'Oro\Bundle\MagentoBundle\Entity\Repository\MagentoTransportRepository')]
 class MagentoRestTransport extends MagentoTransport
 {
     /**
      * @var string
-     *
-     * @ORM\Column(name="api_token", type="string", length=255, nullable=false)
      */
+    #[ORM\Column(name: 'api_token', type: 'string', length: 255, nullable: false)]
     protected $apiToken;
 
     /**

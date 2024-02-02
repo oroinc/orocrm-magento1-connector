@@ -4,7 +4,7 @@ namespace Oro\Bundle\MagentoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Oro\Bundle\BusinessEntitiesBundle\Entity\BasePersonGroup;
-use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
+use Oro\Bundle\EntityConfigBundle\Metadata\Attribute\Config;
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
 
@@ -12,22 +12,10 @@ use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
  * Class CustomerGroup
  *
  * @package Oro\Bundle\OroMagentoBundle\Entity
- * @ORM\Entity
- * @ORM\Table(name="orocrm_magento_customer_group")
- * @Config(
- *      defaultValues={
- *          "entity"={
- *              "icon"="fa-users"
- *          },
- *          "activity"={
- *              "immutable"=true
- *          },
- *          "attachment"={
- *              "immutable"=true
- *          }
- *      }
- * )
  */
+#[ORM\Entity]
+#[Config(defaultValues: ['entity' => ['icon' => 'fa-users'], 'activity' => ['immutable' => true], 'attachment' => ['immutable' => true]])]
+#[ORM\Table(name: 'orocrm_magento_customer_group')]
 class CustomerGroup extends BasePersonGroup implements
     OriginAwareInterface,
     IntegrationAwareInterface,
@@ -37,9 +25,8 @@ class CustomerGroup extends BasePersonGroup implements
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
+    #[ORM\Column(name: 'name', type: 'string', length: 255, nullable: false)]
     protected $name;
 
     /**

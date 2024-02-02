@@ -6,8 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Oro\Bundle\ChannelBundle\Model\ChannelAwareInterface;
-use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
-use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
+use Oro\Bundle\EntityConfigBundle\Metadata\Attribute\Config;
+use Oro\Bundle\EntityConfigBundle\Metadata\Attribute\ConfigField;
 use Oro\Bundle\EntityExtendBundle\Entity\AbstractEnumValue;
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
@@ -17,48 +17,19 @@ use Oro\Bundle\UserBundle\Entity\User;
 /**
  * Represents a credit memo.
  *
- * @ORM\Entity
- * @ORM\Table(
- *     name="orocrm_magento_credit_memo",
- *     indexes={
- *          @ORM\Index(name="magecreditmemo_created_idx", columns={"created_at", "id"}),
- *          @ORM\Index(name="magecreditmemo_updated_idx", columns={"updated_at", "id"})
- *     },
- *     uniqueConstraints={
- *          @ORM\UniqueConstraint(name="unq_mcm_increment_id_channel_id", columns={"increment_id", "channel_id"})
- *     }
- * )
- * @Config(
- *     routeView="oro_magento_credit_memo_view",
- *     defaultValues={
- *          "entity"={
- *              "icon"="fa-list-alt"
- *          },
- *          "ownership"={
- *              "owner_type"="USER",
- *              "owner_field_name"="owner",
- *              "owner_column_name"="user_owner_id",
- *              "organization_field_name"="organization",
- *              "organization_column_name"="organization_id"
- *          },
- *          "security"={
- *              "type"="ACL",
- *              "group_name"="",
- *              "category"="sales_data"
- *          },
- *          "grid"={
- *              "default"="magento-credit-memo-grid",
- *          }
- *     }
- * )
  *
  * @method AbstractEnumValue getStatus()
  * @method ExtendCreditMemo  setStatus(AbstractEnumValue $enumValue)
-
  * @SuppressWarnings(PHPMD.ExcessivePublicCount)
  * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  * @SuppressWarnings(PHPMD.TooManyFields)
  */
+#[ORM\Entity]
+#[Config(routeView: 'oro_magento_credit_memo_view', defaultValues: ['entity' => ['icon' => 'fa-list-alt'], 'ownership' => ['owner_type' => 'USER', 'owner_field_name' => 'owner', 'owner_column_name' => 'user_owner_id', 'organization_field_name' => 'organization', 'organization_column_name' => 'organization_id'], 'security' => ['type' => 'ACL', 'group_name' => '', 'category' => 'sales_data'], 'grid' => ['default' => 'magento-credit-memo-grid']])]
+#[ORM\Table(name: 'orocrm_magento_credit_memo')]
+#[ORM\Index(name: 'magecreditmemo_created_idx', columns: ['created_at', 'id'])]
+#[ORM\Index(name: 'magecreditmemo_updated_idx', columns: ['updated_at', 'id'])]
+#[ORM\UniqueConstraint(name: 'unq_mcm_increment_id_channel_id', columns: ['increment_id', 'channel_id'])]
 class CreditMemo implements
     ChannelAwareInterface,
     IntegrationAwareInterface,
@@ -76,200 +47,149 @@ class CreditMemo implements
 
     /**
      * @var int
-     *
-     * @ORM\Id
-     * @ORM\Column(type="integer", name="id")
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
+    #[ORM\Id]
+    #[ORM\Column(type: 'integer', name: 'id')]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     protected $id;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="increment_id", type="string", length=60, nullable=false)
-     * @ConfigField(
-     *      defaultValues={
-     *          "importexport"={
-     *              "identity"=true
-     *          }
-     *      }
-     * )
      */
+    #[ORM\Column(name: 'increment_id', type: 'string', length: 60, nullable: false)]
+    #[ConfigField(defaultValues: ['importexport' => ['identity' => true]])]
     protected $incrementId;
 
     /**
      * @var int
-     *
-     * @ORM\Column(name="invoice_id", type="integer", nullable=true, options={"unsigned"=true})
      */
+    #[ORM\Column(name: 'invoice_id', type: 'integer', nullable: true, options: ['unsigned' => true])]
     protected $invoiceId;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="transaction_id", type="string", length=255, nullable=true)
      */
+    #[ORM\Column(name: 'transaction_id', type: 'string', length: 255, nullable: true)]
     protected $transactionId;
 
     /**
      * @var Order
-     *
-     * @ORM\ManyToOne(targetEntity="Order", inversedBy="creditMemos", cascade={"persist"})
-     * @ORM\JoinColumn(name="order_id", referencedColumnName="id", onDelete="CASCADE")
      */
+    #[ORM\ManyToOne(targetEntity: 'Order', inversedBy: 'creditMemos', cascade: ['persist'])]
+    #[ORM\JoinColumn(name: 'order_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
     protected $order;
 
     /**
      * @var Store
-     *
-     * @ORM\ManyToOne(targetEntity="Oro\Bundle\MagentoBundle\Entity\Store")
-     * @ORM\JoinColumn(name="store_id", referencedColumnName="id", onDelete="SET NULL")
-     * @ConfigField(
-     *      defaultValues={
-     *          "importexport"={
-     *              "full"=false
-     *          }
-     *      }
-     * )
      */
+    #[ORM\ManyToOne(targetEntity: 'Oro\Bundle\MagentoBundle\Entity\Store')]
+    #[ORM\JoinColumn(name: 'store_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
+    #[ConfigField(defaultValues: ['importexport' => ['full' => false]])]
     protected $store;
 
     /**
      * @var Collection|CreditMemoItem[]
-     *
-     * @ORM\OneToMany(targetEntity="CreditMemoItem", mappedBy="parent", cascade={"all"})
-     * @ConfigField(
-     *      defaultValues={
-     *          "importexport"={
-     *              "full"=true
-     *          }
-     *      }
-     * )
      */
+    #[ORM\OneToMany(targetEntity: 'CreditMemoItem', mappedBy: 'parent', cascade: ['all'])]
+    #[ConfigField(defaultValues: ['importexport' => ['full' => true]])]
     protected $items;
 
     /**
      * @var User
-     * @ORM\ManyToOne(targetEntity="Oro\Bundle\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="user_owner_id", referencedColumnName="id", onDelete="SET NULL")
      */
+    #[ORM\ManyToOne(targetEntity: 'Oro\Bundle\UserBundle\Entity\User')]
+    #[ORM\JoinColumn(name: 'user_owner_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
     protected $owner;
 
     /**
      * @var Organization
-     *
-     * @ORM\ManyToOne(targetEntity="Oro\Bundle\OrganizationBundle\Entity\Organization")
-     * @ORM\JoinColumn(name="organization_id", referencedColumnName="id", onDelete="SET NULL")
      */
+    #[ORM\ManyToOne(targetEntity: 'Oro\Bundle\OrganizationBundle\Entity\Organization')]
+    #[ORM\JoinColumn(name: 'organization_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
     protected $organization;
 
     /**
      * @var boolean
-     *
-     * @ORM\Column(name="is_email_sent", type="boolean", nullable=true)
      */
+    #[ORM\Column(name: 'is_email_sent', type: 'boolean', nullable: true)]
     protected $emailSent;
 
     /**
      * @var float
-     *
-     * @ORM\Column(name="adjustment", type="money", nullable=true)
      */
+    #[ORM\Column(name: 'adjustment', type: 'money', nullable: true)]
     protected $adjustment;
 
     /**
      * @var float
-     *
-     * @ORM\Column(name="subtotal", type="money", nullable=true)
      */
+    #[ORM\Column(name: 'subtotal', type: 'money', nullable: true)]
     protected $subtotal;
 
     /**
      * @var float
-     *
-     * @ORM\Column(name="adjustment_negative", type="money", nullable=true)
      */
+    #[ORM\Column(name: 'adjustment_negative', type: 'money', nullable: true)]
     protected $adjustmentNegative;
 
     /**
      * @var float
-     *
-     * @ORM\Column(name="shipping_amount", type="money", nullable=true)
      */
+    #[ORM\Column(name: 'shipping_amount', type: 'money', nullable: true)]
     protected $shippingAmount;
 
     /**
      * @var float
-     *
-     * @ORM\Column(name="grand_total", type="money", nullable=true)
      */
+    #[ORM\Column(name: 'grand_total', type: 'money', nullable: true)]
     protected $grandTotal;
 
     /**
      * @var float
-     *
-     * @ORM\Column(name="adjustment_positive", type="money", nullable=true)
      */
+    #[ORM\Column(name: 'adjustment_positive', type: 'money', nullable: true)]
     protected $adjustmentPositive;
 
     /**
      * @var float
-     *
-     * @ORM\Column(name="customer_bal_total_refunded", type="float", nullable=true)
      */
+    #[ORM\Column(name: 'customer_bal_total_refunded', type: 'float', nullable: true)]
     protected $customerBalTotalRefunded;
 
     /**
      * @var float
-     *
-     * @ORM\Column(name="reward_points_balance_refund", type="float", nullable=true)
      */
+    #[ORM\Column(name: 'reward_points_balance_refund', type: 'float', nullable: true)]
     protected $rewardPointsBalanceRefund;
 
     /**
      * Date of updating
      *
      * @var \DateTime
-     *
-     * @ORM\Column(name="updated_at", type="datetime")
-     * @ConfigField(
-     *      defaultValues={
-     *          "entity"={
-     *              "label"="oro.ui.updated_at"
-     *          }
-     *      }
-     * )
      */
+    #[ORM\Column(name: 'updated_at', type: 'datetime')]
+    #[ConfigField(defaultValues: ['entity' => ['label' => 'oro.ui.updated_at']])]
     protected $updatedAt;
 
     /**
      * Date of creation
      *
      * @var \DateTime
-     *
-     * @ORM\Column(name="created_at", type="datetime")
-     * @ConfigField(
-     *      defaultValues={
-     *          "entity"={
-     *              "label"="oro.ui.created_at"
-     *          }
-     *      }
-     * )
      */
+    #[ORM\Column(name: 'created_at', type: 'datetime')]
+    #[ConfigField(defaultValues: ['entity' => ['label' => 'oro.ui.created_at']])]
     protected $createdAt;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", name="imported_at", nullable=true)
      */
+    #[ORM\Column(type: 'datetime', name: 'imported_at', nullable: true)]
     protected $importedAt;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", name="synced_at", nullable=true)
      */
+    #[ORM\Column(type: 'datetime', name: 'synced_at', nullable: true)]
     protected $syncedAt;
 
     /**

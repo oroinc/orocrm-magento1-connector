@@ -3,8 +3,8 @@
 namespace Oro\Bundle\MagentoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
-use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
+use Oro\Bundle\EntityConfigBundle\Metadata\Attribute\Config;
+use Oro\Bundle\EntityConfigBundle\Metadata\Attribute\ConfigField;
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
 
@@ -12,27 +12,12 @@ use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
  * Class Store
  *
  * @package Oro\Bundle\OroMagentoBundle\Entity
- * @ORM\Entity
- * @ORM\Table(
- *  name="orocrm_magento_store",
- *  indexes={
- *      @ORM\Index(name="idx_website", columns={"website_id"})
- *  },
- *  uniqueConstraints={
- *      @ORM\UniqueConstraint(name="unq_code_channel_id", columns={"store_code", "channel_id"})
- *  }
- * )
- * @Config(
- *      defaultValues={
- *          "activity"={
- *              "immutable"=true
- *          },
- *          "attachment"={
- *              "immutable"=true
- *          }
- *      }
- * )
  */
+#[ORM\Entity]
+#[Config(defaultValues: ['activity' => ['immutable' => true], 'attachment' => ['immutable' => true]])]
+#[ORM\Table(name: 'orocrm_magento_store')]
+#[ORM\Index(name: 'idx_website', columns: ['website_id'])]
+#[ORM\UniqueConstraint(name: 'unq_code_channel_id', columns: ['store_code', 'channel_id'])]
 class Store implements OriginAwareInterface, IntegrationAwareInterface, ExtendEntityInterface
 {
     use IntegrationEntityTrait, OriginTrait, ExtendEntityTrait;
@@ -41,40 +26,30 @@ class Store implements OriginAwareInterface, IntegrationAwareInterface, ExtendEn
 
     /**
      * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     protected $id;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="store_code", type="string", length=32, nullable=false)
      */
+    #[ORM\Column(name: 'store_code', type: 'string', length: 32, nullable: false)]
     protected $code;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="store_name", type="string", length=255, nullable=false)
      */
+    #[ORM\Column(name: 'store_name', type: 'string', length: 255, nullable: false)]
     protected $name;
 
     /**
      * @var Website
-     *
-     * @ORM\ManyToOne(targetEntity="Oro\Bundle\MagentoBundle\Entity\Website")
-     * @ORM\JoinColumn(name="website_id", referencedColumnName="id", onDelete="cascade", nullable=false)
-     * @ConfigField(
-     *      defaultValues={
-     *          "importexport"={
-     *              "full"=false
-     *          }
-     *      }
-     * )
      */
+    #[ORM\ManyToOne(targetEntity: 'Oro\Bundle\MagentoBundle\Entity\Website')]
+    #[ORM\JoinColumn(name: 'website_id', referencedColumnName: 'id', onDelete: 'cascade', nullable: false)]
+    #[ConfigField(defaultValues: ['importexport' => ['full' => false]])]
     protected $website;
 
     /**

@@ -4,91 +4,60 @@ namespace Oro\Bundle\MagentoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Oro\Bundle\BusinessEntitiesBundle\Entity\BaseOrderItem;
-use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
+use Oro\Bundle\EntityConfigBundle\Metadata\Attribute\Config;
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
 use Oro\Bundle\OrganizationBundle\Entity\Organization;
 
-/**
- * @ORM\Table("orocrm_magento_order_items")
- * @ORM\Entity
- * @Config(
- *      defaultValues={
- *          "entity"={
- *              "icon"="fa-list-alt"
- *          },
- *          "ownership"={
- *              "owner_type"="ORGANIZATION",
- *              "owner_field_name"="owner",
- *              "owner_column_name"="owner_id"
- *          },
- *          "security"={
- *              "type"="ACL",
- *              "group_name"="",
- *              "category"="sales_data"
- *          },
- *          "activity"={
- *              "immutable"=true
- *          },
- *          "attachment"={
- *              "immutable"=true
- *          }
- *      }
- * )
- */
+#[ORM\Entity]
+#[Config(defaultValues: ['entity' => ['icon' => 'fa-list-alt'], 'ownership' => ['owner_type' => 'ORGANIZATION', 'owner_field_name' => 'owner', 'owner_column_name' => 'owner_id'], 'security' => ['type' => 'ACL', 'group_name' => '', 'category' => 'sales_data'], 'activity' => ['immutable' => true], 'attachment' => ['immutable' => true]])]
+#[ORM\Table('orocrm_magento_order_items')]
 class OrderItem extends BaseOrderItem implements IntegrationAwareInterface, OriginAwareInterface, ExtendEntityInterface
 {
     use IntegrationEntityTrait, OriginTrait, ExtendEntityTrait;
 
     /**
      * @var Order
-     *
-     * @ORM\ManyToOne(targetEntity="Order", inversedBy="items",cascade={"persist"})
-     * @ORM\JoinColumn(name="order_id", referencedColumnName="id", onDelete="CASCADE")
      */
+    #[ORM\ManyToOne(targetEntity: 'Order', inversedBy: 'items', cascade: ['persist'])]
+    #[ORM\JoinColumn(name: 'order_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
     protected $order;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="product_type", type="string", length=255, nullable=true)
      */
+    #[ORM\Column(name: 'product_type', type: 'string', length: 255, nullable: true)]
     protected $productType;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="product_options", type="text", nullable=true)
      */
+    #[ORM\Column(name: 'product_options', type: 'text', nullable: true)]
     protected $productOptions;
 
     /**
      * @var boolean
-     *
-     * @ORM\Column(name="is_virtual", type="boolean", nullable=true)
      */
+    #[ORM\Column(name: 'is_virtual', type: 'boolean', nullable: true)]
     protected $isVirtual;
 
     /**
      * @var double
-     *
-     * @ORM\Column(name="original_price", type="money", nullable=true)
      */
+    #[ORM\Column(name: 'original_price', type: 'money', nullable: true)]
     protected $originalPrice;
 
     /**
      * @var float
-     *
-     * @ORM\Column(name="discount_percent", type="percent", nullable=true)
      */
+    #[ORM\Column(name: 'discount_percent', type: 'percent', nullable: true)]
     protected $discountPercent;
 
     /**
      * @var Organization
-     *
-     * @ORM\ManyToOne(targetEntity="Oro\Bundle\OrganizationBundle\Entity\Organization")
-     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id", onDelete="SET NULL")
      */
+    #[ORM\ManyToOne(targetEntity: 'Oro\Bundle\OrganizationBundle\Entity\Organization')]
+    #[ORM\JoinColumn(name: 'owner_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
     protected $owner;
 
     /** Do not needed in magento order item, because magento api does not bring it up */

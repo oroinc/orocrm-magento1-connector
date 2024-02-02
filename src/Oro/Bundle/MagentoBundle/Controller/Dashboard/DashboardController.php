@@ -44,18 +44,14 @@ class DashboardController extends AbstractController
     }
 
     /**
-     * @Route(
-     *      "/sales_flow_b2c/chart/{widget}",
-     *      name="oro_magento_dashboard_sales_flow_b2c_chart",
-     *      requirements={"widget"="[\w_-]+"}
-     * )
-     * @Template("@OroSales/Dashboard/salesFlowChart.html.twig")
      *
      * @param Request $request
      * @param $widget
      *
      * @return array
      */
+    #[Route(path: '/sales_flow_b2c/chart/{widget}', name: 'oro_magento_dashboard_sales_flow_b2c_chart', requirements: ['widget' => '[\w_-]+'])]
+    #[Template('@OroSales/Dashboard/salesFlowChart.html.twig')]
     public function mySalesFlowB2CAction(Request $request, $widget)
     {
         $widgetConfigs = $this->container->get(WidgetConfigs::class);
@@ -108,17 +104,13 @@ class DashboardController extends AbstractController
     }
 
     /**
-     * @Route(
-     *      "/average_order_amount_by_customer",
-     *      name="oro_magento_dashboard_average_order_amount",
-     *      requirements={"widget"="[\w_-]+"}
-     * )
-     * @Template("@OroMagento/Dashboard/ordersByCustomers.html.twig")
      *
      * @param Request $request
      *
      * @return array
      */
+    #[Route(path: '/average_order_amount_by_customer', name: 'oro_magento_dashboard_average_order_amount', requirements: ['widget' => '[\w_-]+'])]
+    #[Template('@OroMagento/Dashboard/ordersByCustomers.html.twig')]
     public function averageOrderAmountAction(Request $request)
     {
         $widgetAttributes  = $this->container->get(WidgetConfigs::class);
@@ -138,17 +130,13 @@ class DashboardController extends AbstractController
     }
 
     /**
-     * @Route(
-     *      "/oro_magento_dashboard_new_customers_chart",
-     *      name="oro_magento_dashboard_new_customers_chart",
-     *      requirements={"widget"="[\w_-]+"}
-     * )
-     * @Template("@OroMagento/Dashboard/newCustomersChart.html.twig")
      *
      * @param Request $request
      *
      * @return array
      */
+    #[Route(path: '/oro_magento_dashboard_new_customers_chart', name: 'oro_magento_dashboard_new_customers_chart', requirements: ['widget' => '[\w_-]+'])]
+    #[Template('@OroMagento/Dashboard/newCustomersChart.html.twig')]
     public function newCustomersAction(Request $request)
     {
         $widgetAttributes     = $this->container->get(WidgetConfigs::class);
@@ -166,14 +154,8 @@ class DashboardController extends AbstractController
         return $data;
     }
 
-    /**
-     * @Route(
-     *      "/oro_magento_dashboard_purchase_chart",
-     *      name="oro_magento_dashboard_purchase_chart",
-     *      requirements={"widget"="[\w_-]+"}
-     * )
-     * @Template("@OroMagento/Dashboard/purchaseChart.html.twig")
-     */
+    #[Route(path: '/oro_magento_dashboard_purchase_chart', name: 'oro_magento_dashboard_purchase_chart', requirements: ['widget' => '[\w_-]+'])]
+    #[Template('@OroMagento/Dashboard/purchaseChart.html.twig')]
     public function purchaseAction()
     {
         $widgetAttributes     = $this->container->get(WidgetConfigs::class);
@@ -190,14 +172,8 @@ class DashboardController extends AbstractController
         return $data;
     }
 
-    /**
-     * @Route(
-     *      "/oro_magento_dashboard_revenue_over_time_chart",
-     *      name="oro_magento_dashboard_revenue_over_time_chart",
-     *      requirements={"widget"="[\w_-]+"}
-     * )
-     * @Template("@OroMagento/Dashboard/revenueOverTimeChart.html.twig")
-     */
+    #[Route(path: '/oro_magento_dashboard_revenue_over_time_chart', name: 'oro_magento_dashboard_revenue_over_time_chart', requirements: ['widget' => '[\w_-]+'])]
+    #[Template('@OroMagento/Dashboard/revenueOverTimeChart.html.twig')]
     public function revenueOverTimeAction()
     {
         $widgetAttributes  = $this->container->get(WidgetConfigs::class);
@@ -215,14 +191,8 @@ class DashboardController extends AbstractController
         return $data;
     }
 
-    /**
-     * @Route(
-     *      "/oro_magento_dashboard_orders_over_time_chart",
-     *      name="oro_magento_dashboard_orders_over_time_chart",
-     *      requirements={"widget"="[\w_-]+"}
-     * )
-     * @Template("@OroMagento/Dashboard/ordersOverTimeChart.html.twig")
-     */
+    #[Route(path: '/oro_magento_dashboard_orders_over_time_chart', name: 'oro_magento_dashboard_orders_over_time_chart', requirements: ['widget' => '[\w_-]+'])]
+    #[Template('@OroMagento/Dashboard/ordersOverTimeChart.html.twig')]
     public function ordersOverTimeAction()
     {
         $widgetAttributes  = $this->container->get(WidgetConfigs::class);

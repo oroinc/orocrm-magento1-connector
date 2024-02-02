@@ -2,23 +2,17 @@
 
 namespace Oro\Bundle\MagentoBundle\Entity;
 
-use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
+use Doctrine\ORM\Mapping as ORM;
+use Oro\Bundle\EntityConfigBundle\Metadata\Attribute\ConfigField;
 
 trait OriginTrait
 {
     /**
      * Mage entity origin id
      * @var integer
-     *
-     * @ORM\Column(name="origin_id", type="integer", options={"unsigned"=true}, nullable=true)
-     * @ConfigField(
-     *      defaultValues={
-     *          "importexport"={
-     *              "identity"=true
-     *          }
-     *      }
-     * )
      */
+    #[ConfigField(defaultValues: ['importexport' => ['identity' => true]])]
+    #[ORM\Column(name: 'origin_id', type: 'integer', options: ['unsigned' => true], nullable: true)]
     protected $originId;
 
     /**

@@ -13,8 +13,8 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Oro\Bundle\AddressBundle\Entity\AddressType;
 use Oro\Bundle\MagentoBundle\Entity\Cart;
 use Oro\Bundle\MagentoBundle\Entity\CartAddress;
-use Oro\Bundle\SecurityBundle\Annotation\Acl;
-use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
+use Oro\Bundle\SecurityBundle\Attribute\Acl;
+use Oro\Bundle\SecurityBundle\Attribute\AclAncestor;
 use Oro\Bundle\SoapBundle\Controller\Api\Rest\RestController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,9 +22,8 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * API CRUD controller for CartAddress entity.
- *
- * @NamePrefix("oro_api_")
  */
+#[NamePrefix(['value' => 'oro_api_'])]
 class CartAddressController extends RestController implements ClassResourceInterface
 {
     /**
@@ -60,16 +59,10 @@ class CartAddressController extends RestController implements ClassResourceInter
      *      description="Add shipping address to the cart",
      *      resource=true
      * )
-     * @Acl(
-     *      id="oro_magento_cart_address_create",
-     *      type="entity",
-     *      permission="CREATE",
-     *      class="Oro\Bundle\MagentoBundle\Entity\CartAddress"
-     * )
      * @param int $cartId
-     *
      * @return JsonResponse
      */
+    #[Acl(id: 'oro_magento_cart_address_create', type: 'entity', permission: 'CREATE', class: 'Oro\Bundle\MagentoBundle\Entity\CartAddress')]
     public function postShippingAction(int $cartId)
     {
         return $this->post($cartId, AddressType::TYPE_SHIPPING);
@@ -84,16 +77,10 @@ class CartAddressController extends RestController implements ClassResourceInter
      *      description="Add billing address to the cart",
      *      resource=true
      * )
-     * @Acl(
-     *      id="oro_magento_cart_address_create",
-     *      type="entity",
-     *      permission="CREATE",
-     *      class="Oro\Bundle\MagentoBundle\Entity\CartAddress"
-     * )
      * @param int $cartId
-     *
      * @return JsonResponse
      */
+    #[Acl(id: 'oro_magento_cart_address_create', type: 'entity', permission: 'CREATE', class: 'Oro\Bundle\MagentoBundle\Entity\CartAddress')]
     public function postBillingAction(int $cartId)
     {
         return $this->post($cartId, AddressType::TYPE_BILLING);
@@ -110,10 +97,10 @@ class CartAddressController extends RestController implements ClassResourceInter
      *      description="Get address by type",
      *      resource=true
      * )
-     * @AclAncestor("oro_magento_cart_view")
      *
      * @return Response
      */
+    #[AclAncestor('oro_magento_cart_view')]
     public function getShippingAction(int $cartId)
     {
         return $this->getAddress($cartId, AddressType::TYPE_SHIPPING);
@@ -130,10 +117,10 @@ class CartAddressController extends RestController implements ClassResourceInter
      *      description="Get address item by type",
      *      resource=true
      * )
-     * @AclAncestor("oro_magento_cart_view")
      *
      * @return Response
      */
+    #[AclAncestor('oro_magento_cart_view')]
     public function getBillingAction(int $cartId)
     {
         return $this->getAddress($cartId, AddressType::TYPE_BILLING);
@@ -150,14 +137,9 @@ class CartAddressController extends RestController implements ClassResourceInter
      *      description="Update cart shipping address",
      *      resource=true
      * )
-     * @Acl(
-     *      id="oro_magento_cart_address_update",
-     *      type="entity",
-     *      permission="EDIT",
-     *      class="Oro\Bundle\MagentoBundle\Entity\CartAddress"
-     * )
      * @return Response
      */
+    #[Acl(id: 'oro_magento_cart_address_update', type: 'entity', permission: 'EDIT', class: 'Oro\Bundle\MagentoBundle\Entity\CartAddress')]
     public function putShippingAction(int $cartId)
     {
         return $this->put($cartId, AddressType::TYPE_SHIPPING);
@@ -174,10 +156,10 @@ class CartAddressController extends RestController implements ClassResourceInter
      *      description="Update cart billing address",
      *      resource=true
      * )
-     * @AclAncestor("oro_magento_cart_address_update")
      *
      * @return Response
      */
+    #[AclAncestor('oro_magento_cart_address_update')]
     public function putBillingAction(int $cartId)
     {
         return $this->put($cartId, AddressType::TYPE_BILLING);
@@ -194,14 +176,9 @@ class CartAddressController extends RestController implements ClassResourceInter
      *      description="Delete cart shipping address",
      *      resource=true
      * )
-     * @Acl(
-     *      id="oro_magento_cart_address_delete",
-     *      type="entity",
-     *      permission="DELETE",
-     *      class="Oro\Bundle\MagentoBundle\Entity\CartAddress"
-     * )
      * @return Response
      */
+    #[Acl(id: 'oro_magento_cart_address_delete', type: 'entity', permission: 'DELETE', class: 'Oro\Bundle\MagentoBundle\Entity\CartAddress')]
     public function deleteShippingAction(int $cartId)
     {
         return $this->delete($cartId, AddressType::TYPE_SHIPPING);
@@ -218,9 +195,9 @@ class CartAddressController extends RestController implements ClassResourceInter
      *      description="Delete cart billing address",
      *      resource=true
      * )
-     * @AclAncestor("oro_magento_cart_address_delete")
      * @return Response
      */
+    #[AclAncestor('oro_magento_cart_address_delete')]
     public function deleteBillingAction(int $cartId)
     {
         return $this->delete($cartId, AddressType::TYPE_BILLING);

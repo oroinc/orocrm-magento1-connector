@@ -13,8 +13,8 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Oro\Bundle\MagentoBundle\Entity\Cart;
 use Oro\Bundle\MagentoBundle\Entity\CartItem;
 use Oro\Bundle\MagentoBundle\Entity\Manager\CartApiEntityManager;
-use Oro\Bundle\SecurityBundle\Annotation\Acl;
-use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
+use Oro\Bundle\SecurityBundle\Attribute\Acl;
+use Oro\Bundle\SecurityBundle\Attribute\AclAncestor;
 use Oro\Bundle\SoapBundle\Controller\Api\Rest\RestController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,9 +22,8 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * API CRUD controller for CartItem entity.
- *
- * @NamePrefix("oro_api_")
  */
+#[NamePrefix(['value' => 'oro_api_'])]
 class CartItemController extends RestController implements ClassResourceInterface
 {
     /**
@@ -60,16 +59,10 @@ class CartItemController extends RestController implements ClassResourceInterfac
      *      description="Add item to the cart",
      *      resource=true
      * )
-     * @Acl(
-     *      id="oro_magento_cart_item_create",
-     *      type="entity",
-     *      permission="CREATE",
-     *      class="Oro\Bundle\MagentoBundle\Entity\CartItem"
-     * )
      * @param int $cartId
-     *
      * @return JsonResponse
      */
+    #[Acl(id: 'oro_magento_cart_item_create', type: 'entity', permission: 'CREATE', class: 'Oro\Bundle\MagentoBundle\Entity\CartItem')]
     public function postAction(int $cartId)
     {
         /** @var Cart $cart */
@@ -105,10 +98,10 @@ class CartItemController extends RestController implements ClassResourceInterfac
      *      description="Get cart item",
      *      resource=true
      * )
-     * @AclAncestor("oro_magento_cart_view")
      *
      * @return Response
      */
+    #[AclAncestor('oro_magento_cart_view')]
     public function getAction($cartId, $itemId)
     {
         $cartItem = $this->getManager()->getSpecificSerializedItem($cartId, $itemId);
@@ -128,12 +121,11 @@ class CartItemController extends RestController implements ClassResourceInterfac
      *      description="Get all cart items",
      *      resource=true
      * )
-     * @AclAncestor("oro_magento_cart_view")
      *
      * @param int $cartId
-     *
      * @return JsonResponse
      */
+    #[AclAncestor('oro_magento_cart_view')]
     public function cgetAction(int $cartId)
     {
         $cartItems = $this->getManager()->getAllSerializedItems($cartId);
@@ -156,14 +148,9 @@ class CartItemController extends RestController implements ClassResourceInterfac
      *      description="Update cart item",
      *      resource=true
      * )
-     * @Acl(
-     *      id="oro_magento_cart_item_update",
-     *      type="entity",
-     *      permission="EDIT",
-     *      class="Oro\Bundle\MagentoBundle\Entity\CartItem"
-     * )
      * @return Response
      */
+    #[Acl(id: 'oro_magento_cart_item_update', type: 'entity', permission: 'EDIT', class: 'Oro\Bundle\MagentoBundle\Entity\CartItem')]
     public function putAction(int $cartId, int $itemId)
     {
         $cartItem = $this->getManager()->findOneBy(['cart' => $cartId, 'id' => $itemId]);
@@ -193,14 +180,9 @@ class CartItemController extends RestController implements ClassResourceInterfac
      *      description="Delete cart item",
      *      resource=true
      * )
-     * @Acl(
-     *      id="oro_magento_cart_item_delete",
-     *      type="entity",
-     *      permission="DELETE",
-     *      class="Oro\Bundle\MagentoBundle\Entity\CartItem"
-     * )
      * @return Response
      */
+    #[Acl(id: 'oro_magento_cart_item_delete', type: 'entity', permission: 'DELETE', class: 'Oro\Bundle\MagentoBundle\Entity\CartItem')]
     public function deleteAction(int $cartId, int $itemId)
     {
         $isProcessed = false;
