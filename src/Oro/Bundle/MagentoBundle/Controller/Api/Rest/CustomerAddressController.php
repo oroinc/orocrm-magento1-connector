@@ -30,8 +30,6 @@ class CustomerAddressController extends RestController implements ClassResourceI
     /**
      * Get all addresses items.
      *
-     * @Get(requirements={"customerId"="\d+"})
-     *
      * @ApiDoc(
      *      description="Get all addresses items",
      *      resource=true
@@ -40,6 +38,7 @@ class CustomerAddressController extends RestController implements ClassResourceI
      * @return JsonResponse
      */
     #[AclAncestor('oro_magento_customer_view')]
+    #[Get(requirements: ['customerId' => '\d+'])]
     public function cgetAction(int $customerId)
     {
         /** @var Customer $customer */
@@ -63,8 +62,6 @@ class CustomerAddressController extends RestController implements ClassResourceI
     /**
      * Add address to the customer.
      *
-     * @Post(requirements={"customerId"="\d+"})
-     *
      * @ApiDoc(
      *      description="Add address to the customer",
      *      resource=true
@@ -73,6 +70,7 @@ class CustomerAddressController extends RestController implements ClassResourceI
      * @return JsonResponse
      */
     #[AclAncestor('oro_magento_customer_create')]
+    #[Post(requirements: ['customerId' => '\d+'])]
     public function postAction(int $customerId)
     {
         /** @var Customer $customer */
@@ -101,16 +99,14 @@ class CustomerAddressController extends RestController implements ClassResourceI
      * @param int $addressId
      * @param int $customerId
      *
-     * @Get(requirements={"customerId"="\d+", "addressId"="\d+"})
-     *
      * @ApiDoc(
      *      description="Get customer address",
      *      resource=true
      * )
-     *
      * @return Response
      */
     #[AclAncestor('oro_magento_customer_view')]
+    #[Get(requirements: ['customerId' => '\d+', 'addressId' => '\d+'])]
     public function getAction(int $customerId, int $addressId)
     {
         $address = $this->getManager()->serializeElement($customerId, $addressId);
@@ -127,8 +123,6 @@ class CustomerAddressController extends RestController implements ClassResourceI
      * @param int $addressId  address item id
      * @param int $customerId customer item id
      *
-     * @Put(requirements={"customerId"="\d+", "addressId"="\d+"})
-     *
      * @ApiDoc(
      *      description="Update customer address",
      *      resource=true
@@ -136,6 +130,7 @@ class CustomerAddressController extends RestController implements ClassResourceI
      * @return Response
      */
     #[AclAncestor('oro_magento_customer_update')]
+    #[Put(requirements: ['customerId' => '\d+', 'addressId' => '\d+'])]
     public function putAction(int $customerId, int $addressId)
     {
         $address = $this->getManager()->findOneBy(['owner' => $customerId, 'id' => $addressId]);
@@ -159,15 +154,14 @@ class CustomerAddressController extends RestController implements ClassResourceI
      * @param int $addressId  address item id
      * @param int $customerId customer item id
      *
-     * @Delete(requirements={"customerId"="\d+", "addressId"="\d+"})
-     *
      * @ApiDoc(
      *      description="Delete customer address",
      *      resource=true
      * )
      * @return Response
      */
-    #[Acl(id: 'oro_magento_customer_delete', type: 'entity', permission: 'DELETE', class: 'Oro\Bundle\MagentoBundle\Entity\Address')]
+    #[Acl(id: 'oro_magento_customer_delete', type: 'entity', class: 'Oro\Bundle\MagentoBundle\Entity\Address', permission: 'DELETE')]
+    #[Delete(requirements: ['customerId' => '\d+', 'addressId' => '\d+'])]
     public function deleteAction(int $customerId, int $addressId)
     {
         $isProcessed = false;

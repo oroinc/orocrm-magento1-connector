@@ -49,12 +49,6 @@ class OrderController extends RestController
     /**
      * Get all orders.
      *
-     * @QueryParam(
-     *     name="page", requirements="\d+", nullable=true, description="Page number, starting from 1. Defaults to 1."
-     * )
-     * @QueryParam(
-     *     name="limit", requirements="\d+", nullable=true, description="Number of items per page. defaults to 10."
-     * )
      * @ApiDoc(
      *      description="Get all orders",
      *      resource=true
@@ -63,6 +57,8 @@ class OrderController extends RestController
      * @return Response
      */
     #[AclAncestor('oro_magento_order_view')]
+    #[QueryParam(name: 'page', requirements: '\d+', description: 'Page number, starting from 1. Defaults to 1.', nullable: true)]
+    #[QueryParam(name: 'limit', requirements: '\d+', description: 'Number of items per page. defaults to 10.', nullable: true)]
     public function cgetAction(Request $request)
     {
         $page  = (int)$request->get('page', 1);
@@ -79,7 +75,7 @@ class OrderController extends RestController
      *      resource=true
      * )
      */
-    #[Acl(id: 'oro_magento_order_create', type: 'entity', permission: 'CREATE', class: 'Oro\Bundle\MagentoBundle\Entity\Order')]
+    #[Acl(id: 'oro_magento_order_create', type: 'entity', class: 'Oro\Bundle\MagentoBundle\Entity\Order', permission: 'CREATE')]
     public function postAction()
     {
         return $this->handleCreateRequest();
@@ -90,16 +86,14 @@ class OrderController extends RestController
      *
      * @param int $id
      *
-     * @Get(requirements={"id"="\d+"})
-     *
      * @ApiDoc(
      *      description="Get order",
      *      resource=true
      * )
-     *
      * @return Response
      */
     #[AclAncestor('oro_magento_order_view')]
+    #[Get(requirements: ['id' => '\d+'])]
     public function getAction(int $id)
     {
         return $this->handleGetRequest($id);
@@ -110,15 +104,14 @@ class OrderController extends RestController
      *
      * @param int $id Order id
      *
-     * @Put(requirements={"id"="\d+"})
-     *
      * @ApiDoc(
      *      description="Update order",
      *      resource=true
      * )
      * @return Response
      */
-    #[Acl(id: 'oro_magento_order_update', type: 'entity', permission: 'EDIT', class: 'Oro\Bundle\MagentoBundle\Entity\Order')]
+    #[Acl(id: 'oro_magento_order_update', type: 'entity', class: 'Oro\Bundle\MagentoBundle\Entity\Order', permission: 'EDIT')]
+    #[Put(requirements: ['id' => '\d+'])]
     public function putAction(int $id)
     {
         return $this->handleUpdateRequest($id);
@@ -129,15 +122,14 @@ class OrderController extends RestController
      *
      * @param int $id
      *
-     * @Delete(requirements={"id"="\d+"})
-     *
      * @ApiDoc(
      *      description="Delete order",
      *      resource=true
      * )
      * @return Response
      */
-    #[Acl(id: 'oro_magento_order_delete', type: 'entity', permission: 'DELETE', class: 'Oro\Bundle\MagentoBundle\Entity\Order')]
+    #[Acl(id: 'oro_magento_order_delete', type: 'entity', class: 'Oro\Bundle\MagentoBundle\Entity\Order', permission: 'DELETE')]
+    #[Delete(requirements: ['id' => '\d+'])]
     public function deleteAction(int $id)
     {
         return $this->handleDeleteRequest($id);

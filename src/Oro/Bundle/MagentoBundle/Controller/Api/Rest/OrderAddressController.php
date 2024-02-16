@@ -53,8 +53,6 @@ class OrderAddressController extends RestController implements ClassResourceInte
     /**
      * Get all addresses items.
      *
-     * @Get(requirements={"orderId"="\d+"})
-     *
      * @ApiDoc(
      *      description="Get all addresses items",
      *      resource=true
@@ -63,6 +61,7 @@ class OrderAddressController extends RestController implements ClassResourceInte
      * @return JsonResponse
      */
     #[AclAncestor('oro_magento_order_view')]
+    #[Get(requirements: ['orderId' => '\d+'])]
     public function cgetAction(int $orderId)
     {
         $addressItems = $this->getManager()->getAllSerializedItems($orderId);
@@ -76,8 +75,6 @@ class OrderAddressController extends RestController implements ClassResourceInte
     /**
      * Add address to the order.
      *
-     * @Post(requirements={"orderId"="\d+"})
-     *
      * @ApiDoc(
      *      description="Add address to the order",
      *      resource=true
@@ -85,7 +82,8 @@ class OrderAddressController extends RestController implements ClassResourceInte
      * @param int $orderId
      * @return JsonResponse
      */
-    #[Acl(id: 'oro_magento_order_address_create', type: 'entity', permission: 'CREATE', class: 'Oro\Bundle\MagentoBundle\Entity\OrderAddress')]
+    #[Acl(id: 'oro_magento_order_address_create', type: 'entity', class: 'Oro\Bundle\MagentoBundle\Entity\OrderAddress', permission: 'CREATE')]
+    #[Post(requirements: ['orderId' => '\d+'])]
     public function postAction(int $orderId)
     {
         /** @var Order $order */
@@ -115,16 +113,14 @@ class OrderAddressController extends RestController implements ClassResourceInte
      * @param int $addressId
      * @param int $orderId
      *
-     * @Get(requirements={"orderId"="\d+", "addressId"="\d+"})
-     *
      * @ApiDoc(
      *      description="Get order address",
      *      resource=true
      * )
-     *
      * @return Response
      */
     #[AclAncestor('oro_magento_order_view')]
+    #[Get(requirements: ['orderId' => '\d+', 'addressId' => '\d+'])]
     public function getAction(int $orderId, int $addressId)
     {
         $address = $this->getManager()->serializeElement($orderId, $addressId);
@@ -141,15 +137,14 @@ class OrderAddressController extends RestController implements ClassResourceInte
      * @param int $addressId order address item id
      * @param int $orderId   order id
      *
-     * @Put(requirements={"orderId"="\d+", "addressId"="\d+"})
-     *
      * @ApiDoc(
      *      description="Update order address",
      *      resource=true
      * )
      * @return Response
      */
-    #[Acl(id: 'oro_magento_order_address_update', type: 'entity', permission: 'EDIT', class: 'Oro\Bundle\MagentoBundle\Entity\OrderAddress')]
+    #[Acl(id: 'oro_magento_order_address_update', type: 'entity', class: 'Oro\Bundle\MagentoBundle\Entity\OrderAddress', permission: 'EDIT')]
+    #[Put(requirements: ['orderId' => '\d+', 'addressId' => '\d+'])]
     public function putAction(int $orderId, int $addressId)
     {
         /** @var OrderAddress $address */
@@ -174,15 +169,14 @@ class OrderAddressController extends RestController implements ClassResourceInte
      * @param int $addressId order address item id
      * @param int $orderId   order id
      *
-     * @Delete(requirements={"orderId"="\d+", "addressId"="\d+"})
-     *
      * @ApiDoc(
      *      description="Delete order address",
      *      resource=true
      * )
      * @return Response
      */
-    #[Acl(id: 'oro_magento_order_delete', type: 'entity', permission: 'DELETE', class: 'Oro\Bundle\MagentoBundle\Entity\OrderAddress')]
+    #[Acl(id: 'oro_magento_order_delete', type: 'entity', class: 'Oro\Bundle\MagentoBundle\Entity\OrderAddress', permission: 'DELETE')]
+    #[Delete(requirements: ['orderId' => '\d+', 'addressId' => '\d+'])]
     public function deleteAction(int $orderId, int $addressId)
     {
         $isProcessed = false;

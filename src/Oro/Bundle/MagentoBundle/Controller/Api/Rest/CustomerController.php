@@ -51,40 +51,6 @@ class CustomerController extends RestController implements ClassResourceInterfac
     /**
      * Get all magento customers.
      *
-     * @QueryParam(
-     *     name="startCreatedAt",
-     *     requirements="\d{4}(-\d{2}(-\d{2}([T ]\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|([-+]\d{2}(:?\d{2})?))?)?)?)?",
-     *     nullable=true,
-     *     description="Date in RFC 3339 format. For example: 2009-11-05T13:15:30Z, 2008-07-01T22:35:17+08:00"
-     * )
-     * @QueryParam(
-     *     name="endCreatedAt",
-     *     requirements="\d{4}(-\d{2}(-\d{2}([T ]\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|([-+]\d{2}(:?\d{2})?))?)?)?)?",
-     *     nullable=true,
-     *     description="Date in RFC 3339 format. For example: 2009-11-05T13:15:30Z, 2008-07-01T22:35:17+08:00"
-     * )
-     * @QueryParam(
-     *     name="startUpdatedAt",
-     *     requirements="\d{4}(-\d{2}(-\d{2}([T ]\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|([-+]\d{2}(:?\d{2})?))?)?)?)?",
-     *     nullable=true,
-     *     description="Date in RFC 3339 format. For example: 2009-11-05T13:15:30Z, 2008-07-01T22:35:17+08:00,
-     *                  parameter start means that you want to use >= (more or equal) comparison, prefix end means
-     *                  <= (less or equal)"
-     * )
-     * @QueryParam(
-     *     name="endUpdatedAt",
-     *     requirements="\d{4}(-\d{2}(-\d{2}([T ]\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|([-+]\d{2}(:?\d{2})?))?)?)?)?",
-     *     nullable=true,
-     *     description="Date in RFC 3339 format. For example: 2009-11-05T13:15:30Z, 2008-07-01T22:35:17+08:00,
-     *       parameter start means that you want to use >= (more or equal) comparison, prefix end means
-     *       <= (less or equal)"
-     * )
-     * @QueryParam(
-     *     name="page", requirements="\d+", nullable=true, description="Page number, starting from 1. Defaults to 1."
-     * )
-     * @QueryParam(
-     *     name="limit", requirements="\d+", nullable=true, description="Number of items per page. defaults to 10."
-     * )
      * @ApiDoc(
      *      description="Get all magento customers",
      *      resource=true
@@ -93,6 +59,36 @@ class CustomerController extends RestController implements ClassResourceInterfac
      * @return Response
      */
     #[AclAncestor('oro_magento_customer_view')]
+    #[QueryParam(
+        name: 'startCreatedAt',
+        requirements: '\d{4}(-\d{2}(-\d{2}([T ]\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|([-+]\d{2}(:?\d{2})?))?)?)?)?',
+        description: 'Date in RFC 3339 format. For example: 2009-11-05T13:15:30Z, 2008-07-01T22:35:17+08:00',
+        nullable: true
+    )]
+    #[QueryParam(
+        name: 'endCreatedAt',
+        requirements: '\d{4}(-\d{2}(-\d{2}([T ]\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|([-+]\d{2}(:?\d{2})?))?)?)?)?',
+        description: 'Date in RFC 3339 format. For example: 2009-11-05T13:15:30Z, 2008-07-01T22:35:17+08:00',
+        nullable: true
+    )]
+    #[QueryParam(
+        name: 'startUpdatedAt',
+        requirements: '\d{4}(-\d{2}(-\d{2}([T ]\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|([-+]\d{2}(:?\d{2})?))?)?)?)?',
+        description: '"DateinRFC',
+        nullable: true
+    )]
+    #[QueryParam(
+        name: 'endUpdatedAt',
+        requirements: '\d{4}(-\d{2}(-\d{2}([T ]\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|([-+]\d{2}(:?\d{2})?))?)?)?)?',
+        description: '"DateinRFC',
+        nullable: true
+    )]
+    #[QueryParam(
+        name: 'page', requirements: '\d+', description: 'Page number, starting from 1. Defaults to 1.', nullable: true
+    )]
+    #[QueryParam(
+        name: 'limit', requirements: '\d+', description: 'Number of items per page. defaults to 10.', nullable: true
+    )]
     public function cgetAction(Request $request)
     {
         $page  = (int)$request->get('page', 1);
@@ -118,16 +114,14 @@ class CustomerController extends RestController implements ClassResourceInterfac
      *
      * @param int $id
      *
-     * @Get(requirements={"id"="\d+"})
-     *
      * @ApiDoc(
      *      description="Get magento customer",
      *      resource=true
      * )
-     *
      * @return Response
      */
     #[AclAncestor('oro_magento_customer_view')]
+    #[Get(requirements: ['id' => '\d+'])]
     public function getAction(int $id)
     {
         return $this->handleGetRequest($id);
@@ -153,16 +147,14 @@ class CustomerController extends RestController implements ClassResourceInterfac
      *
      * @param int $id Customer item id
      *
-     * @Put(requirements={"id"="\d+"})
-     *
      * @ApiDoc(
      *      description="Update magento customer",
      *      resource=true
      * )
-     *
      * @return Response
      */
     #[AclAncestor('oro_magento_customer_update')]
+    #[Put(requirements: ['id' => '\d+'])]
     public function putAction(int $id)
     {
         return $this->handleUpdateRequest($id);
@@ -173,15 +165,14 @@ class CustomerController extends RestController implements ClassResourceInterfac
      *
      * @param int $id
      *
-     * @Delete(requirements={"id"="\d+"})
-     *
      * @ApiDoc(
      *      description="Delete magento customer",
      *      resource=true
      * )
      * @return Response
      */
-    #[Acl(id: 'oro_magento_customer_delete', type: 'entity', permission: 'DELETE', class: 'Oro\Bundle\MagentoBundle\Entity\Customer')]
+    #[Acl(id: 'oro_magento_customer_delete', type: 'entity', class: 'Oro\Bundle\MagentoBundle\Entity\Customer', permission: 'DELETE')]
+    #[Delete(requirements: ['id' => '\d+'])]
     public function deleteAction(int $id)
     {
         return $this->handleDeleteRequest($id);

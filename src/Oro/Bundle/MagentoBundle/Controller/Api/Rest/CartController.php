@@ -49,12 +49,6 @@ class CartController extends RestController
     /**
      * Get all carts.
      *
-     * @QueryParam(
-     *     name="page", requirements="\d+", nullable=true, description="Page number, starting from 1. Defaults to 1."
-     * )
-     * @QueryParam(
-     *     name="limit", requirements="\d+", nullable=true, description="Number of items per page. defaults to 10."
-     * )
      * @ApiDoc(
      *      description="Get all carts",
      *      resource=true
@@ -63,6 +57,12 @@ class CartController extends RestController
      * @return Response
      */
     #[AclAncestor('oro_magento_cart_view')]
+    #[QueryParam(
+        name: 'page', requirements: '\d+', description: 'Page number, starting from 1. Defaults to 1.', nullable: true
+    )]
+    #[QueryParam(
+        name: 'limit', requirements: '\d+', description: 'Number of items per page. defaults to 10.', nullable: true
+    )]
     public function cgetAction(Request $request)
     {
         $page  = (int)$request->get('page', 1);
@@ -79,7 +79,7 @@ class CartController extends RestController
      *      resource=true
      * )
      */
-    #[Acl(id: 'oro_magento_cart_create', type: 'entity', permission: 'CREATE', class: 'Oro\Bundle\MagentoBundle\Entity\Cart')]
+    #[Acl(id: 'oro_magento_cart_create', type: 'entity', class: 'Oro\Bundle\MagentoBundle\Entity\Cart', permission: 'CREATE')]
     public function postAction()
     {
         return $this->handleCreateRequest();
@@ -90,16 +90,14 @@ class CartController extends RestController
      *
      * @param int $id
      *
-     * @Get(requirements={"id"="\d+"})
-     *
      * @ApiDoc(
      *      description="Get cart",
      *      resource=true
      * )
-     *
      * @return Response
      */
     #[AclAncestor('oro_magento_cart_view')]
+    #[Get(requirements: ['id' => '\d+'])]
     public function getAction(int $id)
     {
         return $this->handleGetRequest($id);
@@ -110,15 +108,14 @@ class CartController extends RestController
      *
      * @param int $id Cart id
      *
-     * @Put(requirements={"id"="\d+"})
-     *
      * @ApiDoc(
      *      description="Update cart",
      *      resource=true
      * )
      * @return Response
      */
-    #[Acl(id: 'oro_magento_cart_update', type: 'entity', permission: 'EDIT', class: 'Oro\Bundle\MagentoBundle\Entity\Cart')]
+    #[Acl(id: 'oro_magento_cart_update', type: 'entity', class: 'Oro\Bundle\MagentoBundle\Entity\Cart', permission: 'EDIT')]
+    #[Put(requirements: ['id' => '\d+'])]
     public function putAction(int $id)
     {
         return $this->handleUpdateRequest($id);
@@ -129,15 +126,14 @@ class CartController extends RestController
      *
      * @param int $id
      *
-     * @Delete(requirements={"id"="\d+"})
-     *
      * @ApiDoc(
      *      description="Delete cart",
      *      resource=true
      * )
      * @return Response
      */
-    #[Acl(id: 'oro_magento_cart_delete', type: 'entity', permission: 'DELETE', class: 'Oro\Bundle\MagentoBundle\Entity\Cart')]
+    #[Acl(id: 'oro_magento_cart_delete', type: 'entity', class: 'Oro\Bundle\MagentoBundle\Entity\Cart', permission: 'DELETE')]
+    #[Delete(requirements: ['id' => '\d+'])]
     public function deleteAction(int $id)
     {
         return $this->handleDeleteRequest($id);

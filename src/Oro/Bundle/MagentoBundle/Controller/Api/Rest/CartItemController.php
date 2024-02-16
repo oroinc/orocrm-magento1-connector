@@ -51,9 +51,7 @@ class CartItemController extends RestController implements ClassResourceInterfac
     }
 
     /**
-     * Add item to the the cart.
-     *
-     * @Post(requirements={"cartId"="\d+"})
+     * Add item to the cart.
      *
      * @ApiDoc(
      *      description="Add item to the cart",
@@ -62,7 +60,8 @@ class CartItemController extends RestController implements ClassResourceInterfac
      * @param int $cartId
      * @return JsonResponse
      */
-    #[Acl(id: 'oro_magento_cart_item_create', type: 'entity', permission: 'CREATE', class: 'Oro\Bundle\MagentoBundle\Entity\CartItem')]
+    #[Acl(id: 'oro_magento_cart_item_create', type: 'entity', class: 'Oro\Bundle\MagentoBundle\Entity\CartItem', permission: 'CREATE')]
+    #[Post(requirements: ['cartId' => '\d+'])]
     public function postAction(int $cartId)
     {
         /** @var Cart $cart */
@@ -92,16 +91,14 @@ class CartItemController extends RestController implements ClassResourceInterfac
      * @param int $cartId
      * @param int $itemId
      *
-     * @Get(requirements={"cartId"="\d+", "itemId"="\d+"})
-     *
      * @ApiDoc(
      *      description="Get cart item",
      *      resource=true
      * )
-     *
      * @return Response
      */
     #[AclAncestor('oro_magento_cart_view')]
+    #[Get(requirements: ['cartId' => '\d+', 'itemId' => '\d+'])]
     public function getAction($cartId, $itemId)
     {
         $cartItem = $this->getManager()->getSpecificSerializedItem($cartId, $itemId);
@@ -115,8 +112,6 @@ class CartItemController extends RestController implements ClassResourceInterfac
     /**
      * Get all cart items.
      *
-     * @Get(requirements={"cartId"="\d+"})
-     *
      * @ApiDoc(
      *      description="Get all cart items",
      *      resource=true
@@ -126,6 +121,7 @@ class CartItemController extends RestController implements ClassResourceInterfac
      * @return JsonResponse
      */
     #[AclAncestor('oro_magento_cart_view')]
+    #[Get(requirements: ['cartId' => '\d+'])]
     public function cgetAction(int $cartId)
     {
         $cartItems = $this->getManager()->getAllSerializedItems($cartId);
@@ -142,15 +138,14 @@ class CartItemController extends RestController implements ClassResourceInterfac
      * @param int $itemId cart item id
      * @param int $cartId cart id
      *
-     * @Put(requirements={"cartId"="\d+", "itemId"="\d+"})
-     *
      * @ApiDoc(
      *      description="Update cart item",
      *      resource=true
      * )
      * @return Response
      */
-    #[Acl(id: 'oro_magento_cart_item_update', type: 'entity', permission: 'EDIT', class: 'Oro\Bundle\MagentoBundle\Entity\CartItem')]
+    #[Acl(id: 'oro_magento_cart_item_update', type: 'entity', class: 'Oro\Bundle\MagentoBundle\Entity\CartItem', permission: 'EDIT')]
+    #[Put(requirements: ['cartId' => '\d+', 'itemId' => '\d+'])]
     public function putAction(int $cartId, int $itemId)
     {
         $cartItem = $this->getManager()->findOneBy(['cart' => $cartId, 'id' => $itemId]);
@@ -174,15 +169,14 @@ class CartItemController extends RestController implements ClassResourceInterfac
      * @param int $itemId item id
      * @param int $cartId cart id
      *
-     * @Delete(requirements={"cartId"="\d+", "itemId"="\d+"})
-     *
      * @ApiDoc(
      *      description="Delete cart item",
      *      resource=true
      * )
      * @return Response
      */
-    #[Acl(id: 'oro_magento_cart_item_delete', type: 'entity', permission: 'DELETE', class: 'Oro\Bundle\MagentoBundle\Entity\CartItem')]
+    #[Acl(id: 'oro_magento_cart_item_delete', type: 'entity', class: 'Oro\Bundle\MagentoBundle\Entity\CartItem', permission: 'DELETE')]
+    #[Delete(requirements: ['cartId' => '\d+', 'itemId' => '\d+'])]
     public function deleteAction(int $cartId, int $itemId)
     {
         $isProcessed = false;

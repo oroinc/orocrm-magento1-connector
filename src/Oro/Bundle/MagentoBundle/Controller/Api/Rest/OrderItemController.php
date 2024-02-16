@@ -53,8 +53,6 @@ class OrderItemController extends RestController implements ClassResourceInterfa
     /**
      * Add item to the order.
      *
-     * @Post(requirements={"id"="\d+"})
-     *
      * @ApiDoc(
      *      description="Add item to the order",
      *      resource=true
@@ -62,7 +60,8 @@ class OrderItemController extends RestController implements ClassResourceInterfa
      * @param int $orderId
      * @return Response
      */
-    #[Acl(id: 'oro_magento_order_item_create', type: 'entity', permission: 'CREATE', class: 'Oro\Bundle\MagentoBundle\Entity\OrderItem')]
+    #[Acl(id: 'oro_magento_order_item_create', type: 'entity', class: 'Oro\Bundle\MagentoBundle\Entity\OrderItem', permission: 'CREATE')]
+    #[Post(requirements: ['id' => '\d+'])]
     public function postAction(int $orderId)
     {
         /** @var Order $order */
@@ -92,16 +91,14 @@ class OrderItemController extends RestController implements ClassResourceInterfa
      * @param int $orderId
      * @param int $itemId
      *
-     * @Get(requirements={"orderId"="\d+", "itemId"="\d+"})
-     *
      * @ApiDoc(
      *      description="Get order item",
      *      resource=true
      * )
-     *
      * @return Response
      */
     #[AclAncestor('oro_magento_order_view')]
+    #[Get(requirements: ['orderId' => '\d+', 'itemId' => '\d+'])]
     public function getAction(int $orderId, int $itemId)
     {
         $orderItem = $this->getManager()->getSpecificSerializedItem($orderId, $itemId);
@@ -115,8 +112,6 @@ class OrderItemController extends RestController implements ClassResourceInterfa
     /**
      * Get all order items.
      *
-     * @Get(requirements={"orderId"="\d+"})
-     *
      * @ApiDoc(
      *      description="Get all order items",
      *      resource=true
@@ -126,6 +121,7 @@ class OrderItemController extends RestController implements ClassResourceInterfa
      * @return JsonResponse
      */
     #[AclAncestor('oro_magento_order_view')]
+    #[Get(requirements: ['orderId' => '\d+'])]
     public function cgetAction(int $orderId)
     {
         $orderItems = $this->getManager()->getAllSerializedItems($orderId);
@@ -142,15 +138,14 @@ class OrderItemController extends RestController implements ClassResourceInterfa
      * @param int $itemId  order item id
      * @param int $orderId order id
      *
-     * @Put(requirements={"orderId"="\d+", "itemId"="\d+"})
-     *
      * @ApiDoc(
      *      description="Update order item",
      *      resource=true
      * )
      * @return Response
      */
-    #[Acl(id: 'oro_magento_order_item_update', type: 'entity', permission: 'EDIT', class: 'Oro\Bundle\MagentoBundle\Entity\OrderItem')]
+    #[Acl(id: 'oro_magento_order_item_update', type: 'entity', class: 'Oro\Bundle\MagentoBundle\Entity\OrderItem', permission: 'EDIT')]
+    #[Put(requirements: ['orderId' => '\d+', 'itemId' => '\d+'])]
     public function putAction(int $orderId, int $itemId)
     {
         $orderItem = $this->getManager()->findOneBy(['order' => $orderId, 'id' => $itemId]);
@@ -174,15 +169,14 @@ class OrderItemController extends RestController implements ClassResourceInterfa
      * @param int $itemId  item id
      * @param int $orderId order id
      *
-     * @Delete(requirements={"orderId"="\d+", "itemId"="\d+"})
-     *
      * @ApiDoc(
      *      description="Delete order item",
      *      resource=true
      * )
      * @return Response
      */
-    #[Acl(id: 'oro_magento_order_item_delete', type: 'entity', permission: 'DELETE', class: 'Oro\Bundle\MagentoBundle\Entity\OrderItem')]
+    #[Acl(id: 'oro_magento_order_item_delete', type: 'entity', class: 'Oro\Bundle\MagentoBundle\Entity\OrderItem', permission: 'DELETE')]
+    #[Delete(requirements: ['orderId' => '\d+', 'itemId' => '\d+'])]
     public function deleteAction(int $orderId, int $itemId)
     {
         $isProcessed = false;
