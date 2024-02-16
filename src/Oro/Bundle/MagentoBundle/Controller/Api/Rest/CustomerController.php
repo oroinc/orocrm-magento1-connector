@@ -84,10 +84,16 @@ class CustomerController extends RestController implements ClassResourceInterfac
         nullable: true
     )]
     #[QueryParam(
-        name: 'page', requirements: '\d+', description: 'Page number, starting from 1. Defaults to 1.', nullable: true
+        name: 'page',
+        requirements: '\d+',
+        description: 'Page number, starting from 1. Defaults to 1.',
+        nullable: true
     )]
     #[QueryParam(
-        name: 'limit', requirements: '\d+', description: 'Number of items per page. defaults to 10.', nullable: true
+        name: 'limit',
+        requirements: '\d+',
+        description: 'Number of items per page. defaults to 10.',
+        nullable: true
     )]
     public function cgetAction(Request $request)
     {
