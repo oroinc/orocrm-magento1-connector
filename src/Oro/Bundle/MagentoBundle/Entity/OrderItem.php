@@ -3,6 +3,7 @@
 namespace Oro\Bundle\MagentoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Oro\Bundle\BusinessEntitiesBundle\Entity\BaseOrder;
 use Oro\Bundle\BusinessEntitiesBundle\Entity\BaseOrderItem;
 use Oro\Bundle\EntityConfigBundle\Metadata\Attribute\Config;
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
@@ -16,12 +17,9 @@ class OrderItem extends BaseOrderItem implements IntegrationAwareInterface, Orig
 {
     use IntegrationEntityTrait, OriginTrait, ExtendEntityTrait;
 
-    /**
-     * @var Order
-     */
     #[ORM\ManyToOne(targetEntity: 'Order', inversedBy: 'items', cascade: ['persist'])]
     #[ORM\JoinColumn(name: 'order_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
-    protected $order;
+    protected ?BaseOrder $order;
 
     /**
      * @var string

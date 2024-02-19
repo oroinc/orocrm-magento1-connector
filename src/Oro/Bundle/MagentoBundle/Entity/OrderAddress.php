@@ -3,6 +3,7 @@
 namespace Oro\Bundle\MagentoBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Oro\Bundle\AddressBundle\Entity\AbstractTypedAddress;
 use Oro\Bundle\AddressBundle\Entity\Country;
@@ -27,12 +28,9 @@ class OrderAddress extends AbstractTypedAddress implements
 {
     use IntegrationEntityTrait, OriginTrait, CountryTextTrait, ExtendEntityTrait;
 
-    /**
-     * @var ArrayCollection
-     **/
     #[ORM\ManyToMany(targetEntity: 'Oro\Bundle\AddressBundle\Entity\AddressType')]
     #[ORM\JoinTable(name: 'orocrm_magento_order_addr_type', joinColumns: [new ORM\JoinColumn(name: 'order_address_id', referencedColumnName: 'id', onDelete: 'CASCADE')], inverseJoinColumns: [new ORM\JoinColumn(name: 'type_name', referencedColumnName: 'name')])]
-    protected $types;
+    protected ?Collection $types;
 
     /**
      * @var Order
@@ -53,23 +51,14 @@ class OrderAddress extends AbstractTypedAddress implements
     #[ORM\Column(name: 'phone', type: 'string', length: 255, nullable: true)]
     protected $phone;
 
-    /**
-     * @var string
-     */
     #[ORM\Column(name: 'street', type: 'string', length: 500, nullable: true)]
-    protected $street;
+    protected ?string $street;
 
-    /**
-     * @var string
-     */
     #[ORM\Column(name: 'city', type: 'string', length: 255, nullable: true)]
-    protected $city;
+    protected ?string $city;
 
-    /**
-     * @var string
-     */
     #[ORM\Column(name: 'postal_code', type: 'string', length: 255, nullable: true)]
-    protected $postalCode;
+    protected ?string $postalCode;
 
     /**
      * @var Country
@@ -89,14 +78,14 @@ class OrderAddress extends AbstractTypedAddress implements
      * Unset no used fields from mapping
      * Name parts unused due to magento api does not bring it up
      */
-    protected $label;
-    protected $namePrefix;
-    protected $middleName;
-    protected $nameSuffix;
-    protected $street2;
-    protected $primary;
-    protected $created;
-    protected $updated;
+    protected ?string $label;
+    protected ?string $namePrefix;
+    protected ?string $middleName;
+    protected ?string $nameSuffix;
+    protected ?string $street2;
+    protected ?bool $primary;
+    protected ?\DateTimeInterface $created;
+    protected ?\DateTimeInterface $updated;
 
     /**
      * @param Order $owner

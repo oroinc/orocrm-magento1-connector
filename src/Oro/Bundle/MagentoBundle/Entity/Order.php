@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Oro\Bundle\AddressBundle\Entity\AbstractTypedAddress;
 use Oro\Bundle\AddressBundle\Entity\AddressType;
 use Oro\Bundle\BusinessEntitiesBundle\Entity\BaseOrder;
+use Oro\Bundle\BusinessEntitiesBundle\Entity\BasePerson;
 use Oro\Bundle\ChannelBundle\Model\ChannelAwareInterface;
 use Oro\Bundle\EntityConfigBundle\Metadata\Attribute\Config;
 use Oro\Bundle\EntityConfigBundle\Metadata\Attribute\ConfigField;
@@ -63,19 +64,13 @@ class Order extends BaseOrder implements
     #[ConfigField(defaultValues: ['importexport' => ['identity' => true]])]
     protected $incrementId;
 
-    /**
-     * @var Customer
-     */
     #[ORM\ManyToOne(targetEntity: 'Customer', inversedBy: 'orders')]
     #[ORM\JoinColumn(name: 'customer_id', referencedColumnName: 'id', onDelete: 'SET NULL', nullable: true)]
-    protected $customer;
+    protected ?BasePerson $customer;
 
-    /**
-     * @var ArrayCollection
-     */
     #[ORM\OneToMany(targetEntity: 'OrderAddress', mappedBy: 'owner', cascade: ['all'], orphanRemoval: true)]
     #[ConfigField(defaultValues: ['importexport' => ['full' => true]])]
-    protected $addresses;
+    protected ?Collection $addresses;
 
     /**
      * @var ArrayCollection
@@ -150,12 +145,9 @@ class Order extends BaseOrder implements
     #[ORM\JoinColumn(onDelete: 'CASCADE')]
     protected $cart;
 
-    /**
-     * @var OrderItem[]|Collection
-     */
     #[ORM\OneToMany(targetEntity: 'OrderItem', mappedBy: 'order', cascade: ['all'])]
     #[ConfigField(defaultValues: ['importexport' => ['full' => true]])]
-    protected $items;
+    protected ?Collection $items;
 
     /**
      * @var string

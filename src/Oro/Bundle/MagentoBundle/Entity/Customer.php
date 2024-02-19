@@ -51,80 +51,47 @@ class Customer extends BasePerson implements
 
     use IntegrationEntityTrait, OriginTrait, ChannelEntityTrait, RFMAwareTrait, ExtendEntityTrait;
 
-    /**
-     * @var int
-     */
     #[ORM\Id]
     #[ORM\Column(type: 'integer', name: 'id')]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
     #[ConfigField(defaultValues: ['importexport' => ['excluded' => true]])]
-    protected $id;
+    protected ?int $id;
 
     /*
      * FIELDS are duplicated to enable dataaudit only for customer fields
      */
-    /**
-     * @var string
-     */
     #[ORM\Column(name: 'name_prefix', type: 'string', length: 255, nullable: true)]
-    protected $namePrefix;
+    protected ?string $namePrefix;
 
-    /**
-     * @var string
-     */
     #[ORM\Column(name: 'first_name', type: 'string', length: 255, nullable: true)]
-    protected $firstName;
+    protected ?string $firstName;
 
-    /**
-     * @var string
-     */
     #[ORM\Column(name: 'middle_name', type: 'string', length: 255, nullable: true)]
-    protected $middleName;
+    protected ?string $middleName;
 
-    /**
-     * @var string
-     */
     #[ORM\Column(name: 'last_name', type: 'string', length: 255, nullable: true)]
-    protected $lastName;
+    protected ?string $lastName;
 
-    /**
-     * @var string
-     */
     #[ORM\Column(name: 'name_suffix', type: 'string', length: 255, nullable: true)]
-    protected $nameSuffix;
+    protected ?string $nameSuffix;
 
-    /**
-     * @var string
-     */
     #[ORM\Column(name: 'gender', type: 'string', length: 8, nullable: true)]
-    protected $gender;
+    protected ?string $gender;
 
-    /**
-     * @var \DateTime
-     */
     #[ORM\Column(name: 'birthday', type: 'date', nullable: true)]
-    protected $birthday;
+    protected ?\DateTimeInterface $birthday;
 
-    /**
-     * @var string
-     */
     #[ORM\Column(name: 'email', type: 'string', length: 255, nullable: true)]
     #[ConfigField(defaultValues: ['entity' => ['contact_information' => 'email']])]
-    protected $email;
+    protected ?string $email;
 
-    /**
-     * @var \DateTime $createdAt
-     */
     #[ORM\Column(type: 'datetime', name: 'created_at')]
     #[ConfigField(defaultValues: ['entity' => ['label' => 'oro.ui.created_at']])]
-    protected $createdAt;
+    protected ?\DateTimeInterface $createdAt;
 
-    /**
-     * @var \DateTime $updatedAt
-     */
     #[ORM\Column(type: 'datetime', name: 'updated_at')]
     #[ConfigField(defaultValues: ['entity' => ['label' => 'oro.ui.updated_at']])]
-    protected $updatedAt;
+    protected ?\DateTimeInterface $updatedAt;
 
     /**
      * @var \DateTime
@@ -196,13 +163,10 @@ class Customer extends BasePerson implements
     #[ConfigField(defaultValues: ['importexport' => ['excluded' => true]])]
     protected $account;
 
-    /**
-     * @var Collection
-     */
     #[ORM\OneToMany(targetEntity: 'Oro\Bundle\MagentoBundle\Entity\Address', mappedBy: 'owner', cascade: ['all'], orphanRemoval: true)]
     #[ORM\OrderBy(['primary' => 'DESC'])]
     #[ConfigField(defaultValues: ['importexport' => ['full' => true]])]
-    protected $addresses;
+    protected ?Collection $addresses;
 
     /**
      * @var Collection

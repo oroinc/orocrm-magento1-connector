@@ -23,23 +23,14 @@ class CartAddress extends AbstractAddress implements OriginAwareInterface, Exten
     #[ORM\Column(name: 'phone', type: 'string', length: 255, nullable: true)]
     protected $phone;
 
-    /**
-     * @var string
-     */
     #[ORM\Column(name: 'street', type: 'string', length: 500, nullable: true)]
-    protected $street;
+    protected ?string $street;
 
-    /**
-     * @var string
-     */
     #[ORM\Column(name: 'city', type: 'string', length: 255, nullable: true)]
-    protected $city;
+    protected ?string $city;
 
-    /**
-     * @var string
-     */
     #[ORM\Column(name: 'postal_code', type: 'string', length: 255, nullable: true)]
-    protected $postalCode;
+    protected ?string $postalCode;
 
     /**
      * @var Country

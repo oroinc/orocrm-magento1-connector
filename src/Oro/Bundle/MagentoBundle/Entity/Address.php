@@ -36,35 +36,20 @@ class Address extends AbstractTypedAddress implements
     /*
      * FIELDS are duplicated to enable dataaudit only for customer address fields
      */
-    /**
-     * @var string
-     */
     #[ORM\Column(name: 'label', type: 'string', length: 255, nullable: true)]
-    protected $label;
+    protected ?string $label;
 
-    /**
-     * @var string
-     */
     #[ORM\Column(name: 'street', type: 'string', length: 500, nullable: true)]
-    protected $street;
+    protected ?string $street;
 
-    /**
-     * @var string
-     */
     #[ORM\Column(name: 'street2', type: 'string', length: 500, nullable: true)]
-    protected $street2;
+    protected ?string $street2;
 
-    /**
-     * @var string
-     */
     #[ORM\Column(name: 'city', type: 'string', length: 255, nullable: true)]
-    protected $city;
+    protected ?string $city;
 
-    /**
-     * @var string
-     */
     #[ORM\Column(name: 'postal_code', type: 'string', length: 255, nullable: true)]
-    protected $postalCode;
+    protected ?string $postalCode;
 
     /**
      * @var Country
@@ -82,41 +67,23 @@ class Address extends AbstractTypedAddress implements
     #[ConfigField(defaultValues: ['importexport' => ['order' => 130]])]
     protected $region;
 
-    /**
-     * @var string
-     */
     #[ORM\Column(name: 'region_text', type: 'string', length: 255, nullable: true)]
-    protected $regionText;
+    protected ?string $regionText;
 
-    /**
-     * @var string
-     */
     #[ORM\Column(name: 'name_prefix', type: 'string', length: 255, nullable: true)]
-    protected $namePrefix;
+    protected ?string $namePrefix;
 
-    /**
-     * @var string
-     */
     #[ORM\Column(name: 'first_name', type: 'string', length: 255, nullable: true)]
-    protected $firstName;
+    protected ?string $firstName;
 
-    /**
-     * @var string
-     */
     #[ORM\Column(name: 'middle_name', type: 'string', length: 255, nullable: true)]
-    protected $middleName;
+    protected ?string $middleName;
 
-    /**
-     * @var string
-     */
     #[ORM\Column(name: 'last_name', type: 'string', length: 255, nullable: true)]
-    protected $lastName;
+    protected ?string $lastName;
 
-    /**
-     * @var string
-     */
     #[ORM\Column(name: 'name_suffix', type: 'string', length: 255, nullable: true)]
-    protected $nameSuffix;
+    protected ?string $nameSuffix;
 
     #[ORM\ManyToOne(targetEntity: 'Customer', inversedBy: 'addresses')]
     #[ORM\JoinColumn(name: 'owner_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
@@ -129,12 +96,9 @@ class Address extends AbstractTypedAddress implements
     #[ORM\Column(name: 'phone', type: 'string', length: 255, nullable: true)]
     protected $phone;
 
-    /**
-     * @var Collection
-     **/
     #[ORM\ManyToMany(targetEntity: 'Oro\Bundle\AddressBundle\Entity\AddressType')]
     #[ORM\JoinTable(name: 'orocrm_magento_cust_addr_type', joinColumns: [new ORM\JoinColumn(name: 'customer_address_id', referencedColumnName: 'id', onDelete: 'CASCADE')], inverseJoinColumns: [new ORM\JoinColumn(name: 'type_name', referencedColumnName: 'name')])]
-    protected $types;
+    protected ?Collection $types;
 
     /**
      * @var ContactAddress

@@ -3,6 +3,7 @@
 namespace Oro\Bundle\MagentoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Oro\Bundle\BusinessEntitiesBundle\Entity\BaseCart;
 use Oro\Bundle\BusinessEntitiesBundle\Entity\BaseCartItem;
 use Oro\Bundle\EntityConfigBundle\Metadata\Attribute\Config;
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
@@ -26,7 +27,7 @@ class CartItem extends BaseCartItem implements OriginAwareInterface, Integration
 
     #[ORM\ManyToOne(targetEntity: 'Cart', inversedBy: 'cartItems', cascade: ['persist'])]
     #[ORM\JoinColumn(name: 'cart_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
-    protected $cart;
+    protected ?BaseCart $cart;
 
     /**
      * Mage product id
