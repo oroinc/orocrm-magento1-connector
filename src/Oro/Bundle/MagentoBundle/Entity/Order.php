@@ -66,11 +66,11 @@ class Order extends BaseOrder implements
 
     #[ORM\ManyToOne(targetEntity: 'Customer', inversedBy: 'orders')]
     #[ORM\JoinColumn(name: 'customer_id', referencedColumnName: 'id', onDelete: 'SET NULL', nullable: true)]
-    protected ?BasePerson $customer;
+    protected ?BasePerson $customer = null;
 
     #[ORM\OneToMany(targetEntity: 'OrderAddress', mappedBy: 'owner', cascade: ['all'], orphanRemoval: true)]
     #[ConfigField(defaultValues: ['importexport' => ['full' => true]])]
-    protected ?Collection $addresses;
+    protected ?Collection $addresses = null;
 
     /**
      * @var ArrayCollection
@@ -147,7 +147,7 @@ class Order extends BaseOrder implements
 
     #[ORM\OneToMany(targetEntity: 'OrderItem', mappedBy: 'order', cascade: ['all'])]
     #[ConfigField(defaultValues: ['importexport' => ['full' => true]])]
-    protected ?Collection $items;
+    protected ?Collection $items = null;
 
     /**
      * @var string

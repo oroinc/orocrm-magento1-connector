@@ -24,7 +24,7 @@ class CustomerGroup extends BasePersonGroup implements
     use IntegrationEntityTrait, OriginTrait, ExtendEntityTrait;
 
     #[ORM\Column(name: 'name', type: 'string', length: 255, nullable: false)]
-    protected ?string $name;
+    protected ?string $name = null;
 
     /**
      * @return string

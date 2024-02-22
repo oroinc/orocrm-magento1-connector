@@ -55,43 +55,43 @@ class Customer extends BasePerson implements
     #[ORM\Column(type: 'integer', name: 'id')]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
     #[ConfigField(defaultValues: ['importexport' => ['excluded' => true]])]
-    protected ?int $id;
+    protected ?int $id = null;
 
     /*
      * FIELDS are duplicated to enable dataaudit only for customer fields
      */
     #[ORM\Column(name: 'name_prefix', type: 'string', length: 255, nullable: true)]
-    protected ?string $namePrefix;
+    protected ?string $namePrefix = null;
 
     #[ORM\Column(name: 'first_name', type: 'string', length: 255, nullable: true)]
-    protected ?string $firstName;
+    protected ?string $firstName = null;
 
     #[ORM\Column(name: 'middle_name', type: 'string', length: 255, nullable: true)]
-    protected ?string $middleName;
+    protected ?string $middleName = null;
 
     #[ORM\Column(name: 'last_name', type: 'string', length: 255, nullable: true)]
-    protected ?string $lastName;
+    protected ?string $lastName = null;
 
     #[ORM\Column(name: 'name_suffix', type: 'string', length: 255, nullable: true)]
-    protected ?string $nameSuffix;
+    protected ?string $nameSuffix = null;
 
     #[ORM\Column(name: 'gender', type: 'string', length: 8, nullable: true)]
-    protected ?string $gender;
+    protected ?string $gender = null;
 
     #[ORM\Column(name: 'birthday', type: 'date', nullable: true)]
-    protected ?\DateTimeInterface $birthday;
+    protected ?\DateTimeInterface $birthday = null;
 
     #[ORM\Column(name: 'email', type: 'string', length: 255, nullable: true)]
     #[ConfigField(defaultValues: ['entity' => ['contact_information' => 'email']])]
-    protected ?string $email;
+    protected ?string $email = null;
 
     #[ORM\Column(type: 'datetime', name: 'created_at')]
     #[ConfigField(defaultValues: ['entity' => ['label' => 'oro.ui.created_at']])]
-    protected ?\DateTimeInterface $createdAt;
+    protected ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(type: 'datetime', name: 'updated_at')]
     #[ConfigField(defaultValues: ['entity' => ['label' => 'oro.ui.updated_at']])]
-    protected ?\DateTimeInterface $updatedAt;
+    protected ?\DateTimeInterface $updatedAt = null;
 
     /**
      * @var \DateTime

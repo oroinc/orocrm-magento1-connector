@@ -26,13 +26,13 @@ class Product extends BaseProduct implements IntegrationAwareInterface, ExtendEn
      * FIELDS are duplicated to enable dataaudit only for customer fields
      */
     #[ORM\Column(name: 'name', type: 'string', length: 255, nullable: false)]
-    protected ?string $name;
+    protected ?string $name = null;
 
     #[ORM\Column(name: 'sku', type: 'string', length: 255, nullable: true)]
-    protected ?string $sku;
+    protected ?string $sku = null;
 
     #[ORM\Column(name: 'type', type: 'string', length: 255, nullable: false)]
-    protected ?string $type;
+    protected ?string $type = null;
 
     /**
      * @var double
@@ -48,11 +48,11 @@ class Product extends BaseProduct implements IntegrationAwareInterface, ExtendEn
 
     #[ORM\Column(type: 'datetime', name: 'created_at')]
     #[ConfigField(defaultValues: ['entity' => ['label' => 'oro.ui.created_at']])]
-    protected ?\DateTimeInterface $createdAt;
+    protected ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(type: 'datetime', name: 'updated_at')]
     #[ConfigField(defaultValues: ['entity' => ['label' => 'oro.ui.updated_at']])]
-    protected ?\DateTimeInterface $updatedAt;
+    protected ?\DateTimeInterface $updatedAt = null;
 
     /**
      * @var Website[]|ArrayCollection

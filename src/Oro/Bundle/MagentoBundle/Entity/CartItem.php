@@ -27,7 +27,7 @@ class CartItem extends BaseCartItem implements OriginAwareInterface, Integration
 
     #[ORM\ManyToOne(targetEntity: 'Cart', inversedBy: 'cartItems', cascade: ['persist'])]
     #[ORM\JoinColumn(name: 'cart_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
-    protected ?BaseCart $cart;
+    protected ?BaseCart $cart = null;
 
     /**
      * Mage product id

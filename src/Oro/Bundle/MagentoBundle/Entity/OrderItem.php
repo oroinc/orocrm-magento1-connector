@@ -19,7 +19,7 @@ class OrderItem extends BaseOrderItem implements IntegrationAwareInterface, Orig
 
     #[ORM\ManyToOne(targetEntity: 'Order', inversedBy: 'items', cascade: ['persist'])]
     #[ORM\JoinColumn(name: 'order_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
-    protected ?BaseOrder $order;
+    protected ?BaseOrder $order = null;
 
     /**
      * @var string

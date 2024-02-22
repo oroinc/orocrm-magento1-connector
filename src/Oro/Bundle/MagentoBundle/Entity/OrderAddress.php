@@ -30,7 +30,7 @@ class OrderAddress extends AbstractTypedAddress implements
 
     #[ORM\ManyToMany(targetEntity: 'Oro\Bundle\AddressBundle\Entity\AddressType')]
     #[ORM\JoinTable(name: 'orocrm_magento_order_addr_type', joinColumns: [new ORM\JoinColumn(name: 'order_address_id', referencedColumnName: 'id', onDelete: 'CASCADE')], inverseJoinColumns: [new ORM\JoinColumn(name: 'type_name', referencedColumnName: 'name')])]
-    protected ?Collection $types;
+    protected ?Collection $types = null;
 
     /**
      * @var Order
@@ -52,13 +52,13 @@ class OrderAddress extends AbstractTypedAddress implements
     protected $phone;
 
     #[ORM\Column(name: 'street', type: 'string', length: 500, nullable: true)]
-    protected ?string $street;
+    protected ?string $street = null;
 
     #[ORM\Column(name: 'city', type: 'string', length: 255, nullable: true)]
-    protected ?string $city;
+    protected ?string $city = null;
 
     #[ORM\Column(name: 'postal_code', type: 'string', length: 255, nullable: true)]
-    protected ?string $postalCode;
+    protected ?string $postalCode = null;
 
     /**
      * @var Country
@@ -78,14 +78,14 @@ class OrderAddress extends AbstractTypedAddress implements
      * Unset no used fields from mapping
      * Name parts unused due to magento api does not bring it up
      */
-    protected ?string $label;
-    protected ?string $namePrefix;
-    protected ?string $middleName;
-    protected ?string $nameSuffix;
-    protected ?string $street2;
-    protected ?bool $primary;
-    protected ?\DateTimeInterface $created;
-    protected ?\DateTimeInterface $updated;
+    protected ?string $label = null;
+    protected ?string $namePrefix = null;
+    protected ?string $middleName = null;
+    protected ?string $nameSuffix = null;
+    protected ?string $street2 = null;
+    protected ?bool $primary = null;
+    protected ?\DateTimeInterface $created = null;
+    protected ?\DateTimeInterface $updated = null;
 
     /**
      * @param Order $owner
