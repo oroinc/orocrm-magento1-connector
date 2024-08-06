@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Oro\Bundle\ChannelBundle\Model\ChannelAwareInterface;
 use Oro\Bundle\EntityConfigBundle\Metadata\Attribute\Config;
 use Oro\Bundle\EntityConfigBundle\Metadata\Attribute\ConfigField;
-use Oro\Bundle\EntityExtendBundle\Entity\AbstractEnumValue;
+use Oro\Bundle\EntityExtendBundle\Entity\EnumOptionInterface;
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
 use Oro\Bundle\OrganizationBundle\Entity\Organization;
@@ -18,8 +18,8 @@ use Oro\Bundle\UserBundle\Entity\User;
  * Represents a credit memo.
  *
  *
- * @method AbstractEnumValue getStatus()
- * @method ExtendCreditMemo  setStatus(AbstractEnumValue $enumValue)
+ * @method EnumOptionInterface getStatus()
+ * @method ExtendCreditMemo  setStatus(EnumOptionInterface $enumValue)
  * @SuppressWarnings(PHPMD.ExcessivePublicCount)
  * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  * @SuppressWarnings(PHPMD.TooManyFields)

@@ -5,7 +5,7 @@ namespace Oro\Bundle\MagentoBundle\Model;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Oro\Bundle\EntityBundle\ORM\DoctrineHelper;
-use Oro\Bundle\EntityExtendBundle\Entity\AbstractEnumValue;
+use Oro\Bundle\EntityExtendBundle\Entity\EnumOptionInterface;
 use Oro\Bundle\EntityExtendBundle\Tools\ExtendHelper;
 use Oro\Bundle\MagentoBundle\Entity\Customer;
 use Oro\Bundle\MagentoBundle\Entity\NewsletterSubscriber;
@@ -58,8 +58,15 @@ class NewsletterSubscriberManager
      */
     protected function getStatus($identifier)
     {
-        $className = ExtendHelper::buildEnumValueClassName('mage_subscr_status');
+        $className = EnumOption::class;
 
-        return $this->doctrineHelper->getEntityRepository($className)->find($identifier);
+        return $this->doctrineHelper->getEntityRepository($className)->findBy(
+            [
+                'enumCode' => ExtendHelper::buildEnumOptionId(
+                    'mage_subscr_status',
+                    $identifier
+                )
+            ]
+        );
     }
 }
