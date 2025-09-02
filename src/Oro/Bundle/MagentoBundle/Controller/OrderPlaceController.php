@@ -176,7 +176,7 @@ class OrderPlaceController extends AbstractController
     }
 
     #[Route(path: '/success', name: 'oro_magento_orderplace_success')]
-    #[\Symfony\Bridge\Twig\Attribute\Template(template: '@OroMagento/OrderPlace/success.html.twig')]
+    #[Template(template: '@OroMagento/OrderPlace/success.html.twig')]
     public function successAction()
     {
         return [];

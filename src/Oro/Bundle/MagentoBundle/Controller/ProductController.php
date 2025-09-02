@@ -3,7 +3,6 @@
 namespace Oro\Bundle\MagentoBundle\Controller;
 
 use Oro\Bundle\MagentoBundle\Entity\Product;
-use Oro\Bundle\SecurityBundle\Attribute\Acl;
 use Oro\Bundle\SecurityBundle\Attribute\AclAncestor;
 use Symfony\Bridge\Twig\Attribute\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,7 +13,7 @@ class ProductController extends AbstractController
 {
     #[Route(path: '/', name: 'oro_magento_product_index')]
     #[AclAncestor('oro_magento_product_view')]
-    #[\Symfony\Bridge\Twig\Attribute\Template(template: '@OroMagento/Product/index.html.twig')]
+    #[Template(template: '@OroMagento/Product/index.html.twig')]
     public function indexAction()
     {
         return [];

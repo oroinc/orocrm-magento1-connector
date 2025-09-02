@@ -10,10 +10,9 @@ use Oro\Bundle\MagentoBundle\Entity\Customer;
 use Oro\Bundle\MagentoBundle\Entity\Order;
 use Oro\Bundle\MagentoBundle\Form\Handler\CustomerHandler;
 use Oro\Bundle\MagentoBundle\Form\Type\CustomerType;
-use Oro\Bundle\SecurityBundle\Attribute\Acl;
 use Oro\Bundle\SecurityBundle\Attribute\AclAncestor;
 use Oro\Bundle\SecurityBundle\Attribute\CsrfProtection;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bridge\Twig\Attribute\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -29,7 +28,7 @@ class CustomerController extends AbstractController
 {
     #[Route(path: '/', name: 'oro_magento_customer_index')]
     #[AclAncestor('oro_magento_customer_view')]
-    #[\Symfony\Bridge\Twig\Attribute\Template(template: '@OroMagento/Customer/index.html.twig')]
+    #[Template(template: '@OroMagento/Customer/index.html.twig')]
     public function indexAction()
     {
         return [
@@ -123,11 +122,13 @@ class CustomerController extends AbstractController
      */
     #[Route(path: '/widget/customers-info/{accountId}/{channelId}', name: 'oro_magento_widget_account_customers_info', requirements: ['accountId' => '\d+', 'channelId' => '\d+'])]
     #[AclAncestor('oro_magento_customer_view')]
-    #[\Symfony\Bridge\Twig\Attribute\Template(template: '@OroMagento/Customer/accountCustomersInfo.html.twig')]
-    public function accountCustomersInfoAction(#[\Symfony\Bridge\Doctrine\Attribute\MapEntity(id: 'accountId')]
-    Account $account, #[\Symfony\Bridge\Doctrine\Attribute\MapEntity(id: 'channelId')]
-    Channel $channel)
-    {
+    #[Template(template: '@OroMagento/Customer/accountCustomersInfo.html.twig')]
+    public function accountCustomersInfoAction(
+        #[MapEntity(id: 'accountId')]
+        Account $account,
+        #[MapEntity(id: 'channelId')]
+        Channel $channel
+    ) {
         $customers = $this->getDoctrine()
             ->getRepository('Oro\\Bundle\\MagentoBundle\\Entity\\Customer')
             ->findBy(['account' => $account, 'dataChannel' => $channel]);
@@ -148,10 +149,12 @@ class CustomerController extends AbstractController
      */
     #[Route(path: '/widget/customer-info/{id}/{channelId}', name: 'oro_magento_widget_customer_info', requirements: ['id' => '\d+', 'channelId' => '\d+'])]
     #[AclAncestor('oro_magento_customer_view')]
-    #[\Symfony\Bridge\Twig\Attribute\Template(template: '@OroMagento/Customer/customerInfo.html.twig')]
-    public function customerInfoAction(Customer $customer, #[\Symfony\Bridge\Doctrine\Attribute\MapEntity(id: 'channelId')]
-    Channel $channel)
-    {
+    #[Template(template: '@OroMagento/Customer/customerInfo.html.twig')]
+    public function customerInfoAction(
+        Customer $customer,
+        #[MapEntity(id: 'channelId')]
+        Channel $channel
+    ) {
         return [
             'customer'            => $customer,
             'channel'             => $channel,

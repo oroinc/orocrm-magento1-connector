@@ -23,7 +23,7 @@ class NewsletterSubscriberController extends AbstractController
 {
     #[Route(path: '/', name: 'oro_magento_newsletter_subscriber_index')]
     #[AclAncestor('oro_magento_newsletter_subscriber_view')]
-    #[\Symfony\Bridge\Twig\Attribute\Template(template: '@OroMagento/NewsletterSubscriber/index.html.twig')]
+    #[Template(template: '@OroMagento/NewsletterSubscriber/index.html.twig')]
     public function indexAction()
     {
         return [

@@ -17,7 +17,7 @@ class CustomerController extends AbstractController
      */
     #[Route(path: '/widget/tracking-events', name: 'oro_magento_widget_tracking_events')]
     #[AclAncestor('oro_magento_customer_view')]
-    #[\Symfony\Bridge\Twig\Attribute\Template(template: '@OroMarketingCRMBridge/Customer/trackingEvents.html.twig')]
+    #[Template(template: '@OroMarketingCRMBridge/Customer/trackingEvents.html.twig')]
     public function trackingEventsAction(Request $request)
     {
         $customerIds = $request->query->filter(
