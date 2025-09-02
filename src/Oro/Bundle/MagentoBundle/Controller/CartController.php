@@ -11,7 +11,7 @@ use Oro\Bundle\SecurityBundle\Attribute\Acl;
 use Oro\Bundle\SecurityBundle\Attribute\AclAncestor;
 use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bridge\Twig\Attribute\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,7 +25,7 @@ class CartController extends AbstractController
 {
     #[Route(path: '/', name: 'oro_magento_cart_index')]
     #[AclAncestor('oro_magento_cart_view')]
-    #[Template]
+    #[\Symfony\Bridge\Twig\Attribute\Template(template: '@OroMagento/Cart/index.html.twig')]
     public function indexAction()
     {
         return [
@@ -47,29 +47,29 @@ class CartController extends AbstractController
 
     #[Route(path: '/widget/grid/{id}/{isRemoved}', name: 'oro_magento_cart_widget_items', requirements: ['id' => '\d+', 'isRemoved' => '\d+'])]
     #[AclAncestor('oro_magento_cart_view')]
-    #[ParamConverter('cart', class: 'Oro\Bundle\MagentoBundle\Entity\Cart', options: ['id' => 'id'])]
-    #[Template]
-    public function itemsAction(Cart $cart, $isRemoved = false)
+    #[\Symfony\Bridge\Twig\Attribute\Template(template: '@OroMagento/Cart/items.html.twig')]
+    public function itemsAction(#[\Symfony\Bridge\Doctrine\Attribute\MapEntity(id: 'id')]
+    Cart $cart, $isRemoved = false)
     {
         return ['entity' => $cart, 'is_removed' => (bool)$isRemoved];
     }
 
     #[Route(path: '/widget/account_cart/{customerId}/{channelId}', name: 'oro_magento_widget_customer_carts', requirements: ['customerId' => '\d+', 'channelId' => '\d+'])]
     #[AclAncestor('oro_magento_cart_view')]
-    #[ParamConverter('customer', class: 'Oro\Bundle\MagentoBundle\Entity\Customer', options: ['id' => 'customerId'])]
-    #[ParamConverter('channel', class: 'Oro\Bundle\IntegrationBundle\Entity\Channel', options: ['id' => 'channelId'])]
-    #[Template]
-    public function customerCartsAction(Customer $customer, Channel $channel)
+    #[\Symfony\Bridge\Twig\Attribute\Template(template: '@OroMagento/Cart/customerCarts.html.twig')]
+    public function customerCartsAction(#[\Symfony\Bridge\Doctrine\Attribute\MapEntity(id: 'customerId')]
+    Customer $customer, #[\Symfony\Bridge\Doctrine\Attribute\MapEntity(id: 'channelId')]
+    Channel $channel)
     {
         return ['customer' => $customer, 'channel' => $channel];
     }
 
     #[Route(path: '/widget/customer_cart/{customerId}/{channelId}', name: 'oro_magento_customer_carts_widget', requirements: ['customerId' => '\d+', 'channelId' => '\d+'])]
     #[AclAncestor('oro_magento_cart_view')]
-    #[ParamConverter('customer', class: 'Oro\Bundle\MagentoBundle\Entity\Customer', options: ['id' => 'customerId'])]
-    #[ParamConverter('channel', class: 'Oro\Bundle\IntegrationBundle\Entity\Channel', options: ['id' => 'channelId'])]
-    #[Template]
-    public function customerCartsWidgetAction(Customer $customer, Channel $channel)
+    #[\Symfony\Bridge\Twig\Attribute\Template(template: '@OroMagento/Cart/customerCartsWidget.html.twig')]
+    public function customerCartsWidgetAction(#[\Symfony\Bridge\Doctrine\Attribute\MapEntity(id: 'customerId')]
+    Customer $customer, #[\Symfony\Bridge\Doctrine\Attribute\MapEntity(id: 'channelId')]
+    Channel $channel)
     {
         return ['customer' => $customer, 'channel' => $channel];
     }

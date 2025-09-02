@@ -9,7 +9,7 @@ use Oro\Bundle\MagentoBundle\Entity\Order;
 use Oro\Bundle\SecurityBundle\Attribute\Acl;
 use Oro\Bundle\SecurityBundle\Attribute\AclAncestor;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bridge\Twig\Attribute\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -21,7 +21,7 @@ class CreditMemoController extends AbstractController
 {
     #[Route(path: '/', name: 'oro_magento_credit_memo_index')]
     #[AclAncestor('oro_magento_credit_memo_view')]
-    #[Template]
+    #[\Symfony\Bridge\Twig\Attribute\Template(template: '@OroMagento/CreditMemo/index.html.twig')]
     public function indexAction()
     {
         return [
@@ -68,10 +68,10 @@ class CreditMemoController extends AbstractController
      */
     #[Route(path: '/account-widget/customer_credit_memo/{customerId}/{channelId}', name: 'oro_magento_widget_customer_credit_memo', requirements: ['customerId' => '\d+', 'channelId' => '\d+'])]
     #[AclAncestor('oro_magento_credit_memo_view')]
-    #[ParamConverter('customer', class: 'Oro\Bundle\MagentoBundle\Entity\Customer', options: ['id' => 'customerId'])]
-    #[ParamConverter('channel', class: 'Oro\Bundle\IntegrationBundle\Entity\Channel', options: ['id' => 'channelId'])]
-    #[Template]
-    public function customerCreditMemosAction(Customer $customer, Channel $channel)
+    #[\Symfony\Bridge\Twig\Attribute\Template(template: '@OroMagento/CreditMemo/customerCreditMemos.html.twig')]
+    public function customerCreditMemosAction(#[\Symfony\Bridge\Doctrine\Attribute\MapEntity(id: 'customerId')]
+    Customer $customer, #[\Symfony\Bridge\Doctrine\Attribute\MapEntity(id: 'channelId')]
+    Channel $channel)
     {
         return ['customer' => $customer, 'channel' => $channel];
     }
@@ -83,10 +83,10 @@ class CreditMemoController extends AbstractController
      */
     #[Route(path: '/widget/customer_credit_memo/{customerId}/{channelId}', name: 'oro_magento_customer_credit_memo_widget', requirements: ['customerId' => '\d+', 'channelId' => '\d+'])]
     #[AclAncestor('oro_magento_credit_memo_view')]
-    #[ParamConverter('customer', class: 'Oro\Bundle\MagentoBundle\Entity\Customer', options: ['id' => 'customerId'])]
-    #[ParamConverter('channel', class: 'Oro\Bundle\IntegrationBundle\Entity\Channel', options: ['id' => 'channelId'])]
-    #[Template]
-    public function customerCreditMemosWidgetAction(Customer $customer, Channel $channel)
+    #[\Symfony\Bridge\Twig\Attribute\Template(template: '@OroMagento/CreditMemo/customerCreditMemosWidget.html.twig')]
+    public function customerCreditMemosWidgetAction(#[\Symfony\Bridge\Doctrine\Attribute\MapEntity(id: 'customerId')]
+    Customer $customer, #[\Symfony\Bridge\Doctrine\Attribute\MapEntity(id: 'channelId')]
+    Channel $channel)
     {
         return ['customer' => $customer, 'channel' => $channel];
     }
@@ -97,9 +97,9 @@ class CreditMemoController extends AbstractController
      */
     #[Route(path: '/widget/order_credit_memo/{orderId}', name: 'oro_magento_order_credit_memo_widget', requirements: ['orderId' => '\d+'])]
     #[AclAncestor('oro_magento_credit_memo_view')]
-    #[ParamConverter('order', class: 'Oro\Bundle\MagentoBundle\Entity\Order', options: ['id' => 'orderId'])]
-    #[Template]
-    public function orderCreditMemosWidgetAction($order)
+    #[\Symfony\Bridge\Twig\Attribute\Template(template: '@OroMagento/CreditMemo/orderCreditMemosWidget.html.twig')]
+    public function orderCreditMemosWidgetAction(#[\Symfony\Bridge\Doctrine\Attribute\MapEntity(id: 'orderId')]
+    $order)
     {
         return ['order' => $order];
     }

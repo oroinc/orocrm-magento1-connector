@@ -9,7 +9,7 @@ use Oro\Bundle\MagentoBundle\Model\NewsletterSubscriberManager;
 use Oro\Bundle\SecurityBundle\Attribute\Acl;
 use Oro\Bundle\SecurityBundle\Attribute\AclAncestor;
 use Oro\Bundle\SecurityBundle\Attribute\CsrfProtection;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bridge\Twig\Attribute\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +23,7 @@ class NewsletterSubscriberController extends AbstractController
 {
     #[Route(path: '/', name: 'oro_magento_newsletter_subscriber_index')]
     #[AclAncestor('oro_magento_newsletter_subscriber_view')]
-    #[Template]
+    #[\Symfony\Bridge\Twig\Attribute\Template(template: '@OroMagento/NewsletterSubscriber/index.html.twig')]
     public function indexAction()
     {
         return [
