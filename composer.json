@@ -22,7 +22,7 @@
         "exclude-from-classmap": ["/Tests/"]
     },
     "require": {
-        "oro/crm": "6.1.*",
+        "oro/crm": "7.0.*",
         "guzzle/guzzle": "3.7.4"
     },
     "repositories": {
