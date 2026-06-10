@@ -139,7 +139,7 @@ class NewsletterSubscriberController extends AbstractController
 
         $jobResult = ['successful' => false];
         foreach ($newsletterSubscribers as $newsletterSubscriber) {
-            if ($newsletterSubscriber->getStatus()->getId() != $status) {
+            if ($newsletterSubscriber->getStatus()->getInternalId() != $status) {
                 $jobResult = $this->doJob($newsletterSubscriber, $status);
                 if (!$jobResult['successful']) {
                     break;

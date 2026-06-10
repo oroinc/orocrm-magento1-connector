@@ -10,7 +10,7 @@ class LoadCreditMemoStatusData extends AbstractEnumFixture
     /**
      * {@inheritdoc}
      */
-    protected function getData()
+    protected function getData(): array
     {
         return [
             CreditMemo::STATUS_OPEN     => 'Pending',
@@ -22,7 +22,7 @@ class LoadCreditMemoStatusData extends AbstractEnumFixture
     /**
      * {@inheritdoc}
      */
-    protected function getEnumCode()
+    protected function getEnumCode(): string
     {
         return 'creditmemo_status';
     }

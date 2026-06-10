@@ -6,7 +6,8 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Oro\Bundle\ChannelBundle\Entity\Channel;
-use Oro\Bundle\EntityExtendBundle\Entity\AbstractEnumValue;
+use Oro\Bundle\EntityExtendBundle\Entity\EnumOption;
+use Oro\Bundle\EntityExtendBundle\Entity\EnumOptionInterface;
 use Oro\Bundle\EntityExtendBundle\Tools\ExtendHelper;
 use Oro\Bundle\IntegrationBundle\Entity\Channel as Integration;
 use Oro\Bundle\MagentoBundle\Entity\Customer;
@@ -78,7 +79,7 @@ class LoadNewsletterSubscriberData extends AbstractFixture implements
         /** @var Integration $integration */
         $integration = $this->getReference('integration');
 
-        $className = ExtendHelper::buildEnumValueClassName('mage_subscr_status');
+        $className = EnumOption::class;
         $enumRepo = $manager->getRepository($className);
 
         foreach ($this->subscriberData as $data) {
@@ -87,8 +88,15 @@ class LoadNewsletterSubscriberData extends AbstractFixture implements
             $date = new \DateTime();
             $date->modify('-1 day');
 
-            /** @var AbstractEnumValue $status */
-            $status = $enumRepo->find($data['status']);
+            /** @var EnumOptionInterface $status */
+            $status = $enumRepo->findBy(
+                [
+                    'enumCode' => ExtendHelper::buildEnumOptionId(
+                        'mage_subscr_status',
+                        $data['status']
+                    )
+                ]
+            );
 
             $subscriber
                 ->setEmail($data['email'])

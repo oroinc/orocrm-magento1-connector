@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Oro\Bundle\ChannelBundle\Model\ChannelAwareInterface;
 use Oro\Bundle\EntityConfigBundle\Metadata\Attribute\Config;
 use Oro\Bundle\EntityConfigBundle\Metadata\Attribute\ConfigField;
-use Oro\Bundle\EntityExtendBundle\Entity\AbstractEnumValue;
+use Oro\Bundle\EntityExtendBundle\Entity\EnumOptionInterface;
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityInterface;
 use Oro\Bundle\EntityExtendBundle\Entity\ExtendEntityTrait;
 use Oro\Bundle\OrganizationBundle\Entity\Organization;
@@ -14,8 +14,8 @@ use Oro\Bundle\UserBundle\Entity\User;
 
 /**
  *
- * @method AbstractEnumValue getStatus()
- * @method NewsletterSubscriber setStatus(AbstractEnumValue $enumId)
+ * @method EnumOptionInterface getStatus()
+ * @method NewsletterSubscriber setStatus(EnumOptionInterface $enumId)
  */
 #[ORM\Entity]
 #[Config(defaultValues: ['entity' => ['icon' => 'fa-envelope-o'], 'security' => ['type' => 'ACL', 'group_name' => '', 'category' => 'sales_data'], 'ownership' => ['owner_type' => 'USER', 'owner_field_name' => 'owner', 'owner_column_name' => 'owner_id', 'organization_field_name' => 'organization', 'organization_column_name' => 'organization_id'], 'grid' => ['default' => 'magento-newsletter-subscriber-grid']])]
@@ -289,7 +289,7 @@ class NewsletterSubscriber implements
      */
     public function isSubscribed()
     {
-        return $this->getStatus()->getId() == self::STATUS_SUBSCRIBED;
+        return $this->getStatus()->getInternalId() == self::STATUS_SUBSCRIBED;
     }
 
     /**
