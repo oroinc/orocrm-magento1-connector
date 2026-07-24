@@ -10,7 +10,7 @@ use Oro\Bundle\MagentoBundle\Entity\Cart;
 use Oro\Bundle\MagentoBundle\Entity\Customer;
 use Oro\Bundle\MagentoBundle\Entity\Order;
 use Oro\Bundle\SecurityBundle\Attribute\CsrfProtection;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bridge\Twig\Attribute\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -176,7 +176,7 @@ class OrderPlaceController extends AbstractController
     }
 
     #[Route(path: '/success', name: 'oro_magento_orderplace_success')]
-    #[Template]
+    #[Template(template: '@OroMagento/OrderPlace/success.html.twig')]
     public function successAction()
     {
         return [];

@@ -6,10 +6,9 @@ use Oro\Bundle\ImportExportBundle\Processor\ProcessorRegistry;
 use Oro\Bundle\IntegrationBundle\Entity\Channel;
 use Oro\Bundle\MagentoBundle\Entity\Customer;
 use Oro\Bundle\MagentoBundle\Entity\Order;
-use Oro\Bundle\SecurityBundle\Attribute\Acl;
 use Oro\Bundle\SecurityBundle\Attribute\AclAncestor;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
+use Symfony\Bridge\Twig\Attribute\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +23,7 @@ class OrderController extends AbstractController
 {
     #[Route(path: '/', name: 'oro_magento_order_index')]
     #[AclAncestor('oro_magento_order_view')]
-    #[Template]
+    #[Template(template: '@OroMagento/Order/index.html.twig')]
     public function indexAction()
     {
         return [
@@ -69,11 +68,13 @@ class OrderController extends AbstractController
      */
     #[Route(path: '/account-widget/customer-orders/{customerId}/{channelId}', name: 'oro_magento_widget_customer_orders', requirements: ['customerId' => '\d+', 'channelId' => '\d+'])]
     #[AclAncestor('oro_magento_order_view')]
-    #[ParamConverter('customer', class: 'Oro\Bundle\MagentoBundle\Entity\Customer', options: ['id' => 'customerId'])]
-    #[ParamConverter('channel', class: 'Oro\Bundle\IntegrationBundle\Entity\Channel', options: ['id' => 'channelId'])]
-    #[Template]
-    public function customerOrdersAction(Customer $customer, Channel $channel)
-    {
+    #[Template(template: '@OroMagento/Order/customerOrders.html.twig')]
+    public function customerOrdersAction(
+        #[MapEntity(id: 'customerId')]
+        Customer $customer,
+        #[MapEntity(id: 'channelId')]
+        Channel $channel
+    ) {
         return ['customer' => $customer, 'channel' => $channel];
     }
 
@@ -84,11 +85,13 @@ class OrderController extends AbstractController
      */
     #[Route(path: '/account-widget/customer-recent-purchases/{customerId}/{channelId}', name: 'oro_magento_widget_customer_recent_purchases', requirements: ['customerId' => '\d+', 'channelId' => '\d+'])]
     #[AclAncestor('oro_magento_order_view')]
-    #[ParamConverter('customer', class: 'Oro\Bundle\MagentoBundle\Entity\Customer', options: ['id' => 'customerId'])]
-    #[ParamConverter('channel', class: 'Oro\Bundle\IntegrationBundle\Entity\Channel', options: ['id' => 'channelId'])]
-    #[Template]
-    public function customerRecentPurchasesAction(Customer $customer, Channel $channel)
-    {
+    #[Template(template: '@OroMagento/Order/customerRecentPurchases.html.twig')]
+    public function customerRecentPurchasesAction(
+        #[MapEntity(id: 'customerId')]
+        Customer $customer,
+        #[MapEntity(id: 'channelId')]
+        Channel $channel
+    ) {
         return ['customer' => $customer, 'channel' => $channel];
     }
 
@@ -98,11 +101,13 @@ class OrderController extends AbstractController
      * @return array
      */
     #[Route(path: '/customer-widget/customer-orders/{customerId}/{channelId}', name: 'oro_magento_customer_orders_widget', requirements: ['customerId' => '\d+', 'channelId' => '\d+'])]
-    #[ParamConverter('customer', class: 'Oro\Bundle\MagentoBundle\Entity\Customer', options: ['id' => 'customerId'])]
-    #[ParamConverter('channel', class: 'Oro\Bundle\IntegrationBundle\Entity\Channel', options: ['id' => 'channelId'])]
-    #[Template]
-    public function customerOrdersWidgetAction(Customer $customer, Channel $channel)
-    {
+    #[Template(template: '@OroMagento/Order/customerOrdersWidget.html.twig')]
+    public function customerOrdersWidgetAction(
+        #[MapEntity(id: 'customerId')]
+        Customer $customer,
+        #[MapEntity(id: 'channelId')]
+        Channel $channel
+    ) {
         return ['customer' => $customer, 'channel' => $channel];
     }
 
@@ -112,11 +117,13 @@ class OrderController extends AbstractController
      * @return array
      */
     #[Route(path: '/customer-widget/customer-recent-purchases/{customerId}/{channelId}', name: 'oro_magento_customer_recent_purchases_widget', requirements: ['customerId' => '\d+', 'channelId' => '\d+'])]
-    #[ParamConverter('customer', class: 'Oro\Bundle\MagentoBundle\Entity\Customer', options: ['id' => 'customerId'])]
-    #[ParamConverter('channel', class: 'Oro\Bundle\IntegrationBundle\Entity\Channel', options: ['id' => 'channelId'])]
-    #[Template]
-    public function customerRecentPurchasesWidgetAction(Customer $customer, Channel $channel)
-    {
+    #[Template(template: '@OroMagento/Order/customerRecentPurchasesWidget.html.twig')]
+    public function customerRecentPurchasesWidgetAction(
+        #[MapEntity(id: 'customerId')]
+        Customer $customer,
+        #[MapEntity(id: 'channelId')]
+        Channel $channel
+    ) {
         return ['customer' => $customer, 'channel' => $channel];
     }
 
@@ -127,11 +134,13 @@ class OrderController extends AbstractController
      */
     #[Route(path: '/account-widget/order-notes/{customerId}/{channelId}', name: 'oro_magento_widget_customer_order_notes', requirements: ['customerId' => '\d+', 'channelId' => '\d+'])]
     #[AclAncestor('oro_magento_order_view')]
-    #[ParamConverter('customer', class: 'Oro\Bundle\MagentoBundle\Entity\Customer', options: ['id' => 'customerId'])]
-    #[ParamConverter('channel', class: 'Oro\Bundle\IntegrationBundle\Entity\Channel', options: ['id' => 'channelId'])]
-    #[Template]
-    public function customerOrderNotesAction(Customer $customer, Channel $channel)
-    {
+    #[Template(template: '@OroMagento/Order/customerOrderNotes.html.twig')]
+    public function customerOrderNotesAction(
+        #[MapEntity(id: 'customerId')]
+        Customer $customer,
+        #[MapEntity(id: 'channelId')]
+        Channel $channel
+    ) {
         return ['customer' => $customer, 'channel' => $channel];
     }
 
@@ -142,11 +151,13 @@ class OrderController extends AbstractController
      */
     #[Route(path: '/customer-widget/order-notes/{customerId}/{channelId}', name: 'oro_magento_customer_order_notes_widget', requirements: ['customerId' => '\d+', 'channelId' => '\d+'])]
     #[AclAncestor('oro_magento_order_view')]
-    #[ParamConverter('customer', class: 'Oro\Bundle\MagentoBundle\Entity\Customer', options: ['id' => 'customerId'])]
-    #[ParamConverter('channel', class: 'Oro\Bundle\IntegrationBundle\Entity\Channel', options: ['id' => 'channelId'])]
-    #[Template]
-    public function customerOrderNotesWidgetAction(Customer $customer, Channel $channel)
-    {
+    #[Template(template: '@OroMagento/Order/customerOrderNotesWidget.html.twig')]
+    public function customerOrderNotesWidgetAction(
+        #[MapEntity(id: 'customerId')]
+        Customer $customer,
+        #[MapEntity(id: 'channelId')]
+        Channel $channel
+    ) {
         return ['customer' => $customer, 'channel' => $channel];
     }
 
@@ -156,10 +167,11 @@ class OrderController extends AbstractController
      */
     #[Route(path: '/widget/order_notes/{orderId}', name: 'oro_magento_order_notes_widget', requirements: ['orderId' => '\d+'])]
     #[AclAncestor('oro_magento_order_view')]
-    #[ParamConverter('order', class: 'Oro\Bundle\MagentoBundle\Entity\Order', options: ['id' => 'orderId'])]
-    #[Template]
-    public function orderNotesWidgetAction($order)
-    {
+    #[Template(template: '@OroMagento/Order/orderNotesWidget.html.twig')]
+    public function orderNotesWidgetAction(
+        #[MapEntity(id: 'orderId')]
+        $order
+    ) {
         return ['order' => $order];
     }
 
